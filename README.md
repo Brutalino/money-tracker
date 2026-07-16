@@ -1,32 +1,56 @@
-# React + TypeScript + Vite
+# 💰 Money Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+App personale per tracciare spese, budget e risparmi. PWA installabile sul telefono, pensata per un uso quotidiano rapidissimo: registrare una spesa richiede meno di 5 secondi.
 
-Currently, two official plugins are available:
+**App live:** https://brutalino.github.io/money-tracker/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Cosa fa
 
-## React Compiler
+- **Spese** — inserimento rapido con tastierino numerico e categorie a icone; storico per mese con ricerca e filtri
+- **Costi fissi** — bollette, abbonamenti e rate senza date: ogni voce ha solo importo e frequenza (mensile/bimestrale/trimestrale/annuale) e viene convertita in equivalente mensile, registrato automaticamente il 1° del mese
+- **Budget mensile** — budget per categoria a cifre intere, barre di avanzamento con soglie 80%/100%, suggerimenti automatici basati sui mesi precedenti (arrotondati ai 5€), confronto mese su mese
+- **Risparmi** — obiettivi multipli con target e scadenza, contributi, proiezione di raggiungimento
+- **Report** — torta per categoria, entrate vs uscite (6 mesi), andamento per categoria, tasso di risparmio
+- **Dati** — tutto in locale sul dispositivo (IndexedDB), nessun account, nessun server; export/import JSON e export CSV
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Tutta in italiano, valuta EUR, tema chiaro/scuro/auto.
 
-## Expanding the Oxlint configuration
+## Installazione sul telefono (iOS)
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+1. Apri l'URL in **Safari**
+2. Condividi → **Aggiungi a schermata Home**
+3. L'app funziona anche offline; si aggiorna da sola alla riapertura dopo un deploy
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+> I dati vivono nel contenitore dell'app installata: rimuovere l'icona li cancella. Fai un backup da **Impostazioni → Esporta JSON** prima di rimuoverla o cambiare telefono.
+
+## Stack
+
+React 18 + TypeScript + Vite · Dexie (IndexedDB) · Recharts · vite-plugin-pwa · CSS Modules
+
+Tutti gli importi sono gestiti in **centesimi interi**; le transazioni generate dai costi fissi hanno id deterministico (`rec-<recurringId>-<yyyy-mm>`) così la materializzazione è idempotente anche tra dispositivi concorrenti.
+
+```
+src/
+  db/          schema Dexie (v2) e tipi
+  lib/         logica pura: money, dates, recurring, stats, budgets, backup
+  components/  UI riusabile (AppShell, BottomNav, QuickEntry, charts, ...)
+  screens/     una cartella per tab: Home, Spese, Budget, Risparmi, Report, Settings
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Sviluppo
+
+```bash
+npm install
+npm run dev       # http://localhost:5173
+npm run build     # tsc + vite build
+npm run preview   # serve il bundle di produzione su :4173
+```
+
+**Deploy:** push su `main` → GitHub Actions compila e pubblica su GitHub Pages automaticamente.
+
+## Note iOS (imparate a caro prezzo)
+
+- `apple-mobile-web-app-status-bar-style` deve restare **`default`**: con `black-translucent` iOS dimensiona la finestra standalone come schermo−status bar ma la ancora in alto, lasciando una banda morta di ~62pt in fondo
+- Niente `100dvh`/percentuali su `html/body` da sole: si usa `100vh` + la variabile `--app-height` misurata via JS in `index.html` (bug WebKit #237961 e affini)
+- "Aggiungi a schermata Home" **fotografa l'HTML che il service worker sta servendo** — per questo il SW è registrato manualmente con `immediate: true` (vedi `src/main.tsx`), così gli aggiornamenti si attivano subito
+- In caso di problemi di layout su un dispositivo: **Impostazioni → Diagnostica** dentro l'app mostra versione, viewport e safe-area reali
