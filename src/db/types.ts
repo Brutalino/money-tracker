@@ -11,6 +11,8 @@ export interface Transaction {
   recurringId?: string
 }
 
+export type Flexibility = 'essential' | 'flexible' | 'veryFlexible'
+
 export interface Category {
   id: string
   name: string
@@ -19,6 +21,12 @@ export interface Category {
   kind: TransactionType
   sortOrder: number
   archived: boolean
+  /** Expense categories only. Undefined on existing rows means 'flexible' —
+   * resolve with smartBudget.categoryFlexibility(), never read raw. */
+  flexibility?: Flexibility
+  /** "Vice" flag (e.g. smoking, drinking): never cut by the smart budget
+   * regardless of flexibility, but surfaced as a "quit and save" insight. */
+  habit?: boolean
 }
 
 export interface Recurring {
@@ -66,9 +74,20 @@ export interface SettingsRecord {
   value: unknown
 }
 
+/** The user's monthly savings plan, set from the Budget screen's "with a
+ * savings target" flow. Stored as a single settings row (see
+ * SETTINGS_KEYS.savingsPlan) rather than a dedicated table since there is
+ * only ever one active plan. */
+export interface SavingsPlan {
+  amountEuros: number
+  goalId?: string
+  motivation?: string
+}
+
 export const SETTINGS_KEYS = {
   theme: 'theme',
   language: 'language',
   onboardingDone: 'onboarding-done',
   lastMaterializedMonth: 'last-materialized-month',
+  savingsPlan: 'savings-plan',
 } as const

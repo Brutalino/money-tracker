@@ -39,6 +39,12 @@ export function roundToNearest5(euros: number): number {
   return Math.round(euros / 5) * 5
 }
 
+/** Round up to the next multiple of 5 (used for the required savings pace
+ * toward a goal deadline: better to slightly overshoot than fall short). */
+export function roundUpToNearest5(euros: number): number {
+  return Math.ceil(euros / 5) * 5
+}
+
 /** Parse a keypad string (e.g. "12,50" or "12.50" or "1250") into integer cents.
  * Accepts either decimal separator regardless of active language. */
 export function parseAmountToCents(input: string): number {
