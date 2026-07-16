@@ -8,7 +8,13 @@
     <meta name="theme-color" content="#fcfcfb" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#1a1a19" media="(prefers-color-scheme: dark)" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <!-- NOT black-translucent: iOS sizes the standalone window as if the status
+     bar were opaque (screen minus ~62pt) but then anchors it at the top under
+     a translucent bar, leaving a dead black band at the bottom. With
+     "default" the window sits below the status bar and reaches the screen
+     bottom. Confirmed via in-app diagnostics: innerHeight 812 on a 874pt
+     iPhone 16 Pro. -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Money" />
     <meta name="description" content="Gestisci spese, budget e risparmi in modo semplice" />
     <title>Money Tracker</title>
