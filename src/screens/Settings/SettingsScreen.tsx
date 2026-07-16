@@ -10,13 +10,17 @@ import { getStoredTheme, setStoredTheme, applyThemeToDocument } from '../../lib/
 import { exportJSON, exportCSV, importBackup, isValidBackup, deleteAllData } from '../../lib/backup'
 import { ensureSeeded } from '../../lib/seed'
 import { collectDiagnostics, type DiagnosticsSnapshot } from '../../lib/diagnostics'
-import type { Category, ThemeMode } from '../../db/types'
+import { useT, useLanguage } from '../../i18n'
+import { setStoredLanguage } from '../../lib/language'
+import type { Category, ThemeMode, Language } from '../../db/types'
 
 interface Props {
   onClose: () => void
 }
 
 export function SettingsScreen({ onClose }: Props) {
+  const t = useT()
+  const { language, setLanguage } = useLanguage()
   const [themeMode, setThemeMode] = useState<ThemeMode | null>(null)
   const [categorySheet, setCategorySheet] = useState<{ item: Category | null; kind: 'expense' | 'income' } | null>(
     null
@@ -58,6 +62,10 @@ export function SettingsScreen({ onClose }: Props) {
     applyThemeToDocument(mode)
   }
 
+  function handleLanguageChange(lang: Language) {
+    setLanguage(lang)
+  }
+
   async function handleImportFile(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
     e.target.value = ''
@@ -66,35 +74,33 @@ export function SettingsScreen({ onClose }: Props) {
       const text = await file.text()
       const parsed = JSON.parse(text)
       if (!isValidBackup(parsed)) {
-        alert('File non valido: non sembra un backup di Money Tracker.')
+        alert(t.settings.invalidBackupFile)
         return
       }
-      if (
-        !confirm(
-          'Importare questo backup sostituirà TUTTI i dati attuali. Questa azione non può essere annullata. Continuare?'
-        )
-      )
-        return
+      if (!confirm(t.settings.confirmImport)) return
       setBusy(true)
       await importBackup(parsed)
-      alert('Backup importato con successo.')
+      alert(t.settings.importSuccess)
     } catch {
-      alert('Impossibile leggere il file selezionato.')
+      alert(t.settings.readFileFailed)
     } finally {
       setBusy(false)
     }
   }
 
   async function handleDeleteAll() {
-    if (!confirm('Eliminare TUTTI i dati (transazioni, budget, obiettivi, categorie)? Non è reversibile.'))
-      return
-    if (!confirm('Sei sicuro/a? Questa è la conferma finale: tutti i dati verranno cancellati per sempre.'))
-      return
+    if (!confirm(t.settings.confirmDeleteAll1)) return
+    if (!confirm(t.settings.confirmDeleteAll2)) return
     setBusy(true)
     try {
       await deleteAllData()
+      // deleteAllData wipes the settings table too (theme, language, ...), so
+      // re-persist the language currently on screen before re-seeding —
+      // otherwise the freshly seeded categories would silently fall back to
+      // the default language even if the UI is showing Italian.
+      await setStoredLanguage(language)
       await ensureSeeded()
-      alert('Tutti i dati sono stati eliminati.')
+      alert(t.settings.deleteAllSuccess)
     } finally {
       setBusy(false)
     }
@@ -103,14 +109,14 @@ export function SettingsScreen({ onClose }: Props) {
   return (
     <Sheet variant="full" hideHeader onClose={onClose}>
       <div className={styles.top}>
-        <button type="button" className={styles.backBtn} onClick={onClose} aria-label="Indietro">
+        <button type="button" className={styles.backBtn} onClick={onClose} aria-label={t.common.back}>
           <IconBack width={18} height={18} />
         </button>
-        <span className={styles.title}>Impostazioni</span>
+        <span className={styles.title}>{t.settings.title}</span>
       </div>
 
       <div className={styles.body}>
-        <div className="section-title">Aspetto</div>
+        <div className="section-title">{t.settings.appearance}</div>
         <div className={styles.segmented}>
           {(['auto', 'light', 'dark'] as ThemeMode[]).map((mode) => (
             <button
@@ -119,12 +125,26 @@ export function SettingsScreen({ onClose }: Props) {
               className={`${styles.segBtn} ${themeMode === mode ? styles.segBtnActive : ''}`}
               onClick={() => handleThemeChange(mode)}
             >
-              {mode === 'auto' ? 'Auto' : mode === 'light' ? 'Chiaro' : 'Scuro'}
+              {mode === 'auto' ? t.settings.themeAuto : mode === 'light' ? t.settings.themeLight : t.settings.themeDark}
             </button>
           ))}
         </div>
 
-        <div className="section-title">Categorie di spesa</div>
+        <div className="section-title">{t.settings.language}</div>
+        <div className={styles.segmented}>
+          {(['en', 'it'] as Language[]).map((lang) => (
+            <button
+              key={lang}
+              type="button"
+              className={`${styles.segBtn} ${language === lang ? styles.segBtnActive : ''}`}
+              onClick={() => handleLanguageChange(lang)}
+            >
+              {lang === 'en' ? `🇬🇧 ${t.settings.languageEnglish}` : `🇮🇹 ${t.settings.languageItalian}`}
+            </button>
+          ))}
+        </div>
+
+        <div className="section-title">{t.settings.expenseCategories}</div>
         <div className="card">
           {expenseCategories.map((c) => (
             <button
@@ -137,7 +157,7 @@ export function SettingsScreen({ onClose }: Props) {
                 {c.emoji}
               </div>
               <span className={styles.catName}>{c.name}</span>
-              {c.archived && <span className={styles.archivedTag}>Archiviata</span>}
+              {c.archived && <span className={styles.archivedTag}>{t.settings.archivedTag}</span>}
             </button>
           ))}
           <button
@@ -145,11 +165,11 @@ export function SettingsScreen({ onClose }: Props) {
             className={`btn btn-ghost btn-block ${styles.addCatBtn}`}
             onClick={() => setCategorySheet({ item: null, kind: 'expense' })}
           >
-            + Nuova categoria di spesa
+            {t.settings.newExpenseCategory}
           </button>
         </div>
 
-        <div className="section-title">Categorie di entrata</div>
+        <div className="section-title">{t.settings.incomeCategories}</div>
         <div className="card">
           {incomeCategories.map((c) => (
             <button
@@ -162,7 +182,7 @@ export function SettingsScreen({ onClose }: Props) {
                 {c.emoji}
               </div>
               <span className={styles.catName}>{c.name}</span>
-              {c.archived && <span className={styles.archivedTag}>Archiviata</span>}
+              {c.archived && <span className={styles.archivedTag}>{t.settings.archivedTag}</span>}
             </button>
           ))}
           <button
@@ -170,17 +190,17 @@ export function SettingsScreen({ onClose }: Props) {
             className={`btn btn-ghost btn-block ${styles.addCatBtn}`}
             onClick={() => setCategorySheet({ item: null, kind: 'income' })}
           >
-            + Nuova categoria di entrata
+            {t.settings.newIncomeCategory}
           </button>
         </div>
 
-        <div className="section-title">Dati</div>
+        <div className="section-title">{t.settings.dataSection}</div>
         <div className="card stack">
           <button type="button" className="btn btn-block" onClick={() => exportJSON()} disabled={busy}>
-            <IconDownload width={16} height={16} /> Esporta backup (JSON)
+            <IconDownload width={16} height={16} /> {t.settings.exportBackupJson}
           </button>
           <button type="button" className="btn btn-block" onClick={() => exportCSV()} disabled={busy}>
-            <IconDownload width={16} height={16} /> Esporta transazioni (CSV)
+            <IconDownload width={16} height={16} /> {t.settings.exportTransactionsCsv}
           </button>
           <button
             type="button"
@@ -188,7 +208,7 @@ export function SettingsScreen({ onClose }: Props) {
             onClick={() => fileInputRef.current?.click()}
             disabled={busy}
           >
-            <IconUpload width={16} height={16} /> Importa backup (JSON)
+            <IconUpload width={16} height={16} /> {t.settings.importBackupJson}
           </button>
           <input
             ref={fileInputRef}
@@ -199,29 +219,45 @@ export function SettingsScreen({ onClose }: Props) {
           />
         </div>
 
-        <div className="section-title">Zona pericolosa</div>
+        <div className="section-title">{t.settings.dangerZone}</div>
         <div className="card">
           <button type="button" className="btn btn-danger btn-block" onClick={handleDeleteAll} disabled={busy}>
-            Elimina tutti i dati
+            {t.settings.deleteAllData}
           </button>
         </div>
 
-        <div className="section-title">Diagnostica</div>
+        <div className="section-title">{t.settings.diagnostics}</div>
         <div className={styles.diagBlock}>
-          <div>Versione: {__APP_VERSION__}</div>
-          <div>navigator.standalone: {String(diagnostics?.standalone ?? '…')}</div>
-          <div>display-mode: {diagnostics?.displayMode ?? '…'}</div>
           <div>
-            innerWidth × innerHeight: {diagnostics?.innerWidth ?? '…'} × {diagnostics?.innerHeight ?? '…'}
+            {t.settings.diagVersion}: {__APP_VERSION__}
           </div>
           <div>
-            screen.width × screen.height: {diagnostics?.screenWidth ?? '…'} × {diagnostics?.screenHeight ?? '…'}
+            {t.settings.diagStandalone}: {String(diagnostics?.standalone ?? '…')}
           </div>
-          <div>visualViewport.height: {diagnostics?.visualViewportHeight ?? '…'}</div>
-          <div>safe-area-inset-top: {diagnostics?.insets.top ?? '…'}</div>
-          <div>safe-area-inset-right: {diagnostics?.insets.right ?? '…'}</div>
-          <div>safe-area-inset-bottom: {diagnostics?.insets.bottom ?? '…'}</div>
-          <div>safe-area-inset-left: {diagnostics?.insets.left ?? '…'}</div>
+          <div>
+            {t.settings.diagDisplayMode}: {diagnostics?.displayMode ?? '…'}
+          </div>
+          <div>
+            {t.settings.diagViewportSize}: {diagnostics?.innerWidth ?? '…'} × {diagnostics?.innerHeight ?? '…'}
+          </div>
+          <div>
+            {t.settings.diagScreenSize}: {diagnostics?.screenWidth ?? '…'} × {diagnostics?.screenHeight ?? '…'}
+          </div>
+          <div>
+            {t.settings.diagVisualViewportHeight}: {diagnostics?.visualViewportHeight ?? '…'}
+          </div>
+          <div>
+            {t.settings.diagSafeAreaTop}: {diagnostics?.insets.top ?? '…'}
+          </div>
+          <div>
+            {t.settings.diagSafeAreaRight}: {diagnostics?.insets.right ?? '…'}
+          </div>
+          <div>
+            {t.settings.diagSafeAreaBottom}: {diagnostics?.insets.bottom ?? '…'}
+          </div>
+          <div>
+            {t.settings.diagSafeAreaLeft}: {diagnostics?.insets.left ?? '…'}
+          </div>
         </div>
       </div>
 

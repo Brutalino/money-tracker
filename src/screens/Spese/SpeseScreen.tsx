@@ -10,9 +10,11 @@ import { IconPlus, IconSearch, IconChevronRight } from '../../components/Icons'
 import styles from './SpeseScreen.module.css'
 import { db } from '../../db/db'
 import { getMonthTransactions, sumCents } from '../../lib/stats'
-import { monthlyEquivalentCents, FREQUENCY_LABELS_IT } from '../../lib/recurring'
+import { monthlyEquivalentCents } from '../../lib/recurring'
 import { currentMonthKey, dayLabel } from '../../lib/dates'
 import { formatCents } from '../../lib/money'
+import { useT } from '../../i18n'
+import { localeTag } from '../../lib/locale'
 import type { Transaction, Recurring } from '../../db/types'
 
 interface Props {
@@ -20,6 +22,7 @@ interface Props {
 }
 
 export function SpeseScreen({ onOpenSettings }: Props) {
+  const t = useT()
   const [month, setMonth] = useState(currentMonthKey())
   const [search, setSearch] = useState('')
   const [filterCategoryId, setFilterCategoryId] = useState<string | null>(null)
@@ -79,12 +82,12 @@ export function SpeseScreen({ onOpenSettings }: Props) {
 
   const sortedRecurring = [...data.recurringAll].sort((a, b) => {
     if (a.active !== b.active) return a.active ? -1 : 1
-    return a.name.localeCompare(b.name, 'it')
+    return a.name.localeCompare(b.name, localeTag())
   })
 
   return (
     <div className="screen-root">
-      <Header title="Spese" onOpenSettings={onOpenSettings} />
+      <Header title={t.nav.expenses} onOpenSettings={onOpenSettings} />
       <div className="screen-pad">
         <div className="card">
           <button
@@ -95,7 +98,7 @@ export function SpeseScreen({ onOpenSettings }: Props) {
           >
             <div className={styles.fixedTitleWrap}>
               <div className={styles.fixedTitle}>
-                Costi fissi mensili · {sortedRecurring.filter((r) => r.active).length} attivi
+                {t.spese.fixedCostsHeader(sortedRecurring.filter((r) => r.active).length)}
               </div>
               <div className={styles.fixedTotal}>{formatCents(fixedMonthlyTotalCents)}</div>
             </div>
@@ -114,7 +117,7 @@ export function SpeseScreen({ onOpenSettings }: Props) {
                     setRecurringSheet({ item: null })
                   }
                 }}
-                aria-label="Aggiungi costo fisso"
+                aria-label={t.spese.addFixedCostAriaLabel}
               >
                 <IconPlus width={16} height={16} />
               </span>
@@ -131,8 +134,7 @@ export function SpeseScreen({ onOpenSettings }: Props) {
             (sortedRecurring.length === 0 ? (
               <div className={styles.recurringList}>
                 <p className="muted" style={{ fontSize: 12 }}>
-                  Nessun costo fisso configurato. Aggiungi affitto, abbonamenti e altre spese ricorrenti:
-                  verranno registrate automaticamente ogni mese.
+                  {t.spese.noFixedCosts}
                 </p>
               </div>
             ) : (
@@ -152,8 +154,8 @@ export function SpeseScreen({ onOpenSettings }: Props) {
                       <div className={styles.recurringMain}>
                         <div className={styles.recurringName}>{r.name}</div>
                         <div className={styles.recurringMeta}>
-                          {FREQUENCY_LABELS_IT[r.frequency]}
-                          {!r.active ? ' · disattivato' : ''}
+                          {t.frequency[r.frequency]}
+                          {!r.active ? t.spese.disabledSuffix : ''}
                         </div>
                       </div>
                       <div
@@ -161,7 +163,7 @@ export function SpeseScreen({ onOpenSettings }: Props) {
                         style={{ color: r.type === 'income' ? 'var(--status-good-text)' : undefined }}
                       >
                         {r.type === 'income' ? '+' : ''}
-                        {formatCents(monthlyEquivalentCents(r.amountCents, r.frequency))}/mese
+                        {t.common.perMonth(formatCents(monthlyEquivalentCents(r.amountCents, r.frequency)))}
                       </div>
                     </button>
                   )
@@ -174,17 +176,17 @@ export function SpeseScreen({ onOpenSettings }: Props) {
 
         <div className={styles.statsRow}>
           <div className={styles.statCard}>
-            <div className={styles.statLabel}>Entrate</div>
+            <div className={styles.statLabel}>{t.finance.incomePlural}</div>
             <div className={styles.statValue} style={{ color: 'var(--status-good-text)' }}>
               {formatCents(entrate)}
             </div>
           </div>
           <div className={styles.statCard}>
-            <div className={styles.statLabel}>Uscite</div>
+            <div className={styles.statLabel}>{t.finance.expensePlural}</div>
             <div className={styles.statValue}>{formatCents(uscite)}</div>
           </div>
           <div className={styles.statCard}>
-            <div className={styles.statLabel}>Saldo</div>
+            <div className={styles.statLabel}>{t.finance.balance}</div>
             <div
               className={styles.statValue}
               style={{ color: saldo < 0 ? 'var(--status-critical)' : 'var(--status-good-text)' }}
@@ -211,7 +213,7 @@ export function SpeseScreen({ onOpenSettings }: Props) {
               type="text"
               className={styles.searchInput}
               style={{ paddingLeft: 34 }}
-              placeholder="Cerca per nota..."
+              placeholder={t.spese.searchPlaceholder}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -222,7 +224,7 @@ export function SpeseScreen({ onOpenSettings }: Props) {
               className={`${styles.filterChip} ${!filterCategoryId ? styles.filterChipActive : ''}`}
               onClick={() => setFilterCategoryId(null)}
             >
-              Tutte
+              {t.common.all}
             </button>
             {filterableCategories.map((c) => (
               <button
@@ -241,8 +243,8 @@ export function SpeseScreen({ onOpenSettings }: Props) {
           <div className="card" style={{ marginTop: 14 }}>
             <EmptyState
               emoji="🧾"
-              title="Nessuna transazione"
-              subtitle="Non ci sono transazioni per questo mese o con questi filtri."
+              title={t.transactions.noneTitle}
+              subtitle={t.spese.noTransactionsFilteredSubtitle}
             />
           </div>
         ) : (

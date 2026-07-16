@@ -59,6 +59,8 @@ export interface Contribution {
 
 export type ThemeMode = 'auto' | 'light' | 'dark'
 
+export type Language = 'en' | 'it'
+
 export interface SettingsRecord {
   key: string
   value: unknown
@@ -66,6 +68,7 @@ export interface SettingsRecord {
 
 export const SETTINGS_KEYS = {
   theme: 'theme',
+  language: 'language',
   onboardingDone: 'onboarding-done',
   lastMaterializedMonth: 'last-materialized-month',
 } as const

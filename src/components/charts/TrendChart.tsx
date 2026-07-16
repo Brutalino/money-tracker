@@ -1,6 +1,7 @@
 import { AreaChart, Area, XAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import styles from './Charts.module.css'
 import { formatCents } from '../../lib/money'
+import { useT } from '../../i18n'
 
 export interface TrendDatum {
   monthKey: string
@@ -33,9 +34,10 @@ function CustomTooltip({ active, payload, label }: SimpleTooltipProps) {
 }
 
 export function TrendChart({ data, color = 'var(--series-1)' }: Props) {
+  const t = useT()
   const hasData = data.some((d) => d.valueCents > 0)
   if (!hasData) {
-    return <div className={styles.emptyChart}>Nessuna spesa in questa categoria</div>
+    return <div className={styles.emptyChart}>{t.charts.noExpensesInCategory}</div>
   }
   return (
     <div style={{ height: 140 }}>

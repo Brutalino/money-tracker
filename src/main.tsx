@@ -4,6 +4,7 @@ import { registerSW } from 'virtual:pwa-register'
 import './styles/global.css'
 import './styles/ui.css'
 import App from './App.tsx'
+import { I18nProvider } from './i18n'
 
 // iOS's "Add to Home Screen" snapshots whatever the service worker is
 // currently serving in this Safari tab — it does not force a fresh network
@@ -31,6 +32,8 @@ registerSW({
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <I18nProvider>
+      <App />
+    </I18nProvider>
   </StrictMode>
 )

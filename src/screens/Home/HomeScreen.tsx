@@ -19,6 +19,7 @@ import {
 } from '../../lib/stats'
 import { currentMonthKey, monthLabel, monthElapsedFraction } from '../../lib/dates'
 import { formatCents } from '../../lib/money'
+import { useT } from '../../i18n'
 import type { TabKey } from '../../types/nav'
 import type { Transaction } from '../../db/types'
 
@@ -28,6 +29,7 @@ interface Props {
 }
 
 export function HomeScreen({ onOpenSettings, onNavigate }: Props) {
+  const t = useT()
   const currentMonth = currentMonthKey()
   const [editingTx, setEditingTx] = useState<Transaction | null>(null)
 
@@ -64,7 +66,7 @@ export function HomeScreen({ onOpenSettings, onNavigate }: Props) {
       <div className={`screen-pad ${styles.wrap}`}>
         {hasBudget ? (
           <div className={`card ${styles.mainCard}`}>
-            <div className={styles.mainLabel}>Puoi ancora spendere</div>
+            <div className={styles.mainLabel}>{t.home.canStillSpend}</div>
             <div
               className={styles.mainAmount}
               style={{ color: remainingCents < 0 ? 'var(--status-critical)' : 'var(--text-primary)' }}
@@ -73,32 +75,29 @@ export function HomeScreen({ onOpenSettings, onNavigate }: Props) {
             </div>
             <ProgressBar fraction={spentFraction} status={status} />
             <div className={styles.mainSub}>
-              {formatCents(variableSpentCents)} spesi su {formatCents(totalBudgetCents)} di budget
+              {t.home.spentOfBudget(formatCents(variableSpentCents), formatCents(totalBudgetCents))}
             </div>
             <div className={styles.paceRow}>
               <span
                 className={`pill pill-${pace.status}`}
                 style={{ padding: '4px 10px', borderRadius: 999 }}
               >
-                {pace.message}
+                {t.pace[pace.messageKey]}
               </span>
             </div>
           </div>
         ) : (
           <div className={`card`}>
             <div className={styles.observeEmoji}>👀</div>
-            <div className={styles.observeTitle}>Modalità osservazione</div>
-            <div className={styles.observeText}>
-              Questo mese osserviamo le tue spese, poi ti proporrò un budget realistico. Vai su Budget
-              quando vuoi impostarne uno.
-            </div>
+            <div className={styles.observeTitle}>{t.home.observeModeTitle}</div>
+            <div className={styles.observeText}>{t.home.observeModeText}</div>
             <button
               type="button"
               className="btn btn-primary"
               style={{ marginTop: 12 }}
               onClick={() => onNavigate('budget')}
             >
-              Vai a Budget
+              {t.home.goToBudget}
             </button>
           </div>
         )}
@@ -106,10 +105,10 @@ export function HomeScreen({ onOpenSettings, onNavigate }: Props) {
         <div>
           <div className={styles.sectionHeaderRow}>
             <span className="section-title" style={{ margin: 0 }}>
-              Risparmi
+              {t.nav.savings}
             </span>
             <button type="button" className={styles.link} onClick={() => onNavigate('risparmi')}>
-              Vedi tutto
+              {t.common.seeAll}
             </button>
           </div>
           {data.topGoal ? (
@@ -125,7 +124,7 @@ export function HomeScreen({ onOpenSettings, onNavigate }: Props) {
               <div className={styles.savingsInfo}>
                 <div className={styles.savingsName}>{data.topGoal.name}</div>
                 <div className={styles.savingsAmounts}>
-                  {formatCents(data.topGoalSaved)} di {formatCents(data.topGoal.targetCents)}
+                  {t.common.amountOfTarget(formatCents(data.topGoalSaved), formatCents(data.topGoal.targetCents))}
                 </div>
               </div>
             </div>
@@ -133,8 +132,8 @@ export function HomeScreen({ onOpenSettings, onNavigate }: Props) {
             <div className="card" style={{ marginTop: 10 }}>
               <EmptyState
                 emoji="🐷"
-                title="Nessun obiettivo ancora"
-                subtitle="Crea un obiettivo di risparmio per iniziare a mettere via qualcosa."
+                title={t.goals.noGoalsTitle}
+                subtitle={t.home.noGoalsSubtitle}
               />
             </div>
           )}
@@ -143,18 +142,18 @@ export function HomeScreen({ onOpenSettings, onNavigate }: Props) {
         <div>
           <div className={styles.sectionHeaderRow}>
             <span className="section-title" style={{ margin: 0 }}>
-              Ultime transazioni
+              {t.home.recentTransactions}
             </span>
             <button type="button" className={styles.link} onClick={() => onNavigate('spese')}>
-              Vedi tutto
+              {t.common.seeAll}
             </button>
           </div>
           {data.recentTx.length === 0 ? (
             <div className="card" style={{ marginTop: 10 }}>
               <EmptyState
                 emoji="🧾"
-                title="Nessuna transazione"
-                subtitle="Tocca il pulsante + per registrare la tua prima spesa o entrata."
+                title={t.transactions.noneTitle}
+                subtitle={t.home.noTransactionsSubtitle}
               />
             </div>
           ) : (

@@ -114,10 +114,3 @@ export async function dedupeMaterializedTransactions(): Promise<number> {
   })
   return removedCount
 }
-
-export const FREQUENCY_LABELS_IT: Record<RecurringFrequency, string> = {
-  monthly: 'Mensile',
-  bimonthly: 'Bimestrale',
-  quarterly: 'Trimestrale',
-  annual: 'Annuale',
-}

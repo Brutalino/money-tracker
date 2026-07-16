@@ -9,6 +9,7 @@ import styles from './ReportScreen.module.css'
 import { db } from '../../db/db'
 import { getMonthTransactions, groupByCategory, sumCents } from '../../lib/stats'
 import { currentMonthKey, lastNMonths, monthLabelShort } from '../../lib/dates'
+import { useT } from '../../i18n'
 
 interface Props {
   onOpenSettings: () => void
@@ -19,6 +20,7 @@ function formatPercent(fraction: number): string {
 }
 
 export function ReportScreen({ onOpenSettings }: Props) {
+  const t = useT()
   const [month, setMonth] = useState(currentMonthKey())
   const [trendCategoryId, setTrendCategoryId] = useState<string | null>(null)
 
@@ -56,7 +58,7 @@ export function ReportScreen({ onOpenSettings }: Props) {
       const cat = categoryById.get(catId)
       return {
         id: catId,
-        name: cat?.name ?? 'Altro',
+        name: cat?.name ?? t.common.other,
         emoji: cat?.emoji ?? '❓',
         color: cat?.color ?? '#898781',
         valueCents,
@@ -94,13 +96,13 @@ export function ReportScreen({ onOpenSettings }: Props) {
 
   return (
     <div className="screen-root">
-      <Header title="Report" onOpenSettings={onOpenSettings} />
+      <Header title={t.nav.report} onOpenSettings={onOpenSettings} />
       <div className="screen-pad">
         <MonthSelector month={month} onChange={setMonth} disableFuture={false} />
 
         <div className={styles.statsRow}>
           <div className={styles.statCard}>
-            <div className={styles.statLabel}>Tasso di risparmio</div>
+            <div className={styles.statLabel}>{t.report.savingsRate}</div>
             <div
               className={styles.statValue}
               style={{
@@ -110,34 +112,34 @@ export function ReportScreen({ onOpenSettings }: Props) {
                     : 'var(--status-good-text)',
               }}
             >
-              {savingsRateMonth !== null ? formatPercent(savingsRateMonth) : 'N/D'}
+              {savingsRateMonth !== null ? formatPercent(savingsRateMonth) : t.common.notAvailable}
             </div>
           </div>
           <div className={styles.statCard}>
-            <div className={styles.statLabel}>Media 6 mesi</div>
+            <div className={styles.statLabel}>{t.report.avg6Months}</div>
             <div className={styles.statValue}>
-              {savingsRateAvg !== null ? formatPercent(savingsRateAvg) : 'N/D'}
+              {savingsRateAvg !== null ? formatPercent(savingsRateAvg) : t.common.notAvailable}
             </div>
           </div>
         </div>
 
         <div className={`card ${styles.sectionCard}`}>
           <div className={styles.sectionTitleRow}>
-            <span className={styles.sectionTitle}>Spese per categoria</span>
+            <span className={styles.sectionTitle}>{t.report.expensesByCategory}</span>
           </div>
           <DonutChart data={donutData} totalCents={donutTotal} />
         </div>
 
         <div className={`card ${styles.sectionCard}`}>
           <div className={styles.sectionTitleRow}>
-            <span className={styles.sectionTitle}>Entrate vs uscite (6 mesi)</span>
+            <span className={styles.sectionTitle}>{t.report.incomeVsExpenses6m}</span>
           </div>
           <IncomeExpenseChart data={incomeExpenseData} />
         </div>
 
         <div className={`card ${styles.sectionCard}`}>
           <div className={styles.sectionTitleRow}>
-            <span className={styles.sectionTitle}>Andamento categoria</span>
+            <span className={styles.sectionTitle}>{t.report.categoryTrend}</span>
             <select
               className={styles.catSelect}
               value={activeTrendCategoryId ?? ''}

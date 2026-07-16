@@ -1,6 +1,7 @@
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts'
 import styles from './Charts.module.css'
 import { formatCents } from '../../lib/money'
+import { useT } from '../../i18n'
 
 export interface DonutDatum {
   id: string
@@ -37,9 +38,11 @@ function CustomTooltip({ active, payload }: SimpleTooltipProps) {
   )
 }
 
-export function DonutChart({ data, totalCents, totalLabel = 'Totale' }: Props) {
+export function DonutChart({ data, totalCents, totalLabel }: Props) {
+  const t = useT()
+  const resolvedTotalLabel = totalLabel ?? t.common.total
   if (data.length === 0) {
-    return <div className={styles.emptyChart}>Nessuna spesa da mostrare</div>
+    return <div className={styles.emptyChart}>{t.charts.noExpensesToShow}</div>
   }
   return (
     <div>
@@ -80,7 +83,7 @@ export function DonutChart({ data, totalCents, totalLabel = 'Totale' }: Props) {
           }}
         >
           <span style={{ fontSize: 10, color: 'var(--text-muted)', fontWeight: 700 }}>
-            {totalLabel}
+            {resolvedTotalLabel}
           </span>
           <span style={{ fontSize: 16, fontWeight: 800 }}>{formatCents(totalCents)}</span>
         </div>

@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import styles from './Header.module.css'
 import { IconGear } from './Icons'
+import { useT } from '../i18n'
 
 interface Props {
   title: string
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export function Header({ title, subtitle, onOpenSettings, right }: Props) {
+  const t = useT()
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
@@ -23,7 +25,7 @@ export function Header({ title, subtitle, onOpenSettings, right }: Props) {
             type="button"
             className={styles.gearBtn}
             onClick={onOpenSettings}
-            aria-label="Impostazioni"
+            aria-label={t.header.settingsAriaLabel}
           >
             <IconGear width={20} height={20} />
           </button>

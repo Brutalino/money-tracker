@@ -1,6 +1,8 @@
 import { BarChart, Bar, XAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import styles from './Charts.module.css'
 import { formatCents } from '../../lib/money'
+import { useT } from '../../i18n'
+import type { TranslationKeys } from '../../i18n'
 
 export interface IncomeExpenseDatum {
   monthKey: string
@@ -17,9 +19,10 @@ interface SimpleTooltipProps {
   active?: boolean
   payload?: ReadonlyArray<{ payload: IncomeExpenseDatum }>
   label?: string | number
+  t: TranslationKeys
 }
 
-function CustomTooltip({ active, payload, label }: SimpleTooltipProps) {
+function CustomTooltip({ active, payload, label, t }: SimpleTooltipProps) {
   if (!active || !payload || !payload.length) return null
   const d = payload[0].payload
   return (
@@ -27,12 +30,12 @@ function CustomTooltip({ active, payload, label }: SimpleTooltipProps) {
       <div className={styles.tooltipLabel}>{label}</div>
       <div className={styles.tooltipRow}>
         <span className={styles.tooltipDot} style={{ background: 'var(--series-1)' }} />
-        <span>Entrate</span>
+        <span>{t.finance.incomePlural}</span>
         <span className={styles.tooltipValue}>{formatCents(d.entrateCents)}</span>
       </div>
       <div className={styles.tooltipRow}>
         <span className={styles.tooltipDot} style={{ background: 'var(--series-8)' }} />
-        <span>Uscite</span>
+        <span>{t.finance.expensePlural}</span>
         <span className={styles.tooltipValue}>{formatCents(d.usciteCents)}</span>
       </div>
     </div>
@@ -40,21 +43,22 @@ function CustomTooltip({ active, payload, label }: SimpleTooltipProps) {
 }
 
 export function IncomeExpenseChart({ data }: Props) {
+  const t = useT()
   const hasData = data.some((d) => d.entrateCents > 0 || d.usciteCents > 0)
   return (
     <div>
       <div className={styles.legend} style={{ marginTop: 0, marginBottom: 10 }}>
         <div className={styles.legendItem}>
           <span className={styles.legendDot} style={{ background: 'var(--series-1)' }} />
-          <span>Entrate</span>
+          <span>{t.finance.incomePlural}</span>
         </div>
         <div className={styles.legendItem}>
           <span className={styles.legendDot} style={{ background: 'var(--series-8)' }} />
-          <span>Uscite</span>
+          <span>{t.finance.expensePlural}</span>
         </div>
       </div>
       {!hasData ? (
-        <div className={styles.emptyChart}>Nessun dato per gli ultimi mesi</div>
+        <div className={styles.emptyChart}>{t.charts.noDataRecentMonths}</div>
       ) : (
         <div style={{ height: 150 }}>
           <ResponsiveContainer width="100%" height="100%">
@@ -72,6 +76,7 @@ export function IncomeExpenseChart({ data }: Props) {
                     active={p.active}
                     payload={p.payload as SimpleTooltipProps['payload']}
                     label={p.label}
+                    t={t}
                   />
                 )}
                 cursor={{ fill: 'var(--gridline)', opacity: 0.4 }}

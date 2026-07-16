@@ -31,7 +31,7 @@ export default defineConfig({
       manifest: {
         name: 'Money Tracker',
         short_name: 'Money',
-        description: 'Gestisci spese, budget e risparmi',
+        description: 'Track expenses, budgets and savings',
         theme_color: '#fcfcfb',
         background_color: '#fcfcfb',
         display: 'standalone',

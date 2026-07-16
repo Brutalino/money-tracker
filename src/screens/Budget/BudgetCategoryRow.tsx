@@ -4,6 +4,7 @@ import { ProgressBar } from '../../components/ui/ProgressBar'
 import { budgetStatus } from '../../lib/stats'
 import { formatCents } from '../../lib/money'
 import { upsertBudget } from '../../lib/budgets'
+import { useT } from '../../i18n'
 import type { Category } from '../../db/types'
 
 interface Props {
@@ -21,6 +22,7 @@ export function BudgetCategoryRow({
   spentCents,
   deltaCents,
 }: Props) {
+  const t = useT()
   const [value, setValue] = useState(initialBudgetEuros > 0 ? String(initialBudgetEuros) : '')
   const [error, setError] = useState<string | null>(null)
 
@@ -39,7 +41,7 @@ export function BudgetCategoryRow({
     try {
       await upsertBudget(month, category.id, parsed)
     } catch {
-      setError('Salvataggio non riuscito. Riprova.')
+      setError(t.common.saveFailed)
     }
   }
 
@@ -76,7 +78,7 @@ export function BudgetCategoryRow({
               setValue(digits)
             }}
             onBlur={commit}
-            aria-label={`Budget per ${category.name}`}
+            aria-label={t.budget.budgetForCategoryAriaLabel(category.name)}
           />
           <span className="muted" style={{ fontSize: 12 }}>
             €
@@ -92,9 +94,10 @@ export function BudgetCategoryRow({
         <>
           <ProgressBar fraction={fraction} status={status} height={4} />
           <div className={styles.catStatsRow}>
-            <span>Speso {formatCents(spentCents)}</span>
+            <span>{t.budget.spent(formatCents(spentCents))}</span>
             <span style={{ color: remainingCents < 0 ? 'var(--status-critical)' : undefined }}>
-              {remainingCents >= 0 ? 'Rimane' : 'Superato di'} {formatCents(Math.abs(remainingCents))}
+              {remainingCents >= 0 ? t.budget.remaining : t.budget.exceededBy}{' '}
+              {formatCents(Math.abs(remainingCents))}
               {deltaCents !== null && deltaCents !== 0 ? (deltaCents > 0 ? ' 📈' : ' 📉') : ''}
             </span>
           </div>
@@ -102,8 +105,8 @@ export function BudgetCategoryRow({
       ) : (
         spentCents > 0 && (
           <div className={styles.catStatsRow}>
-            <span>Speso {formatCents(spentCents)}</span>
-            <span className="muted">Nessun budget</span>
+            <span>{t.budget.spent(formatCents(spentCents))}</span>
+            <span className="muted">{t.budget.noBudget}</span>
           </div>
         )
       )}

@@ -1,56 +1,57 @@
 # 💰 Money Tracker
 
-App personale per tracciare spese, budget e risparmi. PWA installabile sul telefono, pensata per un uso quotidiano rapidissimo: registrare una spesa richiede meno di 5 secondi.
+A personal finance PWA for tracking expenses, budgets and savings goals. Installable on your phone and built for fast daily use: logging an expense takes less than 5 seconds.
 
-**App live:** https://brutalino.github.io/money-tracker/
+**Live app:** https://brutalino.github.io/money-tracker/
 
-## Cosa fa
+## Features
 
-- **Spese** — inserimento rapido con tastierino numerico e categorie a icone; storico per mese con ricerca e filtri
-- **Costi fissi** — bollette, abbonamenti e rate senza date: ogni voce ha solo importo e frequenza (mensile/bimestrale/trimestrale/annuale) e viene convertita in equivalente mensile, registrato automaticamente il 1° del mese
-- **Budget mensile** — budget per categoria a cifre intere, barre di avanzamento con soglie 80%/100%, suggerimenti automatici basati sui mesi precedenti (arrotondati ai 5€), confronto mese su mese
-- **Risparmi** — obiettivi multipli con target e scadenza, contributi, proiezione di raggiungimento
-- **Report** — torta per categoria, entrate vs uscite (6 mesi), andamento per categoria, tasso di risparmio
-- **Dati** — tutto in locale sul dispositivo (IndexedDB), nessun account, nessun server; export/import JSON e export CSV
+- **Expenses** — quick entry with a custom numeric keypad and emoji categories; monthly history with search and filters
+- **Fixed costs** — bills, subscriptions and installments with no due dates: each item is just an amount and a frequency (monthly/bimonthly/quarterly/annual), converted to a monthly equivalent and booked automatically on the 1st of each month
+- **Monthly budget** — integer budgets per category, progress bars with 80%/100% thresholds, automatic suggestions based on your previous months (rounded to the nearest €5), month-over-month comparison
+- **Savings** — multiple goals with targets and deadlines, contributions, projected completion dates
+- **Reports** — spending by category, income vs expenses (6 months), per-category trends, savings rate
+- **Your data stays yours** — everything lives locally on your device (IndexedDB), no accounts, no server; JSON export/import and CSV export
 
-Tutta in italiano, valuta EUR, tema chiaro/scuro/auto.
+English by default, Italian available in Settings → Language. EUR currency, light/dark/auto theme.
 
-## Installazione sul telefono (iOS)
+## Install on your phone (iOS)
 
-1. Apri l'URL in **Safari**
-2. Condividi → **Aggiungi a schermata Home**
-3. L'app funziona anche offline; si aggiorna da sola alla riapertura dopo un deploy
+1. Open the URL in **Safari**
+2. Share → **Add to Home Screen**
+3. The app works offline and self-updates on the next launch after a deploy
 
-> I dati vivono nel contenitore dell'app installata: rimuovere l'icona li cancella. Fai un backup da **Impostazioni → Esporta JSON** prima di rimuoverla o cambiare telefono.
+> Your data lives inside the installed app's container: removing the icon deletes it. Back up first via **Settings → Export JSON** before removing the app or switching phones.
 
 ## Stack
 
 React 18 + TypeScript + Vite · Dexie (IndexedDB) · Recharts · vite-plugin-pwa · CSS Modules
 
-Tutti gli importi sono gestiti in **centesimi interi**; le transazioni generate dai costi fissi hanno id deterministico (`rec-<recurringId>-<yyyy-mm>`) così la materializzazione è idempotente anche tra dispositivi concorrenti.
+All amounts are handled as **integer cents**; transactions generated from fixed costs use deterministic ids (`rec-<recurringId>-<yyyy-mm>`) so materialization is idempotent even across concurrent devices. UI strings live in typed dictionaries (`src/i18n/`) — the build fails if a translation key is missing.
 
 ```
 src/
-  db/          schema Dexie (v2) e tipi
-  lib/         logica pura: money, dates, recurring, stats, budgets, backup
-  components/  UI riusabile (AppShell, BottomNav, QuickEntry, charts, ...)
-  screens/     una cartella per tab: Home, Spese, Budget, Risparmi, Report, Settings
+  db/          Dexie schema (v2) and types
+  i18n/        typed translation dictionaries (en, it) + context/hook
+  lib/         pure domain logic: money, dates, recurring, stats, budgets, backup
+  components/  reusable UI (AppShell, BottomNav, QuickEntry, charts, ...)
+  screens/     one folder per tab: Home, Expenses, Budget, Savings, Report, Settings
 ```
 
-## Sviluppo
+## Development
 
 ```bash
 npm install
 npm run dev       # http://localhost:5173
 npm run build     # tsc + vite build
-npm run preview   # serve il bundle di produzione su :4173
+npm run preview   # serve the production bundle on :4173
 ```
 
-**Deploy:** push su `main` → GitHub Actions compila e pubblica su GitHub Pages automaticamente.
+**Deploy:** push to `main` → GitHub Actions builds and publishes to GitHub Pages automatically.
 
-## Note iOS (imparate a caro prezzo)
+## iOS notes (learned the hard way)
 
-- `apple-mobile-web-app-status-bar-style` deve restare **`default`**: con `black-translucent` iOS dimensiona la finestra standalone come schermo−status bar ma la ancora in alto, lasciando una banda morta di ~62pt in fondo
-- Niente `100dvh`/percentuali su `html/body` da sole: si usa `100vh` + la variabile `--app-height` misurata via JS in `index.html` (bug WebKit #237961 e affini)
-- "Aggiungi a schermata Home" **fotografa l'HTML che il service worker sta servendo** — per questo il SW è registrato manualmente con `immediate: true` (vedi `src/main.tsx`), così gli aggiornamenti si attivano subito
-- In caso di problemi di layout su un dispositivo: **Impostazioni → Diagnostica** dentro l'app mostra versione, viewport e safe-area reali
+- `apple-mobile-web-app-status-bar-style` must stay **`default`**: with `black-translucent`, iOS sizes the standalone window as screen−statusbar but anchors it at the top, leaving a ~62pt dead band at the bottom
+- No bare `100dvh`/percentage heights on `html/body`: the app uses `100vh` plus a JS-measured `--app-height` variable set in `index.html` (WebKit bug #237961 and friends)
+- iOS "Add to Home Screen" **snapshots whatever HTML the service worker is serving** — that's why the SW is registered manually with `immediate: true` (see `src/main.tsx`), so updates activate right away
+- For layout issues on a device: **Settings → Diagnostics** inside the app shows the real version, viewport and safe-area values
