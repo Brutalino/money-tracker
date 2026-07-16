@@ -1,8 +1,10 @@
 .root {
   max-width: 480px;
   margin: 0 auto;
-  height: 100vh;
-  height: 100dvh;
+  /* No viewport units: iOS standalone PWAs misreport dvh (short, leaving a
+     dead band above the home indicator). html/body/#root are all 100%, so
+     inheriting fills the real screen. */
+  height: 100%;
   display: flex;
   flex-direction: column;
   position: relative;
