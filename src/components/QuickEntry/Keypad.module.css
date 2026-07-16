@@ -1,0 +1,28 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 0 4px;
+}
+
+.key {
+  height: 58px;
+  border-radius: 16px;
+  border: none;
+  background: var(--surface-2);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.key:active {
+  background: var(--gridline);
+}
+
+.keyBack {
+  color: var(--status-critical);
+}

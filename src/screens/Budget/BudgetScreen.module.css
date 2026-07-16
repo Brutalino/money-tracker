@@ -1,0 +1,89 @@
+.actionsRow {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.actionBtn {
+  flex: 1;
+  font-size: 13px;
+  padding: 0 10px;
+}
+
+.totalCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.totalLabel {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.totalValue {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.catCard {
+  margin-bottom: 10px;
+}
+
+.catHeaderRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.catEmoji {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  background: color-mix(in srgb, var(--cat-color, var(--accent)) 18%, var(--surface-2));
+  flex-shrink: 0;
+}
+
+.catName {
+  font-size: 14.5px;
+  font-weight: 700;
+  flex: 1;
+}
+
+.budgetInputWrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.budgetInput {
+  width: 64px;
+  min-height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  text-align: right;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 0 8px;
+}
+
+.catStatsRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin: 8px 0 6px;
+}
+
+.deltaRow {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin-top: 6px;
+}

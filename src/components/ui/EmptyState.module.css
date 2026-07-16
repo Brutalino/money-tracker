@@ -1,0 +1,27 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  padding: 32px 20px;
+  color: var(--text-secondary);
+}
+
+.emoji {
+  font-size: 40px;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.subtitle {
+  font-size: 13px;
+  max-width: 280px;
+  line-height: 1.4;
+}

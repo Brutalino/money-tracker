@@ -1,0 +1,104 @@
+.top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px 6px;
+}
+
+.backBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.body {
+  padding: 4px 16px 32px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.segmented {
+  display: flex;
+  background: var(--surface-2);
+  border-radius: 12px;
+  padding: 3px;
+  gap: 2px;
+}
+
+.segBtn {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 10px 0;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.segBtnActive {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.catRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 0;
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+}
+
+.catEmoji {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  background: color-mix(in srgb, var(--cat-color, var(--accent)) 18%, var(--surface-2));
+  flex-shrink: 0;
+}
+
+.catName {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.archivedTag {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.addCatBtn {
+  margin-top: 8px;
+}
+
+.version {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 24px;
+}
+
+.hiddenFileInput {
+  display: none;
+}
