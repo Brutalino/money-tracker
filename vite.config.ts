@@ -18,6 +18,15 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
+      // Registered manually in src/main.tsx (via `virtual:pwa-register`) so we
+      // can force an immediate update check + a one-time reload the instant a
+      // new service worker takes control. iOS's "Add to Home Screen" just
+      // snapshots whatever this SW is currently serving in the Safari tab —
+      // it does not force a fresh network fetch — and each installed web app
+      // gets its own isolated Cache Storage that a plain reinstall does not
+      // clear. Without this, a tab left open on an old SW can get an icon
+      // installed against stale precached HTML (and stale <meta> tags).
+      injectRegister: false,
       includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
       manifest: {
         name: 'Money Tracker',
@@ -50,6 +59,15 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,ico,woff2}'],
+        // vite-plugin-pwa only force-sets these two when injectRegister is
+        // 'auto'/null (the default auto-injected registerSW.js). We register
+        // manually above, so without this the new worker would sit in
+        // "waiting" forever — the client's autoUpdate reload logic never
+        // sends it a skip-waiting message, only the opt-in "prompt" flow
+        // does. Keep both true so a deployed update activates and claims
+        // this page immediately, same as before.
+        skipWaiting: true,
+        clientsClaim: true,
       },
     }),
   ],
