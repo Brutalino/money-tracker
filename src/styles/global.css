@@ -141,6 +141,12 @@ body {
   overscroll-behavior: none;
 }
 
+/* iOS standalone: any area the app doesn't cover (home-indicator strip)
+   shows the html background — keep it in sync with the app surface. */
+html {
+  background: var(--page-plane);
+}
+
 body {
   background: var(--page-plane);
   color: var(--text-primary);

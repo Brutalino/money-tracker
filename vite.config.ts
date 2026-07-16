@@ -23,7 +23,7 @@ export default defineConfig({
         name: 'Money Tracker',
         short_name: 'Money',
         description: 'Gestisci spese, budget e risparmi',
-        theme_color: '#0b0b0b',
+        theme_color: '#fcfcfb',
         background_color: '#fcfcfb',
         display: 'standalone',
         orientation: 'portrait',
