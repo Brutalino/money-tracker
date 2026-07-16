@@ -143,3 +143,17 @@
 .saveBtn:disabled {
   opacity: 0.4;
 }
+
+.hintText {
+  text-align: center;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.errorText {
+  text-align: center;
+  font-size: 11.5px;
+  color: var(--status-critical);
+  margin-top: 6px;
+}

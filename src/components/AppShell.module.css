@@ -1,9 +1,11 @@
 .root {
   max-width: 480px;
   margin: 0 auto;
-  /* No viewport units: iOS standalone PWAs misreport dvh (short, leaving a
-     dead band above the home indicator). html/body/#root are all 100%, so
-     inheriting fills the real screen. */
+  /* Inherit height: 100% down from #root, which itself inherits from
+     body/html. The real viewport height is established once, at the top of
+     the chain (see src/styles/global.css + the probe script in index.html)
+     — percentage heights here are safe because they resolve against a
+     definite pixel ancestor, not against the viewport/ICB directly. */
   height: 100%;
   display: flex;
   flex-direction: column;

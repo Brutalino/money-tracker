@@ -11,7 +11,7 @@ import { RisparmiScreen } from './screens/Risparmi/RisparmiScreen'
 import { ReportScreen } from './screens/Report/ReportScreen'
 import type { TabKey } from './types/nav'
 import { ensureSeeded } from './lib/seed'
-import { materializeRecurring } from './lib/recurring'
+import { materializeRecurring, dedupeMaterializedTransactions } from './lib/recurring'
 import { applyThemeToDocument, getStoredTheme } from './lib/theme'
 
 function App() {
@@ -24,6 +24,7 @@ function App() {
     let cancelled = false
     async function init() {
       await ensureSeeded()
+      await dedupeMaterializedTransactions()
       await materializeRecurring()
       const mode = await getStoredTheme()
       applyThemeToDocument(mode)

@@ -12,6 +12,31 @@
     <meta name="apple-mobile-web-app-title" content="Money" />
     <meta name="description" content="Gestisci spese, budget e risparmi in modo semplice" />
     <title>Money Tracker</title>
+    <!--
+      iOS standalone PWAs can render a black "letterbox" band at the bottom of
+      the screen: `height: 100%`/`100dvh` on html/body is unreliable in
+      standalone mode with viewport-fit=cover (WebKit silently falls back to
+      a non-cover layout box, or dvh isn't initialized until a viewport
+      geometry change happens (see https://bugs.webkit.org/show_bug.cgi?id=237961).
+      `100vh` is stable from cold start once there is no browser chrome (i.e.
+      in standalone), so we set a real, JS-measured `--app-height` px value as
+      early as possible (before any stylesheet paints) and keep it in sync on
+      resize/rotation, with `100vh` only as the pre-hydration fallback.
+    -->
+    <script>
+      ;(function () {
+        function setAppHeight() {
+          document.documentElement.style.setProperty('--app-height', window.innerHeight + 'px')
+        }
+        setAppHeight()
+        window.addEventListener('resize', setAppHeight)
+        window.addEventListener('orientationchange', setAppHeight)
+        window.addEventListener('pageshow', setAppHeight)
+        if (window.visualViewport) {
+          window.visualViewport.addEventListener('resize', setAppHeight)
+        }
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>

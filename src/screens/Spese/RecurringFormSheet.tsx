@@ -4,9 +4,9 @@ import { CategoryChips } from '../../components/CategoryChips'
 import { useCategories } from '../../hooks/useDb'
 import { db } from '../../db/db'
 import { makeId } from '../../lib/id'
-import { eurosToCents, centsToEuros } from '../../lib/money'
-import { currentMonthKey } from '../../lib/dates'
-import { FREQUENCY_LABELS_IT, materializeRecurring } from '../../lib/recurring'
+import { eurosToCents, centsToEuros, formatCents } from '../../lib/money'
+import { currentMonthKey, firstOfMonth } from '../../lib/dates'
+import { FREQUENCY_LABELS_IT, materializeRecurring, monthlyEquivalentCents } from '../../lib/recurring'
 import type { Recurring, RecurringFrequency, TransactionType } from '../../db/types'
 
 interface Props {
@@ -26,6 +26,7 @@ export function RecurringFormSheet({ onClose, editing }: Props) {
   const [categoryId, setCategoryId] = useState<string | null>(editing?.categoryId ?? null)
   const [frequency, setFrequency] = useState<RecurringFrequency>(editing?.frequency ?? 'monthly')
   const [saving, setSaving] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const amountCents = eurosToCents(Number.parseFloat(amount.replace(',', '.')) || 0)
   const canSave = name.trim().length > 0 && amountCents > 0 && !!categoryId && !saving
@@ -33,6 +34,7 @@ export function RecurringFormSheet({ onClose, editing }: Props) {
   async function handleSave() {
     if (!canSave || !categoryId) return
     setSaving(true)
+    setError(null)
     try {
       if (editing) {
         await db.recurring.update(editing.id, {
@@ -58,6 +60,8 @@ export function RecurringFormSheet({ onClose, editing }: Props) {
         await materializeRecurring()
       }
       onClose()
+    } catch {
+      setError('Salvataggio non riuscito. Riprova.')
     } finally {
       setSaving(false)
     }
@@ -66,17 +70,42 @@ export function RecurringFormSheet({ onClose, editing }: Props) {
   async function handleToggleActive() {
     if (!editing) return
     const nowActive = !editing.active
-    await db.recurring.update(editing.id, { active: nowActive })
-    if (nowActive) await materializeRecurring()
-    onClose()
+    // Reactivating: reset createdMonth to the current month so the materializer
+    // doesn't backfill phantom expenses for the months it was paused.
+    const patch = nowActive ? { active: nowActive, createdMonth: currentMonthKey() } : { active: nowActive }
+    try {
+      await db.recurring.update(editing.id, patch)
+      if (nowActive) await materializeRecurring()
+      onClose()
+    } catch {
+      setError('Salvataggio non riuscito. Riprova.')
+    }
   }
 
   async function handleDelete() {
     if (!editing) return
     if (!confirm('Eliminare questo costo fisso? Le transazioni già generate rimarranno nello storico.'))
       return
-    await db.recurring.delete(editing.id)
-    onClose()
+    try {
+      // Offer to also clean up this month's already-generated transaction, if any.
+      const thisMonthDate = firstOfMonth(currentMonthKey())
+      const thisMonthTx = await db.transactions
+        .where('[recurringId+date]')
+        .equals([editing.id, thisMonthDate])
+        .first()
+
+      await db.recurring.delete(editing.id)
+
+      if (thisMonthTx) {
+        const amountLabel = formatCents(monthlyEquivalentCents(editing.amountCents, editing.frequency))
+        if (confirm(`Eliminare anche la transazione di questo mese (${amountLabel})?`)) {
+          await db.transactions.delete(thisMonthTx.id)
+        }
+      }
+      onClose()
+    } catch {
+      setError('Eliminazione non riuscita. Riprova.')
+    }
   }
 
   return (
@@ -156,6 +185,9 @@ export function RecurringFormSheet({ onClose, editing }: Props) {
         <button type="button" className="btn btn-primary btn-block" disabled={!canSave} onClick={handleSave}>
           Salva
         </button>
+        {error && (
+          <div style={{ color: 'var(--status-critical)', fontSize: 12, textAlign: 'center' }}>{error}</div>
+        )}
 
         {editing && (
           <div className="row" style={{ gap: 8 }}>

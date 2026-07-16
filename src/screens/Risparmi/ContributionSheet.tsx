@@ -19,6 +19,7 @@ export function ContributionSheet({ goal, onClose, initialAmountCents }: Props) 
   const [date, setDate] = useState(todayISO())
   const [note, setNote] = useState('')
   const [saving, setSaving] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const amountCents = eurosToCents(Number.parseFloat(amount.replace(',', '.')) || 0)
   const canSave = amountCents > 0 && !saving
@@ -26,6 +27,7 @@ export function ContributionSheet({ goal, onClose, initialAmountCents }: Props) 
   async function handleSave() {
     if (!canSave) return
     setSaving(true)
+    setError(null)
     try {
       await db.contributions.add({
         id: makeId(),
@@ -35,6 +37,8 @@ export function ContributionSheet({ goal, onClose, initialAmountCents }: Props) 
         note: note.trim() || undefined,
       })
       onClose()
+    } catch {
+      setError('Salvataggio non riuscito. Riprova.')
     } finally {
       setSaving(false)
     }
@@ -81,6 +85,9 @@ export function ContributionSheet({ goal, onClose, initialAmountCents }: Props) 
         <button type="button" className="btn btn-primary btn-block" disabled={!canSave} onClick={handleSave}>
           Aggiungi
         </button>
+        {error && (
+          <div style={{ color: 'var(--status-critical)', fontSize: 12, textAlign: 'center' }}>{error}</div>
+        )}
       </div>
     </Sheet>
   )

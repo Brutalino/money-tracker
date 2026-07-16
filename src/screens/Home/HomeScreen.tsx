@@ -1,9 +1,11 @@
+import { useState } from 'react'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { Header } from '../../components/Header'
 import { ProgressBar } from '../../components/ui/ProgressBar'
 import { Ring } from '../../components/ui/Ring'
 import { EmptyState } from '../../components/ui/EmptyState'
 import { TransactionRow } from '../../components/TransactionRow'
+import { QuickEntrySheet } from '../../components/QuickEntry/QuickEntrySheet'
 import styles from './HomeScreen.module.css'
 import { db } from '../../db/db'
 import {
@@ -18,6 +20,7 @@ import {
 import { currentMonthKey, monthLabel, monthElapsedFraction } from '../../lib/dates'
 import { formatCents } from '../../lib/money'
 import type { TabKey } from '../../types/nav'
+import type { Transaction } from '../../db/types'
 
 interface Props {
   onOpenSettings: () => void
@@ -26,6 +29,7 @@ interface Props {
 
 export function HomeScreen({ onOpenSettings, onNavigate }: Props) {
   const currentMonth = currentMonthKey()
+  const [editingTx, setEditingTx] = useState<Transaction | null>(null)
 
   const data = useLiveQuery(async () => {
     const [monthTx, budgets, categories, goalsAll, recentTx] = await Promise.all([
@@ -156,12 +160,19 @@ export function HomeScreen({ onOpenSettings, onNavigate }: Props) {
           ) : (
             <div className="card" style={{ marginTop: 10 }}>
               {data.recentTx.map((t) => (
-                <TransactionRow key={t.id} transaction={t} category={categoryById.get(t.categoryId)} />
+                <TransactionRow
+                  key={t.id}
+                  transaction={t}
+                  category={categoryById.get(t.categoryId)}
+                  onClick={() => setEditingTx(t)}
+                />
               ))}
             </div>
           )}
         </div>
       </div>
+
+      {editingTx && <QuickEntrySheet editingTransaction={editingTx} onClose={() => setEditingTx(null)} />}
     </div>
   )
 }

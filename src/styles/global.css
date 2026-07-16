@@ -137,7 +137,16 @@ html,
 body {
   margin: 0;
   padding: 0;
-  height: 100%;
+  /* `height: 100%` is what caused the black band: in iOS standalone mode
+     with viewport-fit=cover, a *percentage* height on html/body can make
+     WebKit silently drop the cover layout, leaving a dead strip near the
+     home indicator (WebKit bug 237961). `100vh` is stable there instead
+     (no browser chrome to make vh ambiguous in standalone), so use it as
+     the baseline, then let the inline probe script in index.html override
+     it with a real, JS-measured `--app-height` (kept in sync on
+     resize/rotation) for extra robustness across iOS versions. */
+  height: 100vh;
+  height: var(--app-height, 100vh);
   overscroll-behavior: none;
 }
 

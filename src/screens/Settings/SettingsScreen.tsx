@@ -9,6 +9,7 @@ import { db } from '../../db/db'
 import { getStoredTheme, setStoredTheme, applyThemeToDocument } from '../../lib/theme'
 import { exportJSON, exportCSV, importBackup, isValidBackup, deleteAllData } from '../../lib/backup'
 import { ensureSeeded } from '../../lib/seed'
+import { collectDiagnostics, type DiagnosticsSnapshot } from '../../lib/diagnostics'
 import type { Category, ThemeMode } from '../../db/types'
 
 interface Props {
@@ -21,10 +22,26 @@ export function SettingsScreen({ onClose }: Props) {
     null
   )
   const [busy, setBusy] = useState(false)
+  const [diagnostics, setDiagnostics] = useState<DiagnosticsSnapshot | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     getStoredTheme().then(setThemeMode)
+  }, [])
+
+  useEffect(() => {
+    function refresh() {
+      setDiagnostics(collectDiagnostics())
+    }
+    refresh()
+    window.addEventListener('resize', refresh)
+    window.addEventListener('orientationchange', refresh)
+    window.visualViewport?.addEventListener('resize', refresh)
+    return () => {
+      window.removeEventListener('resize', refresh)
+      window.removeEventListener('orientationchange', refresh)
+      window.visualViewport?.removeEventListener('resize', refresh)
+    }
   }, [])
 
   const categories = useLiveQuery(() => db.categories.toArray(), [])
@@ -189,7 +206,23 @@ export function SettingsScreen({ onClose }: Props) {
           </button>
         </div>
 
-        <div className={styles.version}>Money Tracker v{__APP_VERSION__}</div>
+        <div className="section-title">Diagnostica</div>
+        <div className={styles.diagBlock}>
+          <div>Versione: {__APP_VERSION__}</div>
+          <div>navigator.standalone: {String(diagnostics?.standalone ?? '…')}</div>
+          <div>display-mode: {diagnostics?.displayMode ?? '…'}</div>
+          <div>
+            innerWidth × innerHeight: {diagnostics?.innerWidth ?? '…'} × {diagnostics?.innerHeight ?? '…'}
+          </div>
+          <div>
+            screen.width × screen.height: {diagnostics?.screenWidth ?? '…'} × {diagnostics?.screenHeight ?? '…'}
+          </div>
+          <div>visualViewport.height: {diagnostics?.visualViewportHeight ?? '…'}</div>
+          <div>safe-area-inset-top: {diagnostics?.insets.top ?? '…'}</div>
+          <div>safe-area-inset-right: {diagnostics?.insets.right ?? '…'}</div>
+          <div>safe-area-inset-bottom: {diagnostics?.insets.bottom ?? '…'}</div>
+          <div>safe-area-inset-left: {diagnostics?.insets.left ?? '…'}</div>
+        </div>
       </div>
 
       {categorySheet && (

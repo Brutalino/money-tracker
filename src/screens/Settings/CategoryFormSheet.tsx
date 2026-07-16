@@ -27,28 +27,33 @@ export function CategoryFormSheet({ onClose, editing, defaultKind = 'expense' }:
   const [emoji, setEmoji] = useState(editing?.emoji ?? '🏷️')
   const [color, setColor] = useState(editing?.color ?? COLOR_OPTIONS[0])
   const [saving, setSaving] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const canSave = name.trim().length > 0 && emoji.trim().length > 0 && !saving
 
   async function handleSave() {
     if (!canSave) return
     setSaving(true)
+    setError(null)
     try {
       if (editing) {
         await db.categories.update(editing.id, { name: name.trim(), emoji: emoji.trim(), color, kind })
       } else {
-        const count = await db.categories.count()
+        const existing = await db.categories.toArray()
+        const nextSortOrder = existing.reduce((max, c) => Math.max(max, c.sortOrder), -1) + 1
         await db.categories.add({
           id: makeId(),
           name: name.trim(),
           emoji: emoji.trim(),
           color,
           kind,
-          sortOrder: count,
+          sortOrder: nextSortOrder,
           archived: false,
         })
       }
       onClose()
+    } catch {
+      setError('Salvataggio non riuscito. Riprova.')
     } finally {
       setSaving(false)
     }
@@ -134,6 +139,9 @@ export function CategoryFormSheet({ onClose, editing, defaultKind = 'expense' }:
         <button type="button" className="btn btn-primary btn-block" disabled={!canSave} onClick={handleSave}>
           Salva
         </button>
+        {error && (
+          <div style={{ color: 'var(--status-critical)', fontSize: 12, textAlign: 'center' }}>{error}</div>
+        )}
 
         {editing && (
           <button type="button" className="btn btn-block" onClick={handleToggleArchive}>

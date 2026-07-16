@@ -31,6 +31,7 @@ export function QuickEntrySheet({ onClose, editingTransaction, defaultType = 'ex
   const [date, setDate] = useState(editingTransaction?.date ?? todayISO())
   const [note, setNote] = useState(editingTransaction?.note ?? '')
   const [saving, setSaving] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   // When switching type (and not editing), reset category selection so it matches the new kind.
   useEffect(() => {
@@ -42,10 +43,17 @@ export function QuickEntrySheet({ onClose, editingTransaction, defaultType = 'ex
 
   const amountCents = parseAmountToCents(buffer)
   const canSave = amountCents > 0 && !!categoryId && !saving
+  const hint =
+    amountCents > 0 && !categoryId
+      ? 'Scegli una categoria'
+      : amountCents === 0 && !!categoryId
+        ? 'Inserisci un importo'
+        : null
 
   async function handleSave() {
     if (!canSave || !categoryId) return
     setSaving(true)
+    setError(null)
     try {
       if (isEditing && editingTransaction) {
         await db.transactions.update(editingTransaction.id, {
@@ -66,6 +74,8 @@ export function QuickEntrySheet({ onClose, editingTransaction, defaultType = 'ex
         })
       }
       onClose()
+    } catch {
+      setError('Salvataggio non riuscito. Riprova.')
     } finally {
       setSaving(false)
     }
@@ -159,6 +169,11 @@ export function QuickEntrySheet({ onClose, editingTransaction, defaultType = 'ex
         <button type="button" className={styles.saveBtn} disabled={!canSave} onClick={handleSave}>
           {isEditing ? 'Salva modifiche' : 'Salva'}
         </button>
+        {error ? (
+          <div className={styles.errorText}>{error}</div>
+        ) : hint ? (
+          <div className={styles.hintText}>{hint}</div>
+        ) : null}
       </div>
     </Sheet>
   )

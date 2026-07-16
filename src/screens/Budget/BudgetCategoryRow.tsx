@@ -22,6 +22,9 @@ export function BudgetCategoryRow({
   deltaCents,
 }: Props) {
   const [value, setValue] = useState(initialBudgetEuros > 0 ? String(initialBudgetEuros) : '')
+  const [error, setError] = useState<string | null>(null)
+
+  const MAX_BUDGET_EUROS = 999999
 
   const budgetEuros = Number.parseInt(value, 10) || 0
   const budgetCents = budgetEuros * 100
@@ -30,9 +33,14 @@ export function BudgetCategoryRow({
   const remainingCents = budgetCents - spentCents
 
   async function commit() {
-    const parsed = Math.max(0, Math.round(Number.parseInt(value, 10) || 0))
+    const parsed = Math.min(MAX_BUDGET_EUROS, Math.max(0, Math.round(Number.parseInt(value, 10) || 0)))
     setValue(parsed > 0 ? String(parsed) : '')
-    await upsertBudget(month, category.id, parsed)
+    setError(null)
+    try {
+      await upsertBudget(month, category.id, parsed)
+    } catch {
+      setError('Salvataggio non riuscito. Riprova.')
+    }
   }
 
   return (
@@ -44,14 +52,29 @@ export function BudgetCategoryRow({
         <div className={styles.catName}>{category.name}</div>
         <div className={styles.budgetInputWrap}>
           <input
-            type="number"
+            type="text"
             inputMode="numeric"
             className={styles.budgetInput}
             value={value}
             placeholder="0"
-            min={0}
-            step={1}
-            onChange={(e) => setValue(e.target.value.replace(/[^0-9]/g, ''))}
+            onKeyDown={(e) => {
+              // Budgets are integer euros: a comma/dot decimal separator means the
+              // user is done entering the integer part (e.g. "50,5" -> "50"). Block
+              // the key so it never reaches the value, then commit immediately —
+              // filtering it out in onChange alone isn't enough because a *later*
+              // digit keystroke would still land right after "50" and silently
+              // concatenate into "505".
+              if (e.key === ',' || e.key === '.') {
+                e.preventDefault()
+                e.currentTarget.blur()
+              }
+            }}
+            onChange={(e) => {
+              // Also guard the paste path (comma can arrive in one go via paste).
+              const truncated = e.target.value.split(/[.,]/)[0]
+              const digits = truncated.replace(/[^0-9]/g, '').slice(0, 6)
+              setValue(digits)
+            }}
             onBlur={commit}
             aria-label={`Budget per ${category.name}`}
           />
@@ -60,6 +83,10 @@ export function BudgetCategoryRow({
           </span>
         </div>
       </div>
+
+      {error && (
+        <div style={{ color: 'var(--status-critical)', fontSize: 11, marginTop: 4 }}>{error}</div>
+      )}
 
       {budgetCents > 0 ? (
         <>

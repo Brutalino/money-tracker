@@ -92,11 +92,15 @@
   margin-top: 8px;
 }
 
-.version {
-  text-align: center;
-  font-size: 12px;
+.diagBlock {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  line-height: 1.7;
   color: var(--text-muted);
-  margin-top: 24px;
+  background: var(--surface-2);
+  border-radius: 12px;
+  padding: 10px 12px;
+  word-break: break-all;
 }
 
 .hiddenFileInput {

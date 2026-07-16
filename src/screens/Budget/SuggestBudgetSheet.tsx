@@ -11,6 +11,21 @@ interface Props {
 
 export function SuggestBudgetSheet({ onClose, onConfirm, suggestions, categories }: Props) {
   const total = Array.from(suggestions.values()).reduce((a, b) => a + b, 0)
+
+  if (suggestions.size === 0) {
+    return (
+      <Sheet title="Budget suggerito" onClose={onClose}>
+        <p className="secondary-text" style={{ fontSize: 13 }}>
+          Non c'è ancora abbastanza storico di spese negli ultimi mesi per calcolare un suggerimento.
+          Registra qualche spesa e riprova più avanti.
+        </p>
+        <button type="button" className="btn btn-block" style={{ marginTop: 18 }} onClick={onClose}>
+          Chiudi
+        </button>
+      </Sheet>
+    )
+  }
+
   return (
     <Sheet title="Budget suggerito" onClose={onClose}>
       <p className="secondary-text" style={{ fontSize: 13, marginBottom: 14 }}>

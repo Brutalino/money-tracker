@@ -18,6 +18,7 @@ export function GoalFormSheet({ onClose, editing }: Props) {
   const [target, setTarget] = useState(editing ? String(centsToEuros(editing.targetCents)) : '')
   const [deadline, setDeadline] = useState(editing?.deadline ?? '')
   const [saving, setSaving] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const targetCents = eurosToCents(Number.parseFloat(target.replace(',', '.')) || 0)
   const canSave = name.trim().length > 0 && targetCents > 0 && !saving
@@ -25,6 +26,7 @@ export function GoalFormSheet({ onClose, editing }: Props) {
   async function handleSave() {
     if (!canSave) return
     setSaving(true)
+    setError(null)
     try {
       if (editing) {
         await db.goals.update(editing.id, {
@@ -34,7 +36,8 @@ export function GoalFormSheet({ onClose, editing }: Props) {
           deadline: deadline || undefined,
         })
       } else {
-        const count = await db.goals.count()
+        const existing = await db.goals.toArray()
+        const nextSortOrder = existing.reduce((max, g) => Math.max(max, g.sortOrder), -1) + 1
         await db.goals.add({
           id: makeId(),
           emoji,
@@ -42,10 +45,12 @@ export function GoalFormSheet({ onClose, editing }: Props) {
           targetCents,
           deadline: deadline || undefined,
           archived: false,
-          sortOrder: count,
+          sortOrder: nextSortOrder,
         })
       }
       onClose()
+    } catch {
+      setError('Salvataggio non riuscito. Riprova.')
     } finally {
       setSaving(false)
     }
@@ -134,6 +139,9 @@ export function GoalFormSheet({ onClose, editing }: Props) {
         <button type="button" className="btn btn-primary btn-block" disabled={!canSave} onClick={handleSave}>
           Salva
         </button>
+        {error && (
+          <div style={{ color: 'var(--status-critical)', fontSize: 12, textAlign: 'center' }}>{error}</div>
+        )}
 
         {editing && (
           <div className="row" style={{ gap: 8 }}>

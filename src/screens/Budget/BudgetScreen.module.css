@@ -11,6 +11,10 @@
   padding: 0 10px;
 }
 
+.actionBtn[aria-disabled='true'] {
+  opacity: 0.5;
+}
+
 .totalCard {
   display: flex;
   justify-content: space-between;

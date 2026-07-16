@@ -1,0 +1,107 @@
+- generic [ref=f18e3]:
+  - generic [ref=f18e6]:
+    - banner [ref=f18e7]:
+      - generic [ref=f18e8]:
+        - heading "Luglio 2026" [level=1] [ref=f18e10]
+        - button "Impostazioni" [active] [ref=f18e12] [cursor=pointer]
+    - generic [ref=f18e16]:
+      - generic [ref=f18e17]:
+        - generic [ref=f18e18]: Puoi ancora spendere
+        - generic [ref=f18e19]: 25,00 €
+        - generic [ref=f18e22]: 25,00 € spesi su 50,00 € di budget
+        - generic [ref=f18e23]: Sei in linea 👌
+      - generic [ref=f18e25]:
+        - generic [ref=f18e26]:
+          - generic [ref=f18e27]: Risparmi
+          - button "Vedi tutto" [ref=f18e28] [cursor=pointer]
+        - generic [ref=f18e30]:
+          - generic [ref=f18e31]: 🐷
+          - generic [ref=f18e32]: Nessun obiettivo ancora
+          - generic [ref=f18e33]: Crea un obiettivo di risparmio per iniziare a mettere via qualcosa.
+      - generic [ref=f18e34]:
+        - generic [ref=f18e35]:
+          - generic [ref=f18e36]: Ultime transazioni
+          - button "Vedi tutto" [ref=f18e37] [cursor=pointer]
+        - button "🛒 Spesa −25 €" [ref=f18e39] [cursor=pointer]:
+          - generic [ref=f18e40]: 🛒
+          - generic [ref=f18e41]: Spesa
+          - generic [ref=f18e44]: −25 €
+  - button "Aggiungi transazione" [ref=f18e45] [cursor=pointer]
+  - navigation "Navigazione principale" [ref=f18e47]:
+    - generic [ref=f18e48]:
+      - button "Home" [ref=f18e49] [cursor=pointer]
+      - button "Spese" [ref=f18e54] [cursor=pointer]
+      - button "Budget" [ref=f18e57] [cursor=pointer]
+      - button "Risparmi" [ref=f18e63] [cursor=pointer]
+      - button "Report" [ref=f18e68] [cursor=pointer]
+  - generic [ref=f18e74]:
+    - generic [ref=f18e75]:
+      - button "Indietro" [ref=f18e76] [cursor=pointer]
+      - generic [ref=f18e79]: Impostazioni
+    - generic [ref=f18e80]:
+      - generic [ref=f18e81]: Aspetto
+      - generic [ref=f18e82]:
+        - button "Auto" [ref=f18e83] [cursor=pointer]
+        - button "Chiaro" [ref=f18e84] [cursor=pointer]
+        - button "Scuro" [ref=f18e85] [cursor=pointer]
+      - generic [ref=f18e86]: Categorie di spesa
+      - generic [ref=f18e87]:
+        - button "🛒 Spesa" [ref=f18e88] [cursor=pointer]:
+          - generic [ref=f18e89]: 🛒
+          - generic [ref=f18e90]: Spesa
+        - button "🍕 Mangiare fuori" [ref=f18e91] [cursor=pointer]:
+          - generic [ref=f18e92]: 🍕
+          - generic [ref=f18e93]: Mangiare fuori
+        - button "⛽ Trasporti" [ref=f18e94] [cursor=pointer]:
+          - generic [ref=f18e95]: ⛽
+          - generic [ref=f18e96]: Trasporti
+        - button "🏠 Casa e bollette" [ref=f18e97] [cursor=pointer]:
+          - generic [ref=f18e98]: 🏠
+          - generic [ref=f18e99]: Casa e bollette
+        - button "📱 Abbonamenti" [ref=f18e100] [cursor=pointer]:
+          - generic [ref=f18e101]: 📱
+          - generic [ref=f18e102]: Abbonamenti
+        - button "👕 Shopping" [ref=f18e103] [cursor=pointer]:
+          - generic [ref=f18e104]: 👕
+          - generic [ref=f18e105]: Shopping
+        - button "🎉 Svago" [ref=f18e106] [cursor=pointer]:
+          - generic [ref=f18e107]: 🎉
+          - generic [ref=f18e108]: Svago
+        - button "💊 Salute" [ref=f18e109] [cursor=pointer]:
+          - generic [ref=f18e110]: 💊
+          - generic [ref=f18e111]: Salute
+        - button "🎁 Regali" [ref=f18e112] [cursor=pointer]:
+          - generic [ref=f18e113]: 🎁
+          - generic [ref=f18e114]: Regali
+        - button "❓ Altro" [ref=f18e115] [cursor=pointer]:
+          - generic [ref=f18e116]: ❓
+          - generic [ref=f18e117]: Altro
+        - button "+ Nuova categoria di spesa" [ref=f18e118] [cursor=pointer]
+      - generic [ref=f18e119]: Categorie di entrata
+      - generic [ref=f18e120]:
+        - button "💼 Stipendio" [ref=f18e121] [cursor=pointer]:
+          - generic [ref=f18e122]: 💼
+          - generic [ref=f18e123]: Stipendio
+        - button "➕ Altre entrate" [ref=f18e124] [cursor=pointer]:
+          - generic [ref=f18e125]: ➕
+          - generic [ref=f18e126]: Altre entrate
+        - button "+ Nuova categoria di entrata" [ref=f18e127] [cursor=pointer]
+      - generic [ref=f18e128]: Dati
+      - generic [ref=f18e129]:
+        - button "Esporta backup (JSON)" [ref=f18e130] [cursor=pointer]
+        - button "Esporta transazioni (CSV)" [ref=f18e133] [cursor=pointer]
+        - button "Importa backup (JSON)" [ref=f18e136] [cursor=pointer]
+      - generic [ref=f18e139]: Zona pericolosa
+      - button "Elimina tutti i dati" [ref=f18e141] [cursor=pointer]
+      - generic [ref=f18e142]: Diagnostica
+      - generic [ref=f18e143]:
+        - generic [ref=f18e144]: "Versione: 0.2.0"
+        - generic [ref=f18e145]: "navigator.standalone: n/d"
+        - generic [ref=f18e146]: "display-mode: browser"
+        - generic [ref=f18e147]: "innerWidth × innerHeight: 402 × 874"
+        - generic [ref=f18e148]: "screen.width × screen.height: 402 × 874"
+        - generic [ref=f18e149]: "visualViewport.height: 874"
+        - generic [ref=f18e150]: "safe-area-inset-top: 0px"
+        - generic [ref=f18e151]: "safe-area-inset-right: 0px"
+        - generic [ref=f18e152]: "safe-area-inset-bottom: 0px"
+        - generic [ref=f18e153]: "safe-area-inset-left: 0px"

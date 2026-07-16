@@ -25,8 +25,15 @@ export function GoalCard({ goal, savedCents, contributions, onEdit, onAddContrib
   // Prefer a single, most-relevant line of guidance (deadline pace takes priority
   // over the generic projection) so the card height stays constant regardless of copy.
   let noteText: string
+  let deadlinePassed = false
   if (remainingCents <= 0) {
     noteText = 'Obiettivo raggiunto! 🎉'
+  } else if (goal.deadline && monthDiff(nowKey, goal.deadline) < 0) {
+    // Deadline already passed and the goal isn't reached: a €/mese pace computed
+    // with monthsLeft clamped to 1 would misleadingly suggest "just save X more
+    // this month" instead of surfacing that the target date was missed.
+    deadlinePassed = true
+    noteText = 'Scadenza superata'
   } else if (goal.deadline) {
     const monthsLeft = Math.max(1, monthDiff(nowKey, goal.deadline))
     const perMonth = Math.ceil(remainingCents / monthsLeft / 100) * 100
@@ -62,7 +69,9 @@ export function GoalCard({ goal, savedCents, contributions, onEdit, onAddContrib
         <ProgressBar fraction={fraction} status="good" height={5} />
       </div>
 
-      <div className={styles.projection}>{noteText}</div>
+      <div className={`${styles.projection} ${deadlinePassed ? 'pill pill-warning' : ''}`}>
+        {deadlinePassed ? `⚠️ ${noteText}` : noteText}
+      </div>
 
       <div className={styles.actionsRow}>
         <button type="button" className="btn btn-primary btn-block" onClick={onAddContribution}>

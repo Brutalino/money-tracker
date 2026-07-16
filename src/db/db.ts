@@ -29,6 +29,23 @@ export class MoneyDB extends Dexie {
       contributions: 'id, goalId, date',
       settings: 'key',
     })
+    // v2: add a compound [recurringId+date] index so the recurring materializer can
+    // look up "does this month already have a materialized transaction?" in O(1) and
+    // so the one-time dedupe migration can scan efficiently. Not marked unique (`&`)
+    // because recurringId is undefined for manual transactions and Dexie/IndexedDB
+    // would still index those `undefined` compound entries inconsistently across
+    // browsers; real duplicate-prevention instead comes from a deterministic
+    // primary key (see makeRecurringTxId in lib/recurring.ts), which IndexedDB
+    // always enforces as unique regardless of nullability of other fields.
+    this.version(2).stores({
+      transactions: 'id, type, categoryId, date, recurringId, [recurringId+date]',
+      categories: 'id, kind, archived, sortOrder',
+      recurring: 'id, active, categoryId',
+      budgets: 'id, month, categoryId, [month+categoryId]',
+      goals: 'id, archived, sortOrder',
+      contributions: 'id, goalId, date',
+      settings: 'key',
+    })
   }
 }
 

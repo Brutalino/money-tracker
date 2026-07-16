@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { Header } from '../../components/Header'
 import { MonthSelector } from '../../components/MonthSelector'
@@ -26,19 +26,25 @@ export function BudgetScreen({ onOpenSettings }: Props) {
   const [month, setMonth] = useState(currentMonthKey())
   const [suggestOpen, setSuggestOpen] = useState(false)
   const [resetKey, setResetKey] = useState(0)
+  const [copyMessage, setCopyMessage] = useState<string | null>(null)
+
+  useEffect(() => {
+    setCopyMessage(null)
+  }, [month])
 
   const data = useLiveQuery(async () => {
     const categories = (await db.categories.toArray())
       .filter((c) => c.kind === 'expense' && !c.archived)
       .sort((a, b) => a.sortOrder - b.sortOrder)
-    const [budgets, monthTx, prevMonthTx] = await Promise.all([
+    const [budgets, monthTx, prevMonthTx, prevMonthBudgets] = await Promise.all([
       getBudgetsForMonth(month),
       getMonthTransactions(month),
       getMonthTransactions(addMonths(month, -1)),
+      getBudgetsForMonth(addMonths(month, -1)),
     ])
     const spentByCat = groupByCategory(monthTx.variableExpenses)
     const prevSpentByCat = groupByCategory(prevMonthTx.variableExpenses)
-    return { categories, budgets, spentByCat, prevSpentByCat }
+    return { categories, budgets, spentByCat, prevSpentByCat, prevMonthBudgets }
   }, [month, resetKey])
 
   const suggestions = useLiveQuery(async () => {
@@ -53,9 +59,15 @@ export function BudgetScreen({ onOpenSettings }: Props) {
 
   const totalBudgeted = sumBudgetEuros(data.budgets)
   const prevMonthLbl = monthLabel(addMonths(month, -1))
+  const prevMonthHasBudgets = data.prevMonthBudgets.length > 0
 
   async function handleCopyPrev() {
+    if (!prevMonthHasBudgets) {
+      setCopyMessage(`Nessun budget da copiare da ${prevMonthLbl}`)
+      return
+    }
     if (!confirm(`Copiare i budget di ${prevMonthLbl} su ${monthLabel(month)}?`)) return
+    setCopyMessage(null)
     await copyBudgetsFromMonth(addMonths(month, -1), month)
     setResetKey((k) => k + 1)
   }
@@ -88,10 +100,20 @@ export function BudgetScreen({ onOpenSettings }: Props) {
           >
             ✨ Suggerisci budget
           </button>
-          <button type="button" className={`btn ${styles.actionBtn}`} onClick={handleCopyPrev}>
+          <button
+            type="button"
+            className={`btn ${styles.actionBtn}`}
+            onClick={handleCopyPrev}
+            aria-disabled={!prevMonthHasBudgets}
+          >
             📋 Copia da {prevMonthLbl.split(' ')[0]}
           </button>
         </div>
+        {copyMessage && (
+          <p className="muted" style={{ fontSize: 12, margin: '2px 0 10px' }}>
+            {copyMessage}
+          </p>
+        )}
 
         {data.categories.length === 0 ? (
           <EmptyState

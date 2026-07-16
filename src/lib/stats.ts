@@ -55,6 +55,11 @@ export function sumBudgetEuros(budgets: Budget[]): number {
 /**
  * Suggest a budget per expense category based on the average of up to the last
  * 3 full (completed) months of variable spending, rounded to the nearest 5€.
+ *
+ * Averages only over months that actually contain at least one variable expense
+ * (any category) — dividing by 3 unconditionally would dilute the suggestion by
+ * ~3x for new users who only have 1 month of history. If none of the candidate
+ * months have any data, returns an empty map (no history to suggest from).
  */
 export async function suggestBudgets(
   monthKey: string,
@@ -63,8 +68,11 @@ export async function suggestBudgets(
   // "Full months" = months strictly before the current one being budgeted.
   const candidateMonths = lastNMonths(addMonths(monthKey, -1), 3)
   const totals = new Map<string, number>()
+  let monthsWithData = 0
   for (const m of candidateMonths) {
     const { variableExpenses } = await getMonthTransactions(m)
+    if (variableExpenses.length === 0) continue
+    monthsWithData++
     const byCategory = groupByCategory(variableExpenses)
     for (const catId of expenseCategoryIds) {
       const cents = byCategory.get(catId) ?? 0
@@ -72,9 +80,10 @@ export async function suggestBudgets(
     }
   }
   const result = new Map<string, number>()
+  if (monthsWithData === 0) return result
   for (const catId of expenseCategoryIds) {
     const totalCents = totals.get(catId) ?? 0
-    const avgEuros = totalCents / 100 / candidateMonths.length
+    const avgEuros = totalCents / 100 / monthsWithData
     result.set(catId, roundToNearest5(avgEuros))
   }
   return result
