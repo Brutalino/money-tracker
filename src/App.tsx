@@ -13,8 +13,10 @@ import type { TabKey } from './types/nav'
 import { ensureSeeded } from './lib/seed'
 import { materializeRecurring, dedupeMaterializedTransactions } from './lib/recurring'
 import { applyThemeToDocument, getStoredTheme } from './lib/theme'
+import { useT } from './i18n'
 
 function App() {
+  const t = useT()
   const [ready, setReady] = useState(false)
   const [activeTab, setActiveTab] = useState<TabKey>('home')
   const [settingsOpen, setSettingsOpen] = useState(false)
@@ -40,7 +42,7 @@ function App() {
     return (
       <div className={styles.root}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-          <span className="muted">Caricamento...</span>
+          <span className="muted">{t.common.loading}</span>
         </div>
       </div>
     )

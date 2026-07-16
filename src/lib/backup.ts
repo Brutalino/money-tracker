@@ -8,6 +8,7 @@ import type {
   Contribution,
   SettingsRecord,
 } from '../db/types'
+import { getActiveLanguage } from './locale'
 
 export interface BackupPayload {
   version: 1
@@ -70,27 +71,34 @@ function csvEscape(value: string): string {
   return value
 }
 
+/** it: ';' delimiter + ',' decimals (Excel IT convention). en: ',' delimiter + '.' decimals. */
 export async function exportCSV(): Promise<void> {
+  const isItalian = getActiveLanguage() === 'it'
+  const delimiter = isItalian ? ';' : ','
+  const decimalSep = isItalian ? ',' : '.'
   const [transactions, categories] = await Promise.all([
     db.transactions.orderBy('date').toArray(),
     db.categories.toArray(),
   ])
   const categoryById = new Map(categories.map((c) => [c.id, c]))
-  const header = ['data', 'tipo', 'categoria', 'importo', 'nota', 'ricorrente']
+  const header = isItalian
+    ? ['data', 'tipo', 'categoria', 'importo', 'nota', 'ricorrente']
+    : ['date', 'type', 'category', 'amount', 'note', 'recurring']
   const rows = transactions.map((t) => {
     const cat = categoryById.get(t.categoryId)
     return [
       t.date,
-      t.type === 'expense' ? 'uscita' : 'entrata',
+      t.type === 'expense' ? (isItalian ? 'uscita' : 'expense') : isItalian ? 'entrata' : 'income',
       cat ? `${cat.emoji} ${cat.name}` : t.categoryId,
-      (t.amountCents / 100).toFixed(2).replace('.', ','),
+      (t.amountCents / 100).toFixed(2).replace('.', decimalSep),
       t.note ?? '',
-      t.recurringId ? 'si' : 'no',
+      t.recurringId ? (isItalian ? 'si' : 'yes') : 'no',
     ]
   })
-  const csv = [header, ...rows].map((row) => row.map(csvEscape).join(';')).join('\n')
+  const csv = [header, ...rows].map((row) => row.map(csvEscape).join(delimiter)).join('\n')
   const date = new Date().toISOString().slice(0, 10)
-  downloadFile(`money-tracker-transazioni-${date}.csv`, `﻿${csv}`, 'text/csv;charset=utf-8')
+  const filenamePart = isItalian ? 'transazioni' : 'transactions'
+  downloadFile(`money-tracker-${filenamePart}-${date}.csv`, `﻿${csv}`, 'text/csv;charset=utf-8')
 }
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/

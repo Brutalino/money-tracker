@@ -1,42 +1,8 @@
-export const MONTH_NAMES_IT = [
-  'Gennaio',
-  'Febbraio',
-  'Marzo',
-  'Aprile',
-  'Maggio',
-  'Giugno',
-  'Luglio',
-  'Agosto',
-  'Settembre',
-  'Ottobre',
-  'Novembre',
-  'Dicembre',
-]
+import { localeTag } from './locale'
 
-export const MONTH_NAMES_SHORT_IT = [
-  'Gen',
-  'Feb',
-  'Mar',
-  'Apr',
-  'Mag',
-  'Giu',
-  'Lug',
-  'Ago',
-  'Set',
-  'Ott',
-  'Nov',
-  'Dic',
-]
-
-export const DAY_NAMES_IT = [
-  'Domenica',
-  'Lunedì',
-  'Martedì',
-  'Mercoledì',
-  'Giovedì',
-  'Venerdì',
-  'Sabato',
-]
+function capitalize(s: string): string {
+  return s.length > 0 ? s.charAt(0).toUpperCase() + s.slice(1) : s
+}
 
 /** Returns "yyyy-mm" for the current month */
 export function currentMonthKey(): string {
@@ -60,24 +26,29 @@ export function toISODate(date: Date): string {
   return `${y}-${m}-${d}`
 }
 
-/** Month label e.g. "Luglio 2026" */
+/** Month label e.g. "July 2026" / "Luglio 2026", in the active language */
 export function monthLabel(monthKey: string): string {
   const [y, m] = monthKey.split('-').map(Number)
-  return `${MONTH_NAMES_IT[m - 1]} ${y}`
+  const d = new Date(y, m - 1, 1)
+  const month = new Intl.DateTimeFormat(localeTag(), { month: 'long' }).format(d)
+  return `${capitalize(month)} ${y}`
 }
 
 export function monthLabelShort(monthKey: string): string {
   const [y, m] = monthKey.split('-').map(Number)
-  return `${MONTH_NAMES_SHORT_IT[m - 1]} ${String(y).slice(2)}`
+  const d = new Date(y, m - 1, 1)
+  const month = new Intl.DateTimeFormat(localeTag(), { month: 'short' }).format(d).replace(/\.$/, '')
+  return `${capitalize(month)} ${String(y).slice(2)}`
 }
 
-/** Day label e.g. "Lunedì 14 luglio" */
+/** Day label e.g. "Monday 14 July" / "Lunedì 14 luglio" */
 export function dayLabel(iso: string): string {
   const date = parseISODate(iso)
-  const dayName = DAY_NAMES_IT[date.getDay()]
+  const locale = localeTag()
+  const weekday = new Intl.DateTimeFormat(locale, { weekday: 'long' }).format(date)
+  const month = new Intl.DateTimeFormat(locale, { month: 'long' }).format(date)
   const day = date.getDate()
-  const month = MONTH_NAMES_IT[date.getMonth()].toLowerCase()
-  return `${dayName} ${day} ${month}`
+  return `${capitalize(weekday)} ${day} ${month}`
 }
 
 export function parseISODate(iso: string): Date {

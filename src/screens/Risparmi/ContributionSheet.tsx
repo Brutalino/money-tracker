@@ -4,6 +4,8 @@ import { db } from '../../db/db'
 import { makeId } from '../../lib/id'
 import { eurosToCents } from '../../lib/money'
 import { todayISO } from '../../lib/dates'
+import { useT } from '../../i18n'
+import { decimalSeparator } from '../../lib/locale'
 import type { Goal } from '../../db/types'
 
 interface Props {
@@ -13,8 +15,9 @@ interface Props {
 }
 
 export function ContributionSheet({ goal, onClose, initialAmountCents }: Props) {
+  const t = useT()
   const [amount, setAmount] = useState(
-    initialAmountCents ? (initialAmountCents / 100).toString().replace('.', ',') : ''
+    initialAmountCents ? (initialAmountCents / 100).toString().replace('.', decimalSeparator()) : ''
   )
   const [date, setDate] = useState(todayISO())
   const [note, setNote] = useState('')
@@ -38,17 +41,17 @@ export function ContributionSheet({ goal, onClose, initialAmountCents }: Props) 
       })
       onClose()
     } catch {
-      setError('Salvataggio non riuscito. Riprova.')
+      setError(t.common.saveFailed)
     } finally {
       setSaving(false)
     }
   }
 
   return (
-    <Sheet title={`Aggiungi a "${goal.name}"`} onClose={onClose}>
+    <Sheet title={t.contributionSheet.title(goal.name)} onClose={onClose}>
       <div className="stack">
         <div className="field">
-          <label htmlFor="cs-amount">Importo (€)</label>
+          <label htmlFor="cs-amount">{t.contributionSheet.amountLabel}</label>
           <input
             id="cs-amount"
             className="input"
@@ -57,11 +60,11 @@ export function ContributionSheet({ goal, onClose, initialAmountCents }: Props) 
             autoFocus
             value={amount}
             onChange={(e) => setAmount(e.target.value.replace(/[^0-9,.]/g, ''))}
-            placeholder="0,00"
+            placeholder={`0${decimalSeparator()}00`}
           />
         </div>
         <div className="field">
-          <label htmlFor="cs-date">Data</label>
+          <label htmlFor="cs-date">{t.common.date}</label>
           <input
             id="cs-date"
             className="input"
@@ -72,7 +75,7 @@ export function ContributionSheet({ goal, onClose, initialAmountCents }: Props) 
           />
         </div>
         <div className="field">
-          <label htmlFor="cs-note">Nota (opzionale)</label>
+          <label htmlFor="cs-note">{t.common.noteOptional}</label>
           <input
             id="cs-note"
             className="input"
@@ -83,7 +86,7 @@ export function ContributionSheet({ goal, onClose, initialAmountCents }: Props) 
           />
         </div>
         <button type="button" className="btn btn-primary btn-block" disabled={!canSave} onClick={handleSave}>
-          Aggiungi
+          {t.common.add}
         </button>
         {error && (
           <div style={{ color: 'var(--status-critical)', fontSize: 12, textAlign: 'center' }}>{error}</div>

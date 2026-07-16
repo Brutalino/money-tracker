@@ -116,26 +116,30 @@ export function sumContributionCents(contributions: Contribution[]): number {
   return contributions.reduce((sum, c) => sum + c.amountCents, 0)
 }
 
+/** Which pace copy to show; distinct from PaceStatus because "good" has two
+ * different messages (on-track vs. well-ahead) that share the same status/color. */
+export type PaceMessageKey = 'good' | 'critical' | 'warning' | 'wayAhead'
+
 export interface PaceInfo {
   spentFraction: number
   elapsedFraction: number
   status: PaceStatus
-  message: string
+  messageKey: PaceMessageKey
 }
 
 export function computePace(spentFraction: number, elapsedFraction: number): PaceInfo {
   const diff = spentFraction - elapsedFraction
   let status: PaceStatus = 'good'
-  let message = 'Sei in linea 👌'
+  let messageKey: PaceMessageKey = 'good'
   if (diff > 0.18) {
     status = 'critical'
-    message = 'Stai correndo troppo, rallenta 🚨'
+    messageKey = 'critical'
   } else if (diff > 0.07) {
     status = 'warning'
-    message = 'Stai correndo un po\' troppo ⚠️'
+    messageKey = 'warning'
   } else if (diff < -0.15) {
     status = 'good'
-    message = 'Vai piano, sei molto avanti 🙂'
+    messageKey = 'wayAhead'
   }
-  return { spentFraction, elapsedFraction, status, message }
+  return { spentFraction, elapsedFraction, status, messageKey }
 }

@@ -11,6 +11,7 @@ import { db } from '../../db/db'
 import { getMonthTransactions, sumCents, goalSavedCents } from '../../lib/stats'
 import { currentMonthKey, monthLabel } from '../../lib/dates'
 import { formatCents } from '../../lib/money'
+import { useT } from '../../i18n'
 import type { Goal, Contribution } from '../../db/types'
 
 interface Props {
@@ -18,6 +19,7 @@ interface Props {
 }
 
 export function RisparmiScreen({ onOpenSettings }: Props) {
+  const t = useT()
   const [goalSheet, setGoalSheet] = useState<{ item: Goal | null } | null>(null)
   const [contribGoal, setContribGoal] = useState<{ goal: Goal; initial?: number } | null>(null)
 
@@ -44,10 +46,10 @@ export function RisparmiScreen({ onOpenSettings }: Props) {
 
   return (
     <div className="screen-root">
-      <Header title="Risparmi" onOpenSettings={onOpenSettings} />
+      <Header title={t.nav.savings} onOpenSettings={onOpenSettings} />
       <div className="screen-pad">
         <div className={`card ${styles.leftoverCard}`}>
-          <div className={styles.leftoverLabel}>Avanzo di {monthLabel(currentMonth).split(' ')[0]}</div>
+          <div className={styles.leftoverLabel}>{t.risparmi.leftoverOf(monthLabel(currentMonth).split(' ')[0])}</div>
           <div
             className={styles.leftoverValue}
             style={{ color: data.leftoverCents < 0 ? 'var(--status-critical)' : 'var(--status-good-text)' }}
@@ -56,7 +58,7 @@ export function RisparmiScreen({ onOpenSettings }: Props) {
           </div>
           <div className={styles.leftoverRow}>
             <span className="muted" style={{ fontSize: 12.5 }}>
-              Entrate meno uscite di questo mese
+              {t.risparmi.leftoverExplanation}
             </span>
             {topGoal && data.leftoverCents > 0 && (
               <button
@@ -65,7 +67,7 @@ export function RisparmiScreen({ onOpenSettings }: Props) {
                 style={{ fontSize: 13, padding: '0 14px', minHeight: 38 }}
                 onClick={() => setContribGoal({ goal: topGoal, initial: data.leftoverCents })}
               >
-                Metti da parte
+                {t.risparmi.setAside}
               </button>
             )}
           </div>
@@ -75,8 +77,8 @@ export function RisparmiScreen({ onOpenSettings }: Props) {
           <div className="card">
             <EmptyState
               emoji="🐷"
-              title="Nessun obiettivo ancora"
-              subtitle="Crea il tuo primo obiettivo di risparmio: una vacanza, un acquisto, un fondo di emergenza."
+              title={t.goals.noGoalsTitle}
+              subtitle={t.risparmi.noGoalsSubtitle}
             />
           </div>
         ) : (
@@ -97,7 +99,7 @@ export function RisparmiScreen({ onOpenSettings }: Props) {
           className={`btn ${styles.addGoalBtn}`}
           onClick={() => setGoalSheet({ item: null })}
         >
-          <IconPlus width={16} height={16} /> Nuovo obiettivo
+          <IconPlus width={16} height={16} /> {t.risparmi.newGoal}
         </button>
       </div>
 

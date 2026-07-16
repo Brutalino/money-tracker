@@ -5,6 +5,7 @@ import { IconEdit } from '../../components/Icons'
 import { formatCents } from '../../lib/money'
 import { monthLabel, currentMonthKey, lastNMonths, monthDiff, addMonths } from '../../lib/dates'
 import { averageMonthlyContribution } from '../../lib/stats'
+import { useT } from '../../i18n'
 import type { Goal, Contribution } from '../../db/types'
 
 interface Props {
@@ -16,6 +17,7 @@ interface Props {
 }
 
 export function GoalCard({ goal, savedCents, contributions, onEdit, onAddContribution }: Props) {
+  const t = useT()
   const fraction = goal.targetCents > 0 ? savedCents / goal.targetCents : 0
   const remainingCents = Math.max(0, goal.targetCents - savedCents)
   const nowKey = currentMonthKey()
@@ -27,23 +29,23 @@ export function GoalCard({ goal, savedCents, contributions, onEdit, onAddContrib
   let noteText: string
   let deadlinePassed = false
   if (remainingCents <= 0) {
-    noteText = 'Obiettivo raggiunto! 🎉'
+    noteText = t.goalCard.reached
   } else if (goal.deadline && monthDiff(nowKey, goal.deadline) < 0) {
-    // Deadline already passed and the goal isn't reached: a €/mese pace computed
+    // Deadline already passed and the goal isn't reached: a €/month pace computed
     // with monthsLeft clamped to 1 would misleadingly suggest "just save X more
     // this month" instead of surfacing that the target date was missed.
     deadlinePassed = true
-    noteText = 'Scadenza superata'
+    noteText = t.goalCard.deadlinePassed
   } else if (goal.deadline) {
     const monthsLeft = Math.max(1, monthDiff(nowKey, goal.deadline))
     const perMonth = Math.ceil(remainingCents / monthsLeft / 100) * 100
-    noteText = `Entro ${monthLabel(goal.deadline)}: ${formatCents(perMonth)}/mese`
+    noteText = t.goalCard.byDeadline(monthLabel(goal.deadline), formatCents(perMonth))
   } else if (avgMonthlyCents > 0) {
     const monthsToGo = Math.ceil(remainingCents / avgMonthlyCents)
     const reachMonth = addMonths(nowKey, monthsToGo)
-    noteText = `Di questo passo lo raggiungi a ${monthLabel(reachMonth)}`
+    noteText = t.goalCard.projection(monthLabel(reachMonth))
   } else {
-    noteText = 'Aggiungi contributi per vedere una proiezione'
+    noteText = t.goalCard.addContributionsForProjection
   }
 
   return (
@@ -55,12 +57,12 @@ export function GoalCard({ goal, savedCents, contributions, onEdit, onAddContrib
         <div className={styles.info}>
           <div className={styles.nameRow}>
             <span className={styles.name}>{goal.name}</span>
-            <button type="button" className={styles.editBtn} onClick={onEdit} aria-label="Modifica obiettivo">
+            <button type="button" className={styles.editBtn} onClick={onEdit} aria-label={t.goalCard.editGoalAriaLabel}>
               <IconEdit width={14} height={14} />
             </button>
           </div>
           <div className={styles.amounts}>
-            {formatCents(savedCents)} di {formatCents(goal.targetCents)}
+            {t.common.amountOfTarget(formatCents(savedCents), formatCents(goal.targetCents))}
           </div>
         </div>
       </div>
@@ -75,7 +77,7 @@ export function GoalCard({ goal, savedCents, contributions, onEdit, onAddContrib
 
       <div className={styles.actionsRow}>
         <button type="button" className="btn btn-primary btn-block" onClick={onAddContribution}>
-          + Aggiungi contributo
+          {t.goalCard.addContribution}
         </button>
       </div>
     </div>

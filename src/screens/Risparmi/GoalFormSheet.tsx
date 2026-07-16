@@ -3,6 +3,7 @@ import { Sheet } from '../../components/ui/Sheet'
 import { db } from '../../db/db'
 import { makeId } from '../../lib/id'
 import { eurosToCents, centsToEuros } from '../../lib/money'
+import { useT } from '../../i18n'
 import type { Goal } from '../../db/types'
 
 interface Props {
@@ -13,6 +14,7 @@ interface Props {
 const EMOJI_OPTIONS = ['🏖️', '✈️', '🚗', '🏠', '💍', '🎓', '💻', '🎮', '🩺', '🐷', '🎁', '📱', '🎸', '🚲']
 
 export function GoalFormSheet({ onClose, editing }: Props) {
+  const t = useT()
   const [emoji, setEmoji] = useState(editing?.emoji ?? EMOJI_OPTIONS[0])
   const [name, setName] = useState(editing?.name ?? '')
   const [target, setTarget] = useState(editing ? String(centsToEuros(editing.targetCents)) : '')
@@ -50,7 +52,7 @@ export function GoalFormSheet({ onClose, editing }: Props) {
       }
       onClose()
     } catch {
-      setError('Salvataggio non riuscito. Riprova.')
+      setError(t.common.saveFailed)
     } finally {
       setSaving(false)
     }
@@ -64,7 +66,7 @@ export function GoalFormSheet({ onClose, editing }: Props) {
 
   async function handleDelete() {
     if (!editing) return
-    if (!confirm('Eliminare questo obiettivo e tutti i suoi contributi?')) return
+    if (!confirm(t.goalForm.confirmDelete)) return
     await db.transaction('rw', [db.goals, db.contributions], async () => {
       await db.contributions.where('goalId').equals(editing.id).delete()
       await db.goals.delete(editing.id)
@@ -73,10 +75,10 @@ export function GoalFormSheet({ onClose, editing }: Props) {
   }
 
   return (
-    <Sheet title={editing ? 'Modifica obiettivo' : 'Nuovo obiettivo'} onClose={onClose}>
+    <Sheet title={editing ? t.goalForm.editTitle : t.goalForm.newTitle} onClose={onClose}>
       <div className="stack">
         <div className="field">
-          <label>Emoji</label>
+          <label>{t.common.emoji}</label>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
             {EMOJI_OPTIONS.map((e) => (
               <button
@@ -100,20 +102,20 @@ export function GoalFormSheet({ onClose, editing }: Props) {
         </div>
 
         <div className="field">
-          <label htmlFor="gf-name">Nome obiettivo</label>
+          <label htmlFor="gf-name">{t.goalForm.nameLabel}</label>
           <input
             id="gf-name"
             className="input"
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Es. Vacanza, Auto nuova..."
+            placeholder={t.goalForm.namePlaceholder}
             maxLength={60}
           />
         </div>
 
         <div className="field">
-          <label htmlFor="gf-target">Obiettivo (€)</label>
+          <label htmlFor="gf-target">{t.goalForm.targetLabel}</label>
           <input
             id="gf-target"
             className="input"
@@ -126,7 +128,7 @@ export function GoalFormSheet({ onClose, editing }: Props) {
         </div>
 
         <div className="field">
-          <label htmlFor="gf-deadline">Scadenza (opzionale)</label>
+          <label htmlFor="gf-deadline">{t.goalForm.deadlineLabel}</label>
           <input
             id="gf-deadline"
             className="input"
@@ -137,7 +139,7 @@ export function GoalFormSheet({ onClose, editing }: Props) {
         </div>
 
         <button type="button" className="btn btn-primary btn-block" disabled={!canSave} onClick={handleSave}>
-          Salva
+          {t.common.save}
         </button>
         {error && (
           <div style={{ color: 'var(--status-critical)', fontSize: 12, textAlign: 'center' }}>{error}</div>
@@ -146,10 +148,10 @@ export function GoalFormSheet({ onClose, editing }: Props) {
         {editing && (
           <div className="row" style={{ gap: 8 }}>
             <button type="button" className="btn" style={{ flex: 1 }} onClick={handleArchive}>
-              {editing.archived ? 'Riattiva' : 'Archivia'}
+              {editing.archived ? t.common.reactivate : t.goalForm.archive}
             </button>
             <button type="button" className="btn btn-danger" style={{ flex: 1 }} onClick={handleDelete}>
-              Elimina
+              {t.common.delete}
             </button>
           </div>
         )}

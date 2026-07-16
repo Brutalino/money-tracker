@@ -10,6 +10,8 @@ import { makeId } from '../../lib/id'
 import { applyKeypadKey, formatBufferDisplay } from '../../lib/keypadBuffer'
 import { parseAmountToCents } from '../../lib/money'
 import { todayISO } from '../../lib/dates'
+import { useT } from '../../i18n'
+import { decimalSeparator } from '../../lib/locale'
 import type { Transaction, TransactionType } from '../../db/types'
 
 interface Props {
@@ -19,6 +21,7 @@ interface Props {
 }
 
 export function QuickEntrySheet({ onClose, editingTransaction, defaultType = 'expense' }: Props) {
+  const t = useT()
   const isEditing = !!editingTransaction
   const [type, setType] = useState<TransactionType>(editingTransaction?.type ?? defaultType)
   const categories = useCategories(type)
@@ -26,7 +29,7 @@ export function QuickEntrySheet({ onClose, editingTransaction, defaultType = 'ex
   const [buffer, setBuffer] = useState<string>(() => {
     if (!editingTransaction) return ''
     const euros = editingTransaction.amountCents / 100
-    return euros.toString().replace('.', ',')
+    return euros.toString().replace('.', decimalSeparator())
   })
   const [date, setDate] = useState(editingTransaction?.date ?? todayISO())
   const [note, setNote] = useState(editingTransaction?.note ?? '')
@@ -45,9 +48,9 @@ export function QuickEntrySheet({ onClose, editingTransaction, defaultType = 'ex
   const canSave = amountCents > 0 && !!categoryId && !saving
   const hint =
     amountCents > 0 && !categoryId
-      ? 'Scegli una categoria'
+      ? t.quickEntry.chooseCategory
       : amountCents === 0 && !!categoryId
-        ? 'Inserisci un importo'
+        ? t.quickEntry.enterAmount
         : null
 
   async function handleSave() {
@@ -75,7 +78,7 @@ export function QuickEntrySheet({ onClose, editingTransaction, defaultType = 'ex
       }
       onClose()
     } catch {
-      setError('Salvataggio non riuscito. Riprova.')
+      setError(t.common.saveFailed)
     } finally {
       setSaving(false)
     }
@@ -83,7 +86,7 @@ export function QuickEntrySheet({ onClose, editingTransaction, defaultType = 'ex
 
   async function handleDelete() {
     if (!editingTransaction) return
-    if (!confirm('Eliminare questa transazione?')) return
+    if (!confirm(t.quickEntry.confirmDelete)) return
     await db.transactions.delete(editingTransaction.id)
     onClose()
   }
@@ -91,7 +94,7 @@ export function QuickEntrySheet({ onClose, editingTransaction, defaultType = 'ex
   return (
     <Sheet variant="full" hideHeader onClose={onClose}>
       <div className={styles.top}>
-        <button type="button" className={styles.closeBtn} onClick={onClose} aria-label="Chiudi">
+        <button type="button" className={styles.closeBtn} onClick={onClose} aria-label={t.quickEntry.closeAriaLabel}>
           <IconClose width={18} height={18} />
         </button>
         <div className={styles.segmented}>
@@ -100,18 +103,23 @@ export function QuickEntrySheet({ onClose, editingTransaction, defaultType = 'ex
             className={`${styles.segBtn} ${type === 'expense' ? styles.segBtnActiveExpense : ''}`}
             onClick={() => setType('expense')}
           >
-            Spesa
+            {t.finance.expense}
           </button>
           <button
             type="button"
             className={`${styles.segBtn} ${type === 'income' ? styles.segBtnActiveIncome : ''}`}
             onClick={() => setType('income')}
           >
-            Entrata
+            {t.finance.income}
           </button>
         </div>
         {isEditing ? (
-          <button type="button" className={styles.deleteBtn} onClick={handleDelete} aria-label="Elimina">
+          <button
+            type="button"
+            className={styles.deleteBtn}
+            onClick={handleDelete}
+            aria-label={t.quickEntry.deleteAriaLabel}
+          >
             <IconTrash width={18} height={18} />
           </button>
         ) : (
@@ -135,7 +143,7 @@ export function QuickEntrySheet({ onClose, editingTransaction, defaultType = 'ex
         <div className={styles.metaRow}>
           <div className={styles.metaField}>
             <label className={styles.metaLabel} htmlFor="qe-date">
-              Data
+              {t.common.date}
             </label>
             <input
               id="qe-date"
@@ -150,14 +158,14 @@ export function QuickEntrySheet({ onClose, editingTransaction, defaultType = 'ex
 
         <div className={styles.metaField}>
           <label className={styles.metaLabel} htmlFor="qe-note">
-            Nota (opzionale)
+            {t.common.noteOptional}
           </label>
           <input
             id="qe-note"
             type="text"
             className={styles.noteInput}
             value={note}
-            placeholder="Aggiungi una nota..."
+            placeholder={t.quickEntry.notePlaceholder}
             onChange={(e) => setNote(e.target.value)}
             maxLength={140}
           />
@@ -167,7 +175,7 @@ export function QuickEntrySheet({ onClose, editingTransaction, defaultType = 'ex
       <div className={styles.keypadWrap}>
         <Keypad onKey={(k) => setBuffer((b) => applyKeypadKey(b, k))} />
         <button type="button" className={styles.saveBtn} disabled={!canSave} onClick={handleSave}>
-          {isEditing ? 'Salva modifiche' : 'Salva'}
+          {isEditing ? t.common.saveChanges : t.common.save}
         </button>
         {error ? (
           <div className={styles.errorText}>{error}</div>

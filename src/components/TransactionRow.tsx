@@ -1,6 +1,7 @@
 import styles from './TransactionRow.module.css'
 import type { Transaction, Category } from '../db/types'
 import { formatCentsCompact } from '../lib/money'
+import { useT } from '../i18n'
 
 interface Props {
   transaction: Transaction
@@ -9,6 +10,7 @@ interface Props {
 }
 
 export function TransactionRow({ transaction, category, onClick }: Props) {
+  const t = useT()
   const isExpense = transaction.type === 'expense'
   return (
     <button
@@ -22,9 +24,9 @@ export function TransactionRow({ transaction, category, onClick }: Props) {
       </div>
       <div className={styles.main}>
         <div className={styles.nameRow}>
-          <span className={styles.name}>{category?.name ?? 'Categoria'}</span>
+          <span className={styles.name}>{category?.name ?? t.transactionRow.categoryFallback}</span>
           {transaction.recurringId && (
-            <span className={styles.badge} title="Generata da costo fisso">
+            <span className={styles.badge} title={t.transactionRow.generatedFromRecurring}>
               🔁
             </span>
           )}

@@ -6,7 +6,9 @@ import { db } from '../../db/db'
 import { makeId } from '../../lib/id'
 import { eurosToCents, centsToEuros, formatCents } from '../../lib/money'
 import { currentMonthKey, firstOfMonth } from '../../lib/dates'
-import { FREQUENCY_LABELS_IT, materializeRecurring, monthlyEquivalentCents } from '../../lib/recurring'
+import { materializeRecurring, monthlyEquivalentCents } from '../../lib/recurring'
+import { useT } from '../../i18n'
+import { decimalSeparator } from '../../lib/locale'
 import type { Recurring, RecurringFrequency, TransactionType } from '../../db/types'
 
 interface Props {
@@ -17,11 +19,12 @@ interface Props {
 const FREQUENCIES: RecurringFrequency[] = ['monthly', 'bimonthly', 'quarterly', 'annual']
 
 export function RecurringFormSheet({ onClose, editing }: Props) {
+  const t = useT()
   const [type, setType] = useState<TransactionType>(editing?.type ?? 'expense')
   const categories = useCategories(type)
   const [name, setName] = useState(editing?.name ?? '')
   const [amount, setAmount] = useState(
-    editing ? centsToEuros(editing.amountCents).toString().replace('.', ',') : ''
+    editing ? centsToEuros(editing.amountCents).toString().replace('.', decimalSeparator()) : ''
   )
   const [categoryId, setCategoryId] = useState<string | null>(editing?.categoryId ?? null)
   const [frequency, setFrequency] = useState<RecurringFrequency>(editing?.frequency ?? 'monthly')
@@ -61,7 +64,7 @@ export function RecurringFormSheet({ onClose, editing }: Props) {
       }
       onClose()
     } catch {
-      setError('Salvataggio non riuscito. Riprova.')
+      setError(t.common.saveFailed)
     } finally {
       setSaving(false)
     }
@@ -78,14 +81,13 @@ export function RecurringFormSheet({ onClose, editing }: Props) {
       if (nowActive) await materializeRecurring()
       onClose()
     } catch {
-      setError('Salvataggio non riuscito. Riprova.')
+      setError(t.common.saveFailed)
     }
   }
 
   async function handleDelete() {
     if (!editing) return
-    if (!confirm('Eliminare questo costo fisso? Le transazioni già generate rimarranno nello storico.'))
-      return
+    if (!confirm(t.recurringForm.confirmDelete)) return
     try {
       // Offer to also clean up this month's already-generated transaction, if any.
       const thisMonthDate = firstOfMonth(currentMonthKey())
@@ -98,18 +100,18 @@ export function RecurringFormSheet({ onClose, editing }: Props) {
 
       if (thisMonthTx) {
         const amountLabel = formatCents(monthlyEquivalentCents(editing.amountCents, editing.frequency))
-        if (confirm(`Eliminare anche la transazione di questo mese (${amountLabel})?`)) {
+        if (confirm(t.recurringForm.confirmDeleteThisMonthTx(amountLabel))) {
           await db.transactions.delete(thisMonthTx.id)
         }
       }
       onClose()
     } catch {
-      setError('Eliminazione non riuscita. Riprova.')
+      setError(t.recurringForm.deleteFailedRetry)
     }
   }
 
   return (
-    <Sheet title={editing ? 'Modifica costo fisso' : 'Nuovo costo fisso'} onClose={onClose}>
+    <Sheet title={editing ? t.recurringForm.editTitle : t.recurringForm.newTitle} onClose={onClose}>
       <div className="stack">
         <div className="row" style={{ gap: 8 }}>
           <button
@@ -118,7 +120,7 @@ export function RecurringFormSheet({ onClose, editing }: Props) {
             style={{ flex: 1 }}
             onClick={() => setType('expense')}
           >
-            Uscita
+            {t.recurringForm.expenseOption}
           </button>
           <button
             type="button"
@@ -126,25 +128,25 @@ export function RecurringFormSheet({ onClose, editing }: Props) {
             style={{ flex: 1 }}
             onClick={() => setType('income')}
           >
-            Entrata
+            {t.recurringForm.incomeOption}
           </button>
         </div>
 
         <div className="field">
-          <label htmlFor="rf-name">Nome</label>
+          <label htmlFor="rf-name">{t.common.name}</label>
           <input
             id="rf-name"
             className="input"
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Es. Affitto, Netflix, Palestra..."
+            placeholder={t.recurringForm.namePlaceholder}
             maxLength={60}
           />
         </div>
 
         <div className="field">
-          <label htmlFor="rf-amount">Importo (per la frequenza scelta)</label>
+          <label htmlFor="rf-amount">{t.recurringForm.amountLabel}</label>
           <input
             id="rf-amount"
             className="input"
@@ -152,12 +154,12 @@ export function RecurringFormSheet({ onClose, editing }: Props) {
             inputMode="decimal"
             value={amount}
             onChange={(e) => setAmount(e.target.value.replace(/[^0-9,.]/g, ''))}
-            placeholder="0,00"
+            placeholder={`0${decimalSeparator()}00`}
           />
         </div>
 
         <div className="field">
-          <label htmlFor="rf-freq">Frequenza</label>
+          <label htmlFor="rf-freq">{t.recurringForm.frequencyLabel}</label>
           <select
             id="rf-freq"
             className="select"
@@ -166,14 +168,14 @@ export function RecurringFormSheet({ onClose, editing }: Props) {
           >
             {FREQUENCIES.map((f) => (
               <option key={f} value={f}>
-                {FREQUENCY_LABELS_IT[f]}
+                {t.frequency[f]}
               </option>
             ))}
           </select>
         </div>
 
         <div className="field">
-          <label>Categoria</label>
+          <label>{t.common.category}</label>
           <CategoryChips
             categories={categories ?? []}
             selectedId={categoryId}
@@ -183,7 +185,7 @@ export function RecurringFormSheet({ onClose, editing }: Props) {
         </div>
 
         <button type="button" className="btn btn-primary btn-block" disabled={!canSave} onClick={handleSave}>
-          Salva
+          {t.common.save}
         </button>
         {error && (
           <div style={{ color: 'var(--status-critical)', fontSize: 12, textAlign: 'center' }}>{error}</div>
@@ -192,10 +194,10 @@ export function RecurringFormSheet({ onClose, editing }: Props) {
         {editing && (
           <div className="row" style={{ gap: 8 }}>
             <button type="button" className="btn" style={{ flex: 1 }} onClick={handleToggleActive}>
-              {editing.active ? 'Disattiva' : 'Riattiva'}
+              {editing.active ? t.recurringForm.deactivate : t.common.reactivate}
             </button>
             <button type="button" className="btn btn-danger" style={{ flex: 1 }} onClick={handleDelete}>
-              Elimina
+              {t.common.delete}
             </button>
           </div>
         )}

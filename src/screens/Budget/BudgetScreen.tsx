@@ -17,12 +17,14 @@ import {
 import { copyBudgetsFromMonth, upsertBudget } from '../../lib/budgets'
 import { currentMonthKey, addMonths, monthLabel } from '../../lib/dates'
 import { formatEuros } from '../../lib/money'
+import { useT } from '../../i18n'
 
 interface Props {
   onOpenSettings: () => void
 }
 
 export function BudgetScreen({ onOpenSettings }: Props) {
+  const t = useT()
   const [month, setMonth] = useState(currentMonthKey())
   const [suggestOpen, setSuggestOpen] = useState(false)
   const [resetKey, setResetKey] = useState(0)
@@ -63,10 +65,10 @@ export function BudgetScreen({ onOpenSettings }: Props) {
 
   async function handleCopyPrev() {
     if (!prevMonthHasBudgets) {
-      setCopyMessage(`Nessun budget da copiare da ${prevMonthLbl}`)
+      setCopyMessage(t.budget.noBudgetToCopy(prevMonthLbl))
       return
     }
-    if (!confirm(`Copiare i budget di ${prevMonthLbl} su ${monthLabel(month)}?`)) return
+    if (!confirm(t.budget.confirmCopy(prevMonthLbl, monthLabel(month)))) return
     setCopyMessage(null)
     await copyBudgetsFromMonth(addMonths(month, -1), month)
     setResetKey((k) => k + 1)
@@ -83,12 +85,12 @@ export function BudgetScreen({ onOpenSettings }: Props) {
 
   return (
     <div className="screen-root">
-      <Header title="Budget" onOpenSettings={onOpenSettings} />
+      <Header title={t.nav.budget} onOpenSettings={onOpenSettings} />
       <div className="screen-pad">
         <MonthSelector month={month} onChange={setMonth} disableFuture={false} />
 
         <div className={`card ${styles.totalCard}`}>
-          <span className={styles.totalLabel}>Budget totale</span>
+          <span className={styles.totalLabel}>{t.budget.totalBudget}</span>
           <span className={styles.totalValue}>{formatEuros(totalBudgeted)}</span>
         </div>
 
@@ -98,7 +100,7 @@ export function BudgetScreen({ onOpenSettings }: Props) {
             className={`btn ${styles.actionBtn}`}
             onClick={() => setSuggestOpen(true)}
           >
-            ✨ Suggerisci budget
+            {t.budget.suggestBudget}
           </button>
           <button
             type="button"
@@ -106,7 +108,7 @@ export function BudgetScreen({ onOpenSettings }: Props) {
             onClick={handleCopyPrev}
             aria-disabled={!prevMonthHasBudgets}
           >
-            📋 Copia da {prevMonthLbl.split(' ')[0]}
+            {t.budget.copyFrom(prevMonthLbl.split(' ')[0])}
           </button>
         </div>
         {copyMessage && (
@@ -118,8 +120,8 @@ export function BudgetScreen({ onOpenSettings }: Props) {
         {data.categories.length === 0 ? (
           <EmptyState
             emoji="🎯"
-            title="Nessuna categoria di spesa"
-            subtitle="Aggiungi categorie dalle impostazioni per iniziare a definire un budget."
+            title={t.budget.noCategoriesTitle}
+            subtitle={t.budget.noCategoriesSubtitle}
           />
         ) : (
           data.categories.map((c) => {

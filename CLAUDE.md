@@ -1,6 +1,6 @@
 # Money Tracker — project context
 
-Personal finance PWA for Fabio (Italian UI, EUR). Live at https://brutalino.github.io/money-tracker/ — repo `Brutalino/money-tracker`, deployed to GitHub Pages by `.github/workflows/deploy.yml` on every push to `main`. The app is in daily use on the owner's iPhone 16 Pro (402×874pt): treat `main` as production and verify before pushing.
+Personal finance PWA for Fabio (EUR). UI is **English by default** with Italian selectable in Settings; all user-facing strings MUST go through the typed i18n dictionaries in `src/i18n/` (`en.ts`/`it.ts` share a `TranslationKeys` type — the build fails on missing keys; never hardcode UI strings). Dates, currency formatting, keypad decimal separator and CSV format all follow the active language. **Everything published (README, code, comments, commit messages) is in English; conversation with the user is in Italian.** Live at https://brutalino.github.io/money-tracker/ — repo `Brutalino/money-tracker`, deployed to GitHub Pages by `.github/workflows/deploy.yml` on every push to `main`. The app is in daily use on the owner's iPhone 16 Pro (402×874pt): treat `main` as production and verify before pushing.
 
 ## Workflow expectations
 

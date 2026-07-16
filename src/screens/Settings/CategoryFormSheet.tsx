@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Sheet } from '../../components/ui/Sheet'
 import { db } from '../../db/db'
 import { makeId } from '../../lib/id'
+import { useT } from '../../i18n'
 import type { Category, TransactionType } from '../../db/types'
 
 interface Props {
@@ -22,6 +23,7 @@ const COLOR_OPTIONS = [
 ]
 
 export function CategoryFormSheet({ onClose, editing, defaultKind = 'expense' }: Props) {
+  const t = useT()
   const [kind, setKind] = useState<TransactionType>(editing?.kind ?? defaultKind)
   const [name, setName] = useState(editing?.name ?? '')
   const [emoji, setEmoji] = useState(editing?.emoji ?? '🏷️')
@@ -53,7 +55,7 @@ export function CategoryFormSheet({ onClose, editing, defaultKind = 'expense' }:
       }
       onClose()
     } catch {
-      setError('Salvataggio non riuscito. Riprova.')
+      setError(t.common.saveFailed)
     } finally {
       setSaving(false)
     }
@@ -66,7 +68,7 @@ export function CategoryFormSheet({ onClose, editing, defaultKind = 'expense' }:
   }
 
   return (
-    <Sheet title={editing ? 'Modifica categoria' : 'Nuova categoria'} onClose={onClose}>
+    <Sheet title={editing ? t.categoryForm.editTitle : t.categoryForm.newTitle} onClose={onClose}>
       <div className="stack">
         <div className="row" style={{ gap: 8 }}>
           <button
@@ -76,7 +78,7 @@ export function CategoryFormSheet({ onClose, editing, defaultKind = 'expense' }:
             onClick={() => setKind('expense')}
             disabled={!!editing}
           >
-            Spesa
+            {t.finance.expense}
           </button>
           <button
             type="button"
@@ -85,13 +87,13 @@ export function CategoryFormSheet({ onClose, editing, defaultKind = 'expense' }:
             onClick={() => setKind('income')}
             disabled={!!editing}
           >
-            Entrata
+            {t.finance.income}
           </button>
         </div>
 
         <div className="row" style={{ gap: 10 }}>
           <div className="field" style={{ width: 70 }}>
-            <label htmlFor="cf-emoji">Emoji</label>
+            <label htmlFor="cf-emoji">{t.common.emoji}</label>
             <input
               id="cf-emoji"
               className="input"
@@ -103,7 +105,7 @@ export function CategoryFormSheet({ onClose, editing, defaultKind = 'expense' }:
             />
           </div>
           <div className="field" style={{ flex: 1 }}>
-            <label htmlFor="cf-name">Nome</label>
+            <label htmlFor="cf-name">{t.common.name}</label>
             <input
               id="cf-name"
               className="input"
@@ -116,7 +118,7 @@ export function CategoryFormSheet({ onClose, editing, defaultKind = 'expense' }:
         </div>
 
         <div className="field">
-          <label>Colore</label>
+          <label>{t.categoryForm.colorLabel}</label>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
             {COLOR_OPTIONS.map((c) => (
               <button
@@ -137,7 +139,7 @@ export function CategoryFormSheet({ onClose, editing, defaultKind = 'expense' }:
         </div>
 
         <button type="button" className="btn btn-primary btn-block" disabled={!canSave} onClick={handleSave}>
-          Salva
+          {t.common.save}
         </button>
         {error && (
           <div style={{ color: 'var(--status-critical)', fontSize: 12, textAlign: 'center' }}>{error}</div>
@@ -145,7 +147,7 @@ export function CategoryFormSheet({ onClose, editing, defaultKind = 'expense' }:
 
         {editing && (
           <button type="button" className="btn btn-block" onClick={handleToggleArchive}>
-            {editing.archived ? 'Riattiva categoria' : 'Archivia categoria'}
+            {editing.archived ? t.categoryForm.reactivateCategory : t.categoryForm.archiveCategory}
           </button>
         )}
       </div>

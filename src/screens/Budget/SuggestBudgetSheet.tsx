@@ -1,5 +1,6 @@
 import { Sheet } from '../../components/ui/Sheet'
 import { formatEuros } from '../../lib/money'
+import { useT } from '../../i18n'
 import type { Category } from '../../db/types'
 
 interface Props {
@@ -10,26 +11,26 @@ interface Props {
 }
 
 export function SuggestBudgetSheet({ onClose, onConfirm, suggestions, categories }: Props) {
+  const t = useT()
   const total = Array.from(suggestions.values()).reduce((a, b) => a + b, 0)
 
   if (suggestions.size === 0) {
     return (
-      <Sheet title="Budget suggerito" onClose={onClose}>
+      <Sheet title={t.budget.suggestedBudgetTitle} onClose={onClose}>
         <p className="secondary-text" style={{ fontSize: 13 }}>
-          Non c'è ancora abbastanza storico di spese negli ultimi mesi per calcolare un suggerimento.
-          Registra qualche spesa e riprova più avanti.
+          {t.budget.notEnoughHistory}
         </p>
         <button type="button" className="btn btn-block" style={{ marginTop: 18 }} onClick={onClose}>
-          Chiudi
+          {t.common.close}
         </button>
       </Sheet>
     )
   }
 
   return (
-    <Sheet title="Budget suggerito" onClose={onClose}>
+    <Sheet title={t.budget.suggestedBudgetTitle} onClose={onClose}>
       <p className="secondary-text" style={{ fontSize: 13, marginBottom: 14 }}>
-        Calcolato sulla media delle spese degli ultimi mesi, arrotondato ai 5€ più vicini.
+        {t.budget.suggestExplanation}
       </p>
       <div className="stack" style={{ gap: 8 }}>
         {categories.map((c) => (
@@ -42,7 +43,7 @@ export function SuggestBudgetSheet({ onClose, onConfirm, suggestions, categories
         ))}
         <hr className="divider" style={{ margin: '6px 0' }} />
         <div className="row">
-          <span style={{ fontWeight: 700 }}>Totale</span>
+          <span style={{ fontWeight: 700 }}>{t.common.total}</span>
           <strong>{formatEuros(total)}</strong>
         </div>
       </div>
@@ -52,7 +53,7 @@ export function SuggestBudgetSheet({ onClose, onConfirm, suggestions, categories
         style={{ marginTop: 18 }}
         onClick={onConfirm}
       >
-        Applica al mese
+        {t.budget.applyToMonth}
       </button>
     </Sheet>
   )
