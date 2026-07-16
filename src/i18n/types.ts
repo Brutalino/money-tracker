@@ -83,6 +83,7 @@ export interface TranslationKeys {
     noGoalsSubtitle: string
     recentTransactions: string
     noTransactionsSubtitle: string
+    savingsTargetLine: (amount: string, detail?: string) => string
   }
   transactions: {
     noneTitle: string
@@ -127,7 +128,8 @@ export interface TranslationKeys {
   }
   budget: {
     totalBudget: string
-    suggestBudget: string
+    suggestFromHabits: string
+    suggestWithTarget: string
     copyFrom: (month: string) => string
     noBudgetToCopy: (month: string) => string
     confirmCopy: (from: string, to: string) => string
@@ -225,5 +227,41 @@ export interface TranslationKeys {
     colorLabel: string
     reactivateCategory: string
     archiveCategory: string
+    flexibilityLabel: string
+    flexibilityEssential: string
+    flexibilityEssentialHint: string
+    flexibilityFlexible: string
+    flexibilityVeryFlexible: string
+    flexibilityVeryFlexibleHint: string
+    habitLabel: string
+    habitHint: string
+  }
+  smartBudget: {
+    title: string
+    targetQuestion: string
+    targetInputLabel: string
+    linkGoalLabel: string
+    linkGoalNone: string
+    goalPaceHint: (amount: string) => string
+    motivationLabel: string
+    motivationPlaceholder: string
+    continue: string
+    noIncomeTitle: string
+    noIncomeBody: string
+    absurdTitle: string
+    absurdMessage: (target: string, max: string) => string
+    adjustTarget: string
+    noCutsNeededBanner: (slack: string) => string
+    cutsAppliedBanner: (target: string) => string
+    insufficientBanner: (max: string, target: string) => string
+    proceedWithMax: string
+    lowerTarget: string
+    baselineLabel: string
+    proposedLabel: string
+    categoryBudgetAriaLabel: (category: string) => string
+    habitInsight: (name: string, monthly: string, yearly: string) => string
+    confirm: string
+    noHistoryTitle: string
+    noHistoryBody: string
   }
 }

@@ -18,7 +18,8 @@ import {
   goalSavedCents,
 } from '../../lib/stats'
 import { currentMonthKey, monthLabel, monthElapsedFraction } from '../../lib/dates'
-import { formatCents } from '../../lib/money'
+import { formatCents, formatEuros } from '../../lib/money'
+import { getSavingsPlan } from '../../lib/savingsPlan'
 import { useT } from '../../i18n'
 import type { TabKey } from '../../types/nav'
 import type { Transaction } from '../../db/types'
@@ -44,7 +45,9 @@ export function HomeScreen({ onOpenSettings, onNavigate }: Props) {
     const activeGoals = goalsAll.filter((g) => !g.archived).sort((a, b) => a.sortOrder - b.sortOrder)
     const topGoal = activeGoals[0]
     const topGoalSaved = topGoal ? await goalSavedCents(topGoal.id) : 0
-    return { monthTx, budgets, categories, topGoal, topGoalSaved, recentTx }
+    const savingsPlan = await getSavingsPlan()
+    const savingsPlanGoal = savingsPlan?.goalId ? goalsAll.find((g) => g.id === savingsPlan.goalId) : null
+    return { monthTx, budgets, categories, topGoal, topGoalSaved, recentTx, savingsPlan, savingsPlanGoal }
   }, [currentMonth])
 
   if (!data) return null
@@ -85,6 +88,14 @@ export function HomeScreen({ onOpenSettings, onNavigate }: Props) {
                 {t.pace[pace.messageKey]}
               </span>
             </div>
+            {data.savingsPlan && (
+              <div className="muted" style={{ fontSize: 11.5, marginTop: 8 }}>
+                {t.home.savingsTargetLine(
+                  formatEuros(data.savingsPlan.amountEuros),
+                  data.savingsPlanGoal?.name ?? data.savingsPlan.motivation
+                )}
+              </div>
+            )}
           </div>
         ) : (
           <div className={`card`}>

@@ -46,6 +46,21 @@ export class MoneyDB extends Dexie {
       contributions: 'id, goalId, date',
       settings: 'key',
     })
+    // v3 (0.4.0): "smart budget with savings target". Category gains optional
+    // `flexibility`/`habit` fields and a `savings-plan` row is added to
+    // `settings` — neither needs an index (never queried by), so the store
+    // definitions are unchanged; the version bump exists purely so Dexie
+    // records the schema change and so `package.json`'s version and
+    // Diagnostica stay meaningful proof of which build is running.
+    this.version(3).stores({
+      transactions: 'id, type, categoryId, date, recurringId, [recurringId+date]',
+      categories: 'id, kind, archived, sortOrder',
+      recurring: 'id, active, categoryId',
+      budgets: 'id, month, categoryId, [month+categoryId]',
+      goals: 'id, archived, sortOrder',
+      contributions: 'id, goalId, date',
+      settings: 'key',
+    })
   }
 }
 

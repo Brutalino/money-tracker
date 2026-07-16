@@ -5,6 +5,7 @@ import { MonthSelector } from '../../components/MonthSelector'
 import { EmptyState } from '../../components/ui/EmptyState'
 import { BudgetCategoryRow } from './BudgetCategoryRow'
 import { SuggestBudgetSheet } from './SuggestBudgetSheet'
+import { SmartBudgetSheet } from './SmartBudgetSheet'
 import styles from './BudgetScreen.module.css'
 import { db } from '../../db/db'
 import {
@@ -27,6 +28,7 @@ export function BudgetScreen({ onOpenSettings }: Props) {
   const t = useT()
   const [month, setMonth] = useState(currentMonthKey())
   const [suggestOpen, setSuggestOpen] = useState(false)
+  const [smartBudgetOpen, setSmartBudgetOpen] = useState(false)
   const [resetKey, setResetKey] = useState(0)
   const [copyMessage, setCopyMessage] = useState<string | null>(null)
 
@@ -100,8 +102,17 @@ export function BudgetScreen({ onOpenSettings }: Props) {
             className={`btn ${styles.actionBtn}`}
             onClick={() => setSuggestOpen(true)}
           >
-            {t.budget.suggestBudget}
+            {t.budget.suggestFromHabits}
           </button>
+          <button
+            type="button"
+            className={`btn ${styles.actionBtn}`}
+            onClick={() => setSmartBudgetOpen(true)}
+          >
+            {t.budget.suggestWithTarget}
+          </button>
+        </div>
+        <div className={styles.actionsRow}>
           <button
             type="button"
             className={`btn ${styles.actionBtn}`}
@@ -148,6 +159,18 @@ export function BudgetScreen({ onOpenSettings }: Props) {
           onConfirm={handleConfirmSuggestions}
           suggestions={suggestions}
           categories={data.categories}
+        />
+      )}
+
+      {smartBudgetOpen && (
+        <SmartBudgetSheet
+          month={month}
+          categories={data.categories}
+          onClose={() => setSmartBudgetOpen(false)}
+          onApplied={() => {
+            setSmartBudgetOpen(false)
+            setResetKey((k) => k + 1)
+          }}
         />
       )}
     </div>

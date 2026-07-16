@@ -81,6 +81,7 @@ export const it = {
     noGoalsSubtitle: 'Crea un obiettivo di risparmio per iniziare a mettere via qualcosa.',
     recentTransactions: 'Ultime transazioni',
     noTransactionsSubtitle: 'Tocca il pulsante + per registrare la tua prima spesa o entrata.',
+    savingsTargetLine: (amount, detail) => `Obiettivo di risparmio: ${amount}/mese${detail ? ` · ${detail}` : ''}`,
   },
   transactions: {
     noneTitle: 'Nessuna transazione',
@@ -126,7 +127,8 @@ export const it = {
   },
   budget: {
     totalBudget: 'Budget totale',
-    suggestBudget: '✨ Suggerisci budget',
+    suggestFromHabits: '✨ Dalle tue abitudini',
+    suggestWithTarget: '🎯 Con un obiettivo di risparmio',
     copyFrom: (month) => `📋 Copia da ${month}`,
     noBudgetToCopy: (month) => `Nessun budget da copiare da ${month}`,
     confirmCopy: (from, to) => `Copiare i budget di ${from} su ${to}?`,
@@ -226,5 +228,47 @@ export const it = {
     colorLabel: 'Colore',
     reactivateCategory: 'Riattiva categoria',
     archiveCategory: 'Archivia categoria',
+    flexibilityLabel: 'Flessibilità',
+    flexibilityEssential: 'Essenziale',
+    flexibilityEssentialHint: 'non verrà mai tagliata',
+    flexibilityFlexible: 'Flessibile',
+    flexibilityVeryFlexible: 'Molto flessibile',
+    flexibilityVeryFlexibleHint: 'tagliata per prima',
+    habitLabel: 'Vizio 🚬',
+    habitHint: 'Non viene mai tagliata dal budget smart, ma mostra quanto risparmieresti smettendo',
+  },
+  smartBudget: {
+    title: 'Risparmia con un obiettivo',
+    targetQuestion: 'Quanto vuoi risparmiare al mese?',
+    targetInputLabel: 'Obiettivo di risparmio mensile (€)',
+    linkGoalLabel: 'Collega a un obiettivo (opzionale)',
+    linkGoalNone: '— Nessuno —',
+    goalPaceHint: (amount) => `Precompilato dalla scadenza di questo obiettivo: ${amount}/mese`,
+    motivationLabel: 'Oppure, perché stai risparmiando? (opzionale)',
+    motivationPlaceholder: "Es. è bello avere dei soldi da parte",
+    continue: 'Continua',
+    noIncomeTitle: 'Nessuna entrata trovata',
+    noIncomeBody:
+      'Aggiungi prima il tuo stipendio come entrata ricorrente, poi torna qui per impostare un obiettivo di risparmio.',
+    absurdTitle: 'I conti non tornano',
+    absurdMessage: (target, max) =>
+      `Per risparmiare ${target} dovresti vivere con meno di zero. Il massimo teorico è ${max} — e vorrebbe dire non spendere assolutamente nulla.`,
+    adjustTarget: 'Modifica obiettivo',
+    noCutsNeededBanner: (slack) =>
+      `Il tuo obiettivo rientra nelle tue abitudini attuali — nessun taglio necessario, hai anche ${slack} di margine.`,
+    cutsAppliedBanner: (target) => `Ecco come far rientrare ${target}/mese di risparmio nel tuo budget.`,
+    insufficientBanner: (max, target) =>
+      `Con tagli realistici (max −30%) puoi risparmiare fino a ${max}/mese, non ${target}.`,
+    proceedWithMax: 'Procedi con questa proposta',
+    lowerTarget: 'Torna indietro e abbassa l\'obiettivo',
+    baselineLabel: 'Abituale',
+    proposedLabel: 'Proposto',
+    categoryBudgetAriaLabel: (category) => `Budget proposto per ${category}`,
+    habitInsight: (name, monthly, yearly) =>
+      `🚬 Se smetti con ${name}: +${monthly}/mese, +${yearly}/anno verso i tuoi risparmi`,
+    confirm: 'Conferma e applica a questo mese',
+    noHistoryTitle: 'Storico insufficiente',
+    noHistoryBody:
+      "Non c'è ancora abbastanza storico di spese per costruire un budget con obiettivo di risparmio. Registra qualche spesa e riprova più avanti.",
   },
 } satisfies TranslationKeys
