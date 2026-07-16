@@ -43,7 +43,7 @@ export function RisparmiScreen({ onOpenSettings }: Props) {
   const topGoal = data.goals[0] ?? null
 
   return (
-    <div>
+    <div className="screen-root">
       <Header title="Risparmi" onOpenSettings={onOpenSettings} />
       <div className="screen-pad">
         <div className={`card ${styles.leftoverCard}`}>

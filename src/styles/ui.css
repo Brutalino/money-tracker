@@ -1,14 +1,26 @@
 /* Shared, non-scoped utility classes used across screens */
 
+.screen-root {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
 .screen-pad {
-  padding: 0 16px;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  padding: 10px 16px 20px;
 }
 
 .card {
   background: var(--surface-1);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 16px;
+  padding: 12px 14px;
 }
 
 .section-title {

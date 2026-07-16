@@ -56,7 +56,7 @@ export function IncomeExpenseChart({ data }: Props) {
       {!hasData ? (
         <div className={styles.emptyChart}>Nessun dato per gli ultimi mesi</div>
       ) : (
-        <div style={{ height: 200 }}>
+        <div style={{ height: 150 }}>
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={data} barGap={2} margin={{ top: 4, right: 4, left: 4, bottom: 0 }}>
               <CartesianGrid vertical={false} stroke="var(--gridline)" />

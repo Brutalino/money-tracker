@@ -1,16 +1,16 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 6px;
   padding: 0 4px;
 }
 
 .key {
-  height: 58px;
-  border-radius: 16px;
+  height: 44px;
+  border-radius: 13px;
   border: none;
   background: var(--surface-2);
-  font-size: 24px;
+  font-size: 19px;
   font-weight: 600;
   color: var(--text-primary);
   display: flex;

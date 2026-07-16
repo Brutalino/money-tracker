@@ -27,7 +27,7 @@ export function BottomNav({ active, onChange }: Props) {
             onClick={() => onChange(key)}
             aria-current={active === key ? 'page' : undefined}
           >
-            <Icon width={22} height={22} />
+            <Icon width={20} height={20} />
             <span className={styles.label}>{label}</span>
           </button>
         ))}

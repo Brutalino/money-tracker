@@ -12,7 +12,6 @@ interface Props {
   initialBudgetEuros: number
   spentCents: number
   deltaCents: number | null
-  prevMonthLabel: string
 }
 
 export function BudgetCategoryRow({
@@ -21,7 +20,6 @@ export function BudgetCategoryRow({
   initialBudgetEuros,
   spentCents,
   deltaCents,
-  prevMonthLabel,
 }: Props) {
   const [value, setValue] = useState(initialBudgetEuros > 0 ? String(initialBudgetEuros) : '')
 
@@ -57,7 +55,7 @@ export function BudgetCategoryRow({
             onBlur={commit}
             aria-label={`Budget per ${category.name}`}
           />
-          <span className="muted" style={{ fontSize: 13 }}>
+          <span className="muted" style={{ fontSize: 12 }}>
             €
           </span>
         </div>
@@ -65,29 +63,22 @@ export function BudgetCategoryRow({
 
       {budgetCents > 0 ? (
         <>
-          <ProgressBar fraction={fraction} status={status} height={8} />
+          <ProgressBar fraction={fraction} status={status} height={4} />
           <div className={styles.catStatsRow}>
-            <span>Speso: {formatCents(spentCents)}</span>
+            <span>Speso {formatCents(spentCents)}</span>
             <span style={{ color: remainingCents < 0 ? 'var(--status-critical)' : undefined }}>
-              {remainingCents >= 0 ? 'Rimane' : 'Superato di'}: {formatCents(Math.abs(remainingCents))}
+              {remainingCents >= 0 ? 'Rimane' : 'Superato di'} {formatCents(Math.abs(remainingCents))}
+              {deltaCents !== null && deltaCents !== 0 ? (deltaCents > 0 ? ' 📈' : ' 📉') : ''}
             </span>
           </div>
         </>
       ) : (
         spentCents > 0 && (
           <div className={styles.catStatsRow}>
-            <span>Speso: {formatCents(spentCents)}</span>
-            <span className="muted">Nessun budget impostato</span>
+            <span>Speso {formatCents(spentCents)}</span>
+            <span className="muted">Nessun budget</span>
           </div>
         )
-      )}
-
-      {deltaCents !== null && deltaCents !== 0 && (
-        <div className={styles.deltaRow}>
-          {deltaCents > 0 ? '+' : '−'}
-          {formatCents(Math.abs(deltaCents))} rispetto a {prevMonthLabel}{' '}
-          {deltaCents > 0 ? '📈' : '📉'}
-        </div>
       )}
     </div>
   )

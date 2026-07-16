@@ -43,7 +43,7 @@ export function DonutChart({ data, totalCents, totalLabel = 'Totale' }: Props) {
   }
   return (
     <div>
-      <div style={{ position: 'relative', height: 220 }}>
+      <div style={{ position: 'relative', height: 168 }}>
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
@@ -79,10 +79,10 @@ export function DonutChart({ data, totalCents, totalLabel = 'Totale' }: Props) {
             pointerEvents: 'none',
           }}
         >
-          <span style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 700 }}>
+          <span style={{ fontSize: 10, color: 'var(--text-muted)', fontWeight: 700 }}>
             {totalLabel}
           </span>
-          <span style={{ fontSize: 19, fontWeight: 800 }}>{formatCents(totalCents)}</span>
+          <span style={{ fontSize: 16, fontWeight: 800 }}>{formatCents(totalCents)}</span>
         </div>
       </div>
       <div className={styles.legend}>

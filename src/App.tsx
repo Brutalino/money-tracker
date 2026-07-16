@@ -38,7 +38,7 @@ function App() {
   if (!ready) {
     return (
       <div className={styles.root}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
           <span className="muted">Caricamento...</span>
         </div>
       </div>

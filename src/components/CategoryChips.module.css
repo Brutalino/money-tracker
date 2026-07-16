@@ -12,15 +12,25 @@
   scroll-snap-type: x proximity;
 }
 
+.scroll2 {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scroll-snap-type: x proximity;
+}
+
 .chip {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  min-height: 64px;
-  padding: 8px 4px;
-  border-radius: 14px;
+  gap: 3px;
+  min-height: 56px;
+  padding: 6px 4px;
+  border-radius: 12px;
   border: 1.5px solid var(--border);
   background: var(--surface-2);
   color: var(--text-secondary);
@@ -28,20 +38,25 @@
   flex-shrink: 0;
 }
 
-.scroll .chip {
-  min-width: 68px;
+.scroll .chip,
+.scroll2 .chip {
+  min-width: 62px;
+}
+
+.scroll2 .chip {
+  min-height: 50px;
 }
 
 .chipEmoji {
-  font-size: 22px;
+  font-size: 18px;
   line-height: 1;
 }
 
 .chipLabel {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   text-align: center;
-  line-height: 1.15;
+  line-height: 1.1;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

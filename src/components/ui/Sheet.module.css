@@ -75,8 +75,10 @@
 
 .body {
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   padding: 0 16px 20px;
   flex: 1;
+  min-height: 0;
 }
 
 @keyframes fadeIn {

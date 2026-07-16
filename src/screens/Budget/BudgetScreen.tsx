@@ -70,7 +70,7 @@ export function BudgetScreen({ onOpenSettings }: Props) {
   }
 
   return (
-    <div>
+    <div className="screen-root">
       <Header title="Budget" onOpenSettings={onOpenSettings} />
       <div className="screen-pad">
         <MonthSelector month={month} onChange={setMonth} disableFuture={false} />
@@ -112,7 +112,6 @@ export function BudgetScreen({ onOpenSettings }: Props) {
                 initialBudgetEuros={budget?.amountEuros ?? 0}
                 spentCents={spentCents}
                 deltaCents={spentCents - prevSpentCents}
-                prevMonthLabel={prevMonthLbl.split(' ')[0]}
               />
             )
           })

@@ -8,7 +8,7 @@ interface Props {
 export function Fab({ onClick }: Props) {
   return (
     <button type="button" className={styles.fab} onClick={onClick} aria-label="Aggiungi transazione">
-      <IconPlus width={26} height={26} />
+      <IconPlus width={22} height={22} />
     </button>
   )
 }

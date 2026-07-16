@@ -28,17 +28,17 @@ export function HomeScreen({ onOpenSettings, onNavigate }: Props) {
   const currentMonth = currentMonthKey()
 
   const data = useLiveQuery(async () => {
-    const [monthTx, budgets, categories, goalsAll, last5] = await Promise.all([
+    const [monthTx, budgets, categories, goalsAll, recentTx] = await Promise.all([
       getMonthTransactions(currentMonth),
       getBudgetsForMonth(currentMonth),
       db.categories.toArray(),
       db.goals.toArray(),
-      db.transactions.orderBy('date').reverse().limit(5).toArray(),
+      db.transactions.orderBy('date').reverse().limit(3).toArray(),
     ])
     const activeGoals = goalsAll.filter((g) => !g.archived).sort((a, b) => a.sortOrder - b.sortOrder)
     const topGoal = activeGoals[0]
     const topGoalSaved = topGoal ? await goalSavedCents(topGoal.id) : 0
-    return { monthTx, budgets, categories, topGoal, topGoalSaved, last5 }
+    return { monthTx, budgets, categories, topGoal, topGoalSaved, recentTx }
   }, [currentMonth])
 
   if (!data) return null
@@ -55,7 +55,7 @@ export function HomeScreen({ onOpenSettings, onNavigate }: Props) {
   const pace = computePace(spentFraction, elapsedFraction)
 
   return (
-    <div>
+    <div className="screen-root">
       <Header title={monthLabel(currentMonth)} onOpenSettings={onOpenSettings} />
       <div className={`screen-pad ${styles.wrap}`}>
         {hasBudget ? (
@@ -112,11 +112,11 @@ export function HomeScreen({ onOpenSettings, onNavigate }: Props) {
             <div className={`card ${styles.savingsCard}`} style={{ marginTop: 10 }}>
               <Ring
                 fraction={data.topGoalSaved / data.topGoal.targetCents}
-                size={56}
-                stroke={6}
+                size={44}
+                stroke={5}
                 color="var(--series-5)"
               >
-                <span style={{ fontSize: 18 }}>{data.topGoal.emoji}</span>
+                <span style={{ fontSize: 16 }}>{data.topGoal.emoji}</span>
               </Ring>
               <div className={styles.savingsInfo}>
                 <div className={styles.savingsName}>{data.topGoal.name}</div>
@@ -145,7 +145,7 @@ export function HomeScreen({ onOpenSettings, onNavigate }: Props) {
               Vedi tutto
             </button>
           </div>
-          {data.last5.length === 0 ? (
+          {data.recentTx.length === 0 ? (
             <div className="card" style={{ marginTop: 10 }}>
               <EmptyState
                 emoji="🧾"
@@ -155,7 +155,7 @@ export function HomeScreen({ onOpenSettings, onNavigate }: Props) {
             </div>
           ) : (
             <div className="card" style={{ marginTop: 10 }}>
-              {data.last5.map((t) => (
+              {data.recentTx.map((t) => (
                 <TransactionRow key={t.id} transaction={t} category={categoryById.get(t.categoryId)} />
               ))}
             </div>

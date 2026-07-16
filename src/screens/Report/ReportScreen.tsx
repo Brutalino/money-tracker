@@ -93,7 +93,7 @@ export function ReportScreen({ onOpenSettings }: Props) {
   const trendCategory = activeTrendCategoryId ? categoryById.get(activeTrendCategoryId) : null
 
   return (
-    <div>
+    <div className="screen-root">
       <Header title="Report" onOpenSettings={onOpenSettings} />
       <div className="screen-pad">
         <MonthSelector month={month} onChange={setMonth} disableFuture={false} />

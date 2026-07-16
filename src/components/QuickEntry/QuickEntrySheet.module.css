@@ -1,13 +1,14 @@
 .top {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 16px 4px;
+  padding: 6px 16px 2px;
 }
 
 .closeBtn {
-  width: 40px;
-  height: 40px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   background: var(--surface-2);
   border: none;
@@ -28,9 +29,9 @@
 .segBtn {
   border: none;
   background: transparent;
-  padding: 8px 16px;
+  padding: 6px 14px;
   border-radius: 999px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--text-secondary);
 }
@@ -46,8 +47,8 @@
 }
 
 .deleteBtn {
-  width: 40px;
-  height: 40px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   background: transparent;
   border: none;
@@ -58,33 +59,36 @@
 }
 
 .amountWrap {
+  flex-shrink: 0;
   display: flex;
   align-items: baseline;
   justify-content: center;
-  gap: 4px;
-  padding: 14px 16px 10px;
+  gap: 3px;
+  padding: 8px 16px 6px;
 }
 
 .amount {
-  font-size: 52px;
+  font-size: 38px;
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1;
 }
 
 .currency {
-  font-size: 26px;
+  font-size: 19px;
   font-weight: 700;
   color: var(--text-secondary);
 }
 
 .body {
   flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   padding: 0 16px;
-  gap: 14px;
+  gap: 10px;
 }
 
 .metaRow {
@@ -96,11 +100,11 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
 }
 
 .metaLabel {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
   color: var(--text-muted);
@@ -109,28 +113,29 @@
 
 .dateInput,
 .noteInput {
-  min-height: 44px;
-  border-radius: 12px;
+  min-height: 36px;
+  border-radius: 10px;
   border: 1px solid var(--border);
   background: var(--surface-2);
   padding: 0 12px;
-  font-size: 15px;
+  font-size: 14px;
   color: var(--text-primary);
   width: 100%;
 }
 
 .keypadWrap {
-  padding: 10px 16px calc(14px + var(--safe-bottom));
+  flex-shrink: 0;
+  padding: 6px 16px calc(8px + var(--safe-bottom));
 }
 
 .saveBtn {
   width: 100%;
-  min-height: 52px;
-  border-radius: 16px;
+  min-height: 44px;
+  border-radius: 14px;
   border: none;
-  font-size: 17px;
+  font-size: 15.5px;
   font-weight: 700;
-  margin-top: 6px;
+  margin-top: 4px;
   background: var(--accent);
   color: var(--accent-ink);
 }

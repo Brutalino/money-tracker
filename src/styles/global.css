@@ -47,7 +47,7 @@
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-top: env(safe-area-inset-top, 0px);
 
-  --tab-bar-height: 62px;
+  --tab-bar-height: 54px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -137,7 +137,8 @@ html,
 body {
   margin: 0;
   padding: 0;
-  overscroll-behavior-y: none;
+  height: 100%;
+  overscroll-behavior: none;
 }
 
 body {
@@ -150,14 +151,15 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   width: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
+  position: fixed;
+  inset: 0;
 }
 
 #root {
-  min-height: 100vh;
-  min-height: 100dvh;
+  height: 100%;
   width: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 button,

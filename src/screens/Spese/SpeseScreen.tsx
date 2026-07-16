@@ -6,7 +6,7 @@ import { TransactionRow } from '../../components/TransactionRow'
 import { EmptyState } from '../../components/ui/EmptyState'
 import { QuickEntrySheet } from '../../components/QuickEntry/QuickEntrySheet'
 import { RecurringFormSheet } from './RecurringFormSheet'
-import { IconPlus, IconSearch } from '../../components/Icons'
+import { IconPlus, IconSearch, IconChevronRight } from '../../components/Icons'
 import styles from './SpeseScreen.module.css'
 import { db } from '../../db/db'
 import { getMonthTransactions, sumCents } from '../../lib/stats'
@@ -25,6 +25,7 @@ export function SpeseScreen({ onOpenSettings }: Props) {
   const [filterCategoryId, setFilterCategoryId] = useState<string | null>(null)
   const [editingTx, setEditingTx] = useState<Transaction | null>(null)
   const [recurringSheet, setRecurringSheet] = useState<{ item: Recurring | null } | null>(null)
+  const [fixedExpanded, setFixedExpanded] = useState(false)
 
   const data = useLiveQuery(async () => {
     const [monthTx, categories, recurringAll] = await Promise.all([
@@ -82,65 +83,91 @@ export function SpeseScreen({ onOpenSettings }: Props) {
   })
 
   return (
-    <div>
+    <div className="screen-root">
       <Header title="Spese" onOpenSettings={onOpenSettings} />
       <div className="screen-pad">
         <div className="card">
-          <div className={styles.fixedHeaderRow}>
-            <div>
-              <div className={styles.fixedTitle}>Costi fissi mensili</div>
+          <button
+            type="button"
+            className={styles.fixedHeaderRow}
+            onClick={() => setFixedExpanded((v) => !v)}
+            aria-expanded={fixedExpanded}
+          >
+            <div className={styles.fixedTitleWrap}>
+              <div className={styles.fixedTitle}>
+                Costi fissi mensili · {sortedRecurring.filter((r) => r.active).length} attivi
+              </div>
               <div className={styles.fixedTotal}>{formatCents(fixedMonthlyTotalCents)}</div>
             </div>
-            <button
-              type="button"
-              className={styles.addBtn}
-              onClick={() => setRecurringSheet({ item: null })}
-              aria-label="Aggiungi costo fisso"
-            >
-              <IconPlus width={18} height={18} />
-            </button>
-          </div>
+            <div className={styles.fixedHeaderActions}>
+              <span
+                className={styles.addBtn}
+                role="button"
+                tabIndex={0}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setRecurringSheet({ item: null })
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.stopPropagation()
+                    setRecurringSheet({ item: null })
+                  }
+                }}
+                aria-label="Aggiungi costo fisso"
+              >
+                <IconPlus width={16} height={16} />
+              </span>
+              <IconChevronRight
+                width={16}
+                height={16}
+                className={styles.fixedChevron}
+                style={{ transform: fixedExpanded ? 'rotate(90deg)' : 'none' }}
+              />
+            </div>
+          </button>
 
-          {sortedRecurring.length === 0 ? (
-            <div className={styles.recurringList}>
-              <p className="muted" style={{ fontSize: 13 }}>
-                Nessun costo fisso configurato. Aggiungi affitto, abbonamenti e altre spese ricorrenti:
-                verranno registrate automaticamente ogni mese.
-              </p>
-            </div>
-          ) : (
-            <div className={styles.recurringList}>
-              {sortedRecurring.map((r) => {
-                const cat = categoryById.get(r.categoryId)
-                return (
-                  <button
-                    key={r.id}
-                    type="button"
-                    className={`${styles.recurringRow} ${!r.active ? styles.inactive : ''}`}
-                    onClick={() => setRecurringSheet({ item: r })}
-                  >
-                    <div className={styles.recurringEmoji} style={{ ['--cat-color' as string]: cat?.color }}>
-                      {cat?.emoji ?? '❓'}
-                    </div>
-                    <div className={styles.recurringMain}>
-                      <div className={styles.recurringName}>{r.name}</div>
-                      <div className={styles.recurringMeta}>
-                        {FREQUENCY_LABELS_IT[r.frequency]}
-                        {!r.active ? ' · disattivato' : ''}
-                      </div>
-                    </div>
-                    <div
-                      className={styles.recurringAmount}
-                      style={{ color: r.type === 'income' ? 'var(--status-good-text)' : undefined }}
+          {fixedExpanded &&
+            (sortedRecurring.length === 0 ? (
+              <div className={styles.recurringList}>
+                <p className="muted" style={{ fontSize: 12 }}>
+                  Nessun costo fisso configurato. Aggiungi affitto, abbonamenti e altre spese ricorrenti:
+                  verranno registrate automaticamente ogni mese.
+                </p>
+              </div>
+            ) : (
+              <div className={styles.recurringList}>
+                {sortedRecurring.map((r) => {
+                  const cat = categoryById.get(r.categoryId)
+                  return (
+                    <button
+                      key={r.id}
+                      type="button"
+                      className={`${styles.recurringRow} ${!r.active ? styles.inactive : ''}`}
+                      onClick={() => setRecurringSheet({ item: r })}
                     >
-                      {r.type === 'income' ? '+' : ''}
-                      {formatCents(monthlyEquivalentCents(r.amountCents, r.frequency))}/mese
-                    </div>
-                  </button>
-                )
-              })}
-            </div>
-          )}
+                      <div className={styles.recurringEmoji} style={{ ['--cat-color' as string]: cat?.color }}>
+                        {cat?.emoji ?? '❓'}
+                      </div>
+                      <div className={styles.recurringMain}>
+                        <div className={styles.recurringName}>{r.name}</div>
+                        <div className={styles.recurringMeta}>
+                          {FREQUENCY_LABELS_IT[r.frequency]}
+                          {!r.active ? ' · disattivato' : ''}
+                        </div>
+                      </div>
+                      <div
+                        className={styles.recurringAmount}
+                        style={{ color: r.type === 'income' ? 'var(--status-good-text)' : undefined }}
+                      >
+                        {r.type === 'income' ? '+' : ''}
+                        {formatCents(monthlyEquivalentCents(r.amountCents, r.frequency))}/mese
+                      </div>
+                    </button>
+                  )
+                })}
+              </div>
+            ))}
         </div>
 
         <MonthSelector month={month} onChange={setMonth} />

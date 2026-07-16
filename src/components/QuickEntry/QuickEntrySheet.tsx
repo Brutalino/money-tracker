@@ -119,7 +119,7 @@ export function QuickEntrySheet({ onClose, editingTransaction, defaultType = 'ex
           categories={categories ?? []}
           selectedId={categoryId}
           onSelect={setCategoryId}
-          layout="grid"
+          layout="scroll2"
         />
 
         <div className={styles.metaRow}>

@@ -1,52 +1,53 @@
 .statsRow {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin: 6px 0 16px;
+  gap: 8px;
+  margin: 2px 0 10px;
 }
 
 .statCard {
-  padding: 14px;
+  padding: 10px 12px;
   border-radius: var(--radius-md);
   background: var(--surface-1);
   border: 1px solid var(--border);
 }
 
 .statLabel {
-  font-size: 11.5px;
+  font-size: 10.5px;
   font-weight: 700;
   color: var(--text-muted);
   text-transform: uppercase;
 }
 
 .statValue {
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 800;
-  margin-top: 4px;
+  margin-top: 3px;
 }
 
 .sectionCard {
-  margin-bottom: 16px;
+  margin-bottom: 10px;
+  padding: 10px 12px;
 }
 
 .sectionTitleRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
 .sectionTitle {
-  font-size: 14.5px;
+  font-size: 13px;
   font-weight: 700;
 }
 
 .catSelect {
-  min-height: 36px;
-  border-radius: 10px;
+  min-height: 30px;
+  border-radius: 8px;
   border: 1px solid var(--border);
   background: var(--surface-2);
-  padding: 0 10px;
-  font-size: 13px;
+  padding: 0 8px;
+  font-size: 12px;
   font-weight: 600;
 }

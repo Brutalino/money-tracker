@@ -5,12 +5,18 @@ interface Props {
   categories: Category[]
   selectedId: string | null
   onSelect: (id: string) => void
-  layout?: 'grid' | 'scroll'
+  layout?: 'grid' | 'scroll' | 'scroll2'
+}
+
+const LAYOUT_CLASS: Record<'grid' | 'scroll' | 'scroll2', string> = {
+  grid: styles.grid,
+  scroll: styles.scroll,
+  scroll2: styles.scroll2,
 }
 
 export function CategoryChips({ categories, selectedId, onSelect, layout = 'grid' }: Props) {
   return (
-    <div className={layout === 'grid' ? styles.grid : styles.scroll}>
+    <div className={LAYOUT_CLASS[layout]}>
       {categories.map((c) => (
         <button
           key={c.id}

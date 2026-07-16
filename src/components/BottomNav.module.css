@@ -1,14 +1,11 @@
 .nav {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  flex-shrink: 0;
   z-index: 40;
   display: flex;
   justify-content: center;
   background: var(--surface-1);
   border-top: 1px solid var(--border);
-  padding-bottom: var(--safe-bottom);
+  padding-bottom: env(safe-area-inset-bottom, var(--safe-bottom));
 }
 
 .inner {
@@ -23,12 +20,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2px;
-  min-height: 56px;
+  gap: 1px;
+  min-height: var(--tab-bar-height);
   background: none;
   border: none;
   color: var(--text-muted);
-  padding: 6px 0 8px;
+  padding: 4px 0 6px;
 }
 
 .item.active {
@@ -36,6 +33,6 @@
 }
 
 .label {
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 600;
 }

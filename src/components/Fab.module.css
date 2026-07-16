@@ -1,10 +1,10 @@
 .fab {
   position: fixed;
-  right: 20px;
-  bottom: calc(var(--tab-bar-height) + var(--safe-bottom) + 16px);
+  right: 16px;
+  bottom: calc(var(--tab-bar-height) + env(safe-area-inset-bottom, var(--safe-bottom)) + 12px);
   z-index: 45;
-  width: 60px;
-  height: 60px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   background: var(--accent);
   color: var(--accent-ink);

@@ -38,7 +38,7 @@ export function TrendChart({ data, color = 'var(--series-1)' }: Props) {
     return <div className={styles.emptyChart}>Nessuna spesa in questa categoria</div>
   }
   return (
-    <div style={{ height: 180 }}>
+    <div style={{ height: 140 }}>
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart data={data} margin={{ top: 8, right: 4, left: 4, bottom: 0 }}>
           <defs>
