@@ -151,6 +151,7 @@ export interface TranslationKeys {
     setAside: string
     noGoalsSubtitle: string
     newGoal: string
+    firstPeriodHint: (date: string) => string
   }
   goalCard: {
     reached: string
@@ -278,6 +279,7 @@ export interface TranslationKeys {
     intro: string
     sections: {
       gettingStarted: { title: string; body: string[] }
+      startingOut: { title: string; body: string[] }
       home: { title: string; body: string[] }
       addTransaction: { title: string; body: string[] }
       spese: { title: string; body: string[] }

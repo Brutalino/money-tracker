@@ -15,6 +15,7 @@ type SectionId = keyof TranslationKeys['guide']['sections']
 // t.guide.sections, keeping this component free of hardcoded copy.
 const SECTION_ORDER: { id: SectionId; emoji: string }[] = [
   { id: 'gettingStarted', emoji: '🚀' },
+  { id: 'startingOut', emoji: '🧭' },
   { id: 'home', emoji: '🏠' },
   { id: 'addTransaction', emoji: '➕' },
   { id: 'spese', emoji: '🧾' },
