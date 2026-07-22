@@ -303,6 +303,7 @@ export const en = {
           "Don't log your current bank balance as a big initial income to make the numbers look right: it would inflate that period's income and skew statistics and smart-budget suggestions for months. If you have money already set aside, record it as a contribution to a savings goal instead.",
           'Bills and salaries that straddle your start date follow one simple rule: whatever is paid after you start counts in the period you pay it, even if it "belongs" to money earned before. After one full cycle everything lines up on its own.',
           'For the cleanest numbers from day one, start at the beginning of a period: the 1st of the month, or your payday if you set a custom start day in Settings. Both work: think in calendar months, or payday to payday. Pick the one that matches how you actually live.',
+          'One last thing, the most important: the accuracy of every number in the app depends entirely on logging your expenses correctly. The app shows what you record, nothing more. The trick is to log right away, as soon as you spend: two taps at purchase time quickly become a habit. Leaving it for the evening, from memory, is the surest way to miss some.',
         ],
       },
       home: {
