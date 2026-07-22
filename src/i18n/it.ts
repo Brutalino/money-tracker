@@ -304,6 +304,7 @@ export const it = {
           'Non registrare il saldo del conto come una grossa entrata iniziale per far tornare i numeri: gonfierebbe le entrate di quel periodo e falserebbe statistiche e budget smart per mesi. Se hai già dei soldi da parte, registrali piuttosto come contributo a un obiettivo di risparmio.',
           'Bollette e stipendi a cavallo dell\'inizio seguono una regola semplice: ciò che paghi dopo aver iniziato conta nel periodo in cui lo paghi, anche se "appartiene" a soldi guadagnati prima. Dopo un ciclo completo torna tutto da solo.',
           'Per avere numeri puliti fin dal primo giorno, inizia all\'inizio di un periodo: il 1° del mese, o il giorno dello stipendio se imposti un giorno di inizio personalizzato nelle Impostazioni. Vanno bene entrambi: mese solare o stipendio-a-stipendio, scegli quello che rispecchia come vivi davvero.',
+          'Un\'ultima cosa, la più importante: la precisione di ogni numero nell\'app dipende interamente dal corretto inserimento delle spese. L\'app mostra quello che registri, niente di più. Il trucco è registrarle subito, appena spendi: due tocchi al momento dell\'acquisto diventano presto un automatismo. Rimandare alla sera, andando a memoria, è il modo più sicuro per dimenticarne qualcuna.',
         ],
       },
       home: {
