@@ -1,6 +1,7 @@
 import styles from './MonthSelector.module.css'
 import { IconChevronLeft, IconChevronRight } from './Icons'
-import { addMonths, currentMonthKey, monthLabel } from '../lib/dates'
+import { addMonths } from '../lib/dates'
+import { currentPeriodKey, periodLabel } from '../lib/period'
 import { useT } from '../i18n'
 
 interface Props {
@@ -11,7 +12,7 @@ interface Props {
 
 export function MonthSelector({ month, onChange, disableFuture = true }: Props) {
   const t = useT()
-  const isCurrentOrFuture = disableFuture && month >= currentMonthKey()
+  const isCurrentOrFuture = disableFuture && month >= currentPeriodKey()
   return (
     <div className={styles.wrap}>
       <button
@@ -22,7 +23,7 @@ export function MonthSelector({ month, onChange, disableFuture = true }: Props) 
       >
         <IconChevronLeft width={18} height={18} />
       </button>
-      <div className={styles.label}>{monthLabel(month)}</div>
+      <div className={styles.label}>{periodLabel(month)}</div>
       <button
         type="button"
         className={styles.btn}

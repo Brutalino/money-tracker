@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import type { ChangeEvent } from 'react'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { Sheet } from '../../components/ui/Sheet'
-import { IconBack, IconDownload, IconUpload } from '../../components/Icons'
+import { IconBack, IconDownload, IconUpload, IconChevronRight, IconBook } from '../../components/Icons'
 import { CategoryFormSheet } from './CategoryFormSheet'
+import { PeriodStartSheet } from './PeriodStartSheet'
 import styles from './SettingsScreen.module.css'
 import { db } from '../../db/db'
 import { getStoredTheme, setStoredTheme, applyThemeToDocument } from '../../lib/theme'
@@ -11,20 +12,24 @@ import { exportJSON, exportCSV, importBackup, isValidBackup, deleteAllData } fro
 import { ensureSeeded } from '../../lib/seed'
 import { collectDiagnostics, type DiagnosticsSnapshot } from '../../lib/diagnostics'
 import { useT, useLanguage } from '../../i18n'
+import { usePeriodStartDay } from '../../period'
 import { setStoredLanguage } from '../../lib/language'
 import type { Category, ThemeMode, Language } from '../../db/types'
 
 interface Props {
   onClose: () => void
+  onOpenGuide: () => void
 }
 
-export function SettingsScreen({ onClose }: Props) {
+export function SettingsScreen({ onClose, onOpenGuide }: Props) {
   const t = useT()
   const { language, setLanguage } = useLanguage()
+  const { periodStartDay } = usePeriodStartDay()
   const [themeMode, setThemeMode] = useState<ThemeMode | null>(null)
   const [categorySheet, setCategorySheet] = useState<{ item: Category | null; kind: 'expense' | 'income' } | null>(
     null
   )
+  const [periodSheetOpen, setPeriodSheetOpen] = useState(false)
   const [busy, setBusy] = useState(false)
   const [diagnostics, setDiagnostics] = useState<DiagnosticsSnapshot | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -116,6 +121,17 @@ export function SettingsScreen({ onClose }: Props) {
       </div>
 
       <div className={styles.body}>
+        <div className="section-title">{t.settings.guideTitle}</div>
+        <div className="card">
+          <button type="button" className={styles.catRow} onClick={onOpenGuide}>
+            <div className={styles.catEmoji}>
+              <IconBook width={16} height={16} />
+            </div>
+            <span className={styles.catName}>{t.settings.openGuide}</span>
+            <IconChevronRight width={16} height={16} style={{ color: 'var(--text-muted)', flexShrink: 0 }} />
+          </button>
+        </div>
+
         <div className="section-title">{t.settings.appearance}</div>
         <div className={styles.segmented}>
           {(['auto', 'light', 'dark'] as ThemeMode[]).map((mode) => (
@@ -142,6 +158,18 @@ export function SettingsScreen({ onClose }: Props) {
               {lang === 'en' ? `🇬🇧 ${t.settings.languageEnglish}` : `🇮🇹 ${t.settings.languageItalian}`}
             </button>
           ))}
+        </div>
+
+        <div className="section-title">{t.settings.periodTitle}</div>
+        <div className="card">
+          <button type="button" className={styles.catRow} onClick={() => setPeriodSheetOpen(true)}>
+            <div className={styles.catEmoji}>🗓️</div>
+            <span className={styles.catName}>{t.settings.periodStartLabel}</span>
+            <span className="muted" style={{ fontSize: 13, fontWeight: 600 }}>
+              {periodStartDay === 1 ? t.settings.periodFirstDay : t.settings.periodDayN(periodStartDay)}
+            </span>
+            <IconChevronRight width={16} height={16} style={{ color: 'var(--text-muted)', flexShrink: 0 }} />
+          </button>
         </div>
 
         <div className="section-title">{t.settings.expenseCategories}</div>
@@ -268,6 +296,7 @@ export function SettingsScreen({ onClose }: Props) {
           onClose={() => setCategorySheet(null)}
         />
       )}
+      {periodSheetOpen && <PeriodStartSheet onClose={() => setPeriodSheetOpen(false)} />}
     </Sheet>
   )
 }

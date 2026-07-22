@@ -11,6 +11,8 @@ A personal finance PWA for tracking expenses, budgets and savings goals. Install
 - **Monthly budget** — integer budgets per category, progress bars with 80%/100% thresholds, automatic suggestions based on your previous months (rounded to the nearest €5), month-over-month comparison
 - **Savings** — multiple goals with targets and deadlines, contributions, projected completion dates
 - **Reports** — spending by category, income vs expenses (6 months), per-category trends, savings rate
+- **Configurable counting period** — periods default to running from the 1st of the month, but you can pick any start day (e.g. payday); Home, budgets, stats and savings all follow it
+- **In-app guide** — a full walkthrough of every screen, reachable from Settings, plus a one-time welcome sheet on first launch offering to open it
 - **Your data stays yours** — everything lives locally on your device (IndexedDB), no accounts, no server; JSON export/import and CSV export
 
 English by default, Italian available in Settings → Language. EUR currency, light/dark/auto theme.

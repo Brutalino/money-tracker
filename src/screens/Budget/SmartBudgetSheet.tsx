@@ -19,7 +19,8 @@ import {
 } from '../../lib/smartBudget'
 import { setSavingsPlan } from '../../lib/savingsPlan'
 import { upsertBudget } from '../../lib/budgets'
-import { currentMonthKey, monthDiff } from '../../lib/dates'
+import { monthDiff } from '../../lib/dates'
+import { currentPeriodKey } from '../../lib/period'
 import { formatEuros, formatCents, roundUpToNearest5 } from '../../lib/money'
 import { useT } from '../../i18n'
 import type { Category, Goal } from '../../db/types'
@@ -91,7 +92,7 @@ export function SmartBudgetSheet({ month, categories, onClose, onApplied }: Prop
     if (goal?.deadline) {
       const saved = data.savedByGoal.get(id) ?? 0
       const remainingCents = Math.max(0, goal.targetCents - saved)
-      const monthsLeft = Math.max(1, monthDiff(currentMonthKey(), goal.deadline))
+      const monthsLeft = Math.max(1, monthDiff(currentPeriodKey(), goal.deadline))
       const paceEuros = roundUpToNearest5(remainingCents / 100 / monthsLeft)
       if (paceEuros > 0) setTargetInput(String(paceEuros))
     }

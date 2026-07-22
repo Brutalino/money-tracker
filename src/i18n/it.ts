@@ -184,6 +184,8 @@ export const it = {
   },
   settings: {
     title: 'Impostazioni',
+    guideTitle: 'Guida',
+    openGuide: 'Apri la guida',
     appearance: 'Aspetto',
     themeAuto: 'Auto',
     themeLight: 'Chiaro',
@@ -191,6 +193,14 @@ export const it = {
     language: 'Lingua',
     languageEnglish: 'English',
     languageItalian: 'Italiano',
+    periodTitle: 'Periodo di conteggio',
+    periodStartLabel: 'Inizio del periodo',
+    periodFirstDay: '1° del mese',
+    periodDayN: (day) => `Giorno ${day}`,
+    periodSheetTitle: 'Giorno di inizio periodo',
+    periodExplainer:
+      'Scegli il giorno in cui inizia il tuo mese contabile — ad esempio il giorno in cui arriva lo stipendio. Home, budget, statistiche e risparmi seguono questo periodo.',
+    periodFootnote: 'Nei mesi più corti il giorno si adatta automaticamente (es. 31 → 28 febbraio).',
     expenseCategories: 'Categorie di spesa',
     incomeCategories: 'Categorie di entrata',
     archivedTag: 'Archiviata',
@@ -270,5 +280,95 @@ export const it = {
     noHistoryTitle: 'Storico insufficiente',
     noHistoryBody:
       "Non c'è ancora abbastanza storico di spese per costruire un budget con obiettivo di risparmio. Registra qualche spesa e riprova più avanti.",
+  },
+  guide: {
+    title: 'Guida',
+    intro: 'Un giro veloce di ogni schermata — come registrare le cose, e cosa significano tutti i numeri.',
+    sections: {
+      gettingStarted: {
+        title: 'Per iniziare',
+        body: [
+          "Money Tracker è un'app per tenere traccia di spese, budget e risparmi in euro. Tutto quello che registri resta privato su questo dispositivo.",
+          "In basso trovi cinque schede per muoverti: Home, Spese, Budget, Risparmi e Report. Tocca l'icona a forma di ingranaggio in qualsiasi schermata per aprire le Impostazioni.",
+          "Non c'è nessun account né un cloud: i tuoi dati vivono solo in questa installazione dell'app, da nessun'altra parte. Usa Impostazioni → Esporta di tanto in tanto per avere un backup.",
+          'Consiglio: installa l\'app sulla home screen (Condividi → Aggiungi a Home su iOS) per un\'esperienza a schermo intero.',
+        ],
+      },
+      home: {
+        title: 'Home',
+        body: [
+          'La Home mostra il periodo corrente a colpo d\'occhio: un anello con quanto puoi ancora spendere e quanto budget hai già usato.',
+          'Un indicatore di ritmo ti dice se stai spendendo in linea per questo punto del periodo — in anticipo, in linea, o troppo veloce.',
+          "Sotto trovi il tuo obiettivo di risparmio principale e le transazioni più recenti, così puoi modificare al volo qualcosa che hai appena registrato.",
+        ],
+      },
+      addTransaction: {
+        title: 'Aggiungere una transazione',
+        body: [
+          'Tocca il pulsante rotondo + per aprire l\'inserimento rapido. Digita l\'importo sul tastierino, poi scegli Uscita o Entrata.',
+          'Scegli una categoria, aggiungi facoltativamente una breve nota e cambia la data (di default è oggi).',
+          'Per modificare o eliminare una transazione in seguito, toccala ovunque compaia — in Home, in Spese o altrove nell\'app.',
+        ],
+      },
+      spese: {
+        title: 'Spese',
+        body: [
+          'La scheda Spese ti permette di sfogliare qualsiasi periodo: usa le frecce accanto all\'etichetta del periodo per andare avanti e indietro.',
+          'Le transazioni sono raggruppate per giorno, dalla più recente. Usa la casella di ricerca per filtrare per nota, oppure tocca un chip categoria per mostrare solo quella categoria.',
+          'La card dei costi fissi in alto mostra l\'equivalente mensile combinato dei tuoi costi fissi attivi — toccala per espanderla e vedere ogni voce.',
+        ],
+      },
+      recurring: {
+        title: 'Costi fissi',
+        body: [
+          'I costi fissi servono per cose come affitto, abbonamenti o rate — tutto ciò che si ripete. Ognuno è solo un importo e una frequenza (mensile, ogni 2 mesi, trimestrale o annuale): niente scadenze, di proposito.',
+          'Ogni mese, ogni costo fisso attivo viene registrato automaticamente come transazione il giorno 1, e convertito nel suo equivalente mensile per il totale dei costi fissi.',
+          'Mettere in pausa un costo fisso ne interrompe la registrazione. Riattivarlo la fa ripartire dal mese corrente in poi — i mesi in cui era in pausa non vengono mai recuperati.',
+        ],
+      },
+      budget: {
+        title: 'Budget',
+        body: [
+          'Imposta un limite di spesa per categoria, in euro interi, per ogni periodo. Una barra di progresso si riempie mentre spendi, cambiando colore quando ti avvicini o superi il limite.',
+          '"Dalle tue abitudini" propone un budget basato sulla media degli ultimi 3 periodi. "Con un obiettivo di risparmio" parte da quanto vuoi risparmiare (in base alle tue entrate) e distribuisce i tagli tra le categorie in base a quanto ciascuna è flessibile.',
+          'Puoi anche copiare l\'intero budget dal periodo precedente con un tocco.',
+        ],
+      },
+      risparmi: {
+        title: 'Risparmi',
+        body: [
+          'Crea un obiettivo con un importo target e, se vuoi, una scadenza. Aggiungi contributi ogni volta che metti via dei soldi.',
+          'La card dell\'avanzo in alto mostra quanto resta di questo periodo — entrate meno uscite — così sai quanto potresti mettere da parte adesso.',
+          'Ogni card obiettivo mostra il tuo progresso e il ritmo medio dei contributi, così vedi se sei in linea per rispettare la scadenza.',
+        ],
+      },
+      report: {
+        title: 'Report',
+        body: [
+          'Un grafico a ciambella mostra come si dividono le spese di questo periodo per categoria.',
+          'Un grafico a barre confronta entrate e uscite negli ultimi 6 periodi, così noti le tendenze a colpo d\'occhio.',
+          'Una linea segue una singola categoria negli stessi 6 periodi — scegli quale dal menu a tendina.',
+          'In alto trovi il tuo tasso di risparmio di questo periodo e la media degli ultimi 6.',
+        ],
+      },
+      settings: {
+        title: 'Impostazioni',
+        body: [
+          'Modifica le tue categorie — nome, emoji, colore e, per le categorie di spesa, un livello di flessibilità (essenziale, flessibile, molto flessibile) usato dal budget smart.',
+          'Cambia la lingua dell\'app tra inglese e italiano, e scegli il tema chiaro, scuro o automatico.',
+          'Il periodo di conteggio, di default, va dal 1° del mese. Puoi scegliere un altro giorno di inizio — per esempio il giorno in cui arriva lo stipendio, tipo il 26, così i tuoi periodi vanno dal 26 al 25 del mese successivo. Tutta l\'app — Home, budget, statistiche e risparmi — segue questo periodo e si riadatta subito quando lo cambi.',
+          'Fai il backup dei tuoi dati in un file JSON (o ripristina da uno), esporta le transazioni in CSV, oppure cancella tutto dalla zona pericolosa.',
+        ],
+      },
+    },
+  },
+  welcome: {
+    title: 'Benvenuto in Money Tracker',
+    subtitle: 'Tieni traccia delle spese, imposta un budget e risparmia per quello che conta — tutto dal telefono.',
+    bullet1: 'Registra una spesa o un\'entrata in pochi secondi',
+    bullet2: 'Imposta budget e obiettivi di risparmio',
+    bullet3: 'Tutti i tuoi dati restano sul telefono',
+    openGuide: 'Apri la guida',
+    skip: 'Inizia subito',
   },
 } satisfies TranslationKeys

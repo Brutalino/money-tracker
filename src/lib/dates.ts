@@ -79,16 +79,6 @@ export function daysInMonth(monthKey: string): number {
   return new Date(year, month, 0).getDate()
 }
 
-/** Fraction (0-1) of the month elapsed, based on real "today" if monthKey is current month, else 1 if past, 0 if future */
-export function monthElapsedFraction(monthKey: string): number {
-  const now = new Date()
-  const nowKey = toMonthKey(now)
-  if (monthKey < nowKey) return 1
-  if (monthKey > nowKey) return 0
-  const total = daysInMonth(monthKey)
-  return Math.min(1, now.getDate() / total)
-}
-
 /** List of the last N month keys ending at (and including) monthKey, oldest first */
 export function lastNMonths(monthKey: string, n: number): string[] {
   const result: string[] = []
@@ -103,10 +93,6 @@ export function monthDiff(a: string, b: string): number {
   const pa = parseMonthKey(a)
   const pb = parseMonthKey(b)
   return (pb.year - pa.year) * 12 + (pb.month - pa.month)
-}
-
-export function isFutureMonth(monthKey: string): boolean {
-  return monthKey > currentMonthKey()
 }
 
 /** Group of ISO dates -> label. Compares month keys against monthKey list to build sequential range */

@@ -3,7 +3,8 @@ import { Ring } from '../../components/ui/Ring'
 import { ProgressBar } from '../../components/ui/ProgressBar'
 import { IconEdit } from '../../components/Icons'
 import { formatCents } from '../../lib/money'
-import { monthLabel, currentMonthKey, lastNMonths, monthDiff, addMonths } from '../../lib/dates'
+import { monthLabel, lastNMonths, monthDiff, addMonths } from '../../lib/dates'
+import { currentPeriodKey } from '../../lib/period'
 import { averageMonthlyContribution } from '../../lib/stats'
 import { useT } from '../../i18n'
 import type { Goal, Contribution } from '../../db/types'
@@ -20,7 +21,7 @@ export function GoalCard({ goal, savedCents, contributions, onEdit, onAddContrib
   const t = useT()
   const fraction = goal.targetCents > 0 ? savedCents / goal.targetCents : 0
   const remainingCents = Math.max(0, goal.targetCents - savedCents)
-  const nowKey = currentMonthKey()
+  const nowKey = currentPeriodKey()
   const last3Months = lastNMonths(nowKey, 3)
   const avgMonthlyCents = averageMonthlyContribution(contributions, last3Months)
 

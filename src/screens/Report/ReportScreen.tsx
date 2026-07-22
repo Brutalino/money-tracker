@@ -8,7 +8,8 @@ import { TrendChart } from '../../components/charts/TrendChart'
 import styles from './ReportScreen.module.css'
 import { db } from '../../db/db'
 import { getMonthTransactions, groupByCategory, sumCents } from '../../lib/stats'
-import { currentMonthKey, lastNMonths, monthLabelShort } from '../../lib/dates'
+import { lastNMonths } from '../../lib/dates'
+import { currentPeriodKey, periodLabelShort } from '../../lib/period'
 import { useT } from '../../i18n'
 
 interface Props {
@@ -21,7 +22,7 @@ function formatPercent(fraction: number): string {
 
 export function ReportScreen({ onOpenSettings }: Props) {
   const t = useT()
-  const [month, setMonth] = useState(currentMonthKey())
+  const [month, setMonth] = useState(currentPeriodKey())
   const [trendCategoryId, setTrendCategoryId] = useState<string | null>(null)
 
   const last6 = useMemo(() => lastNMonths(month, 6), [month])
@@ -70,14 +71,14 @@ export function ReportScreen({ onOpenSettings }: Props) {
 
   const incomeExpenseData = data.monthlyStats.map((s) => ({
     monthKey: s.monthKey,
-    monthShortLabel: monthLabelShort(s.monthKey),
+    monthShortLabel: periodLabelShort(s.monthKey),
     entrateCents: s.entrateCents,
     usciteCents: s.usciteCents,
   }))
 
   const trendData = data.monthlyStats.map((s) => ({
     monthKey: s.monthKey,
-    monthShortLabel: monthLabelShort(s.monthKey),
+    monthShortLabel: periodLabelShort(s.monthKey),
     valueCents: activeTrendCategoryId ? (s.expensesByCategory.get(activeTrendCategoryId) ?? 0) : 0,
   }))
 

@@ -184,6 +184,8 @@ export interface TranslationKeys {
   }
   settings: {
     title: string
+    guideTitle: string
+    openGuide: string
     appearance: string
     themeAuto: string
     themeLight: string
@@ -191,6 +193,13 @@ export interface TranslationKeys {
     language: string
     languageEnglish: string
     languageItalian: string
+    periodTitle: string
+    periodStartLabel: string
+    periodFirstDay: string
+    periodDayN: (day: number) => string
+    periodSheetTitle: string
+    periodExplainer: string
+    periodFootnote: string
     expenseCategories: string
     incomeCategories: string
     archivedTag: string
@@ -263,5 +272,29 @@ export interface TranslationKeys {
     confirm: string
     noHistoryTitle: string
     noHistoryBody: string
+  }
+  guide: {
+    title: string
+    intro: string
+    sections: {
+      gettingStarted: { title: string; body: string[] }
+      home: { title: string; body: string[] }
+      addTransaction: { title: string; body: string[] }
+      spese: { title: string; body: string[] }
+      recurring: { title: string; body: string[] }
+      budget: { title: string; body: string[] }
+      risparmi: { title: string; body: string[] }
+      report: { title: string; body: string[] }
+      settings: { title: string; body: string[] }
+    }
+  }
+  welcome: {
+    title: string
+    subtitle: string
+    bullet1: string
+    bullet2: string
+    bullet3: string
+    openGuide: string
+    skip: string
   }
 }

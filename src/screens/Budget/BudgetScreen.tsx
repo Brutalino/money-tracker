@@ -16,7 +16,8 @@ import {
   suggestBudgets,
 } from '../../lib/stats'
 import { copyBudgetsFromMonth, upsertBudget } from '../../lib/budgets'
-import { currentMonthKey, addMonths, monthLabel } from '../../lib/dates'
+import { addMonths } from '../../lib/dates'
+import { currentPeriodKey, periodLabel, periodLabelCompact } from '../../lib/period'
 import { formatEuros } from '../../lib/money'
 import { useT } from '../../i18n'
 
@@ -26,7 +27,7 @@ interface Props {
 
 export function BudgetScreen({ onOpenSettings }: Props) {
   const t = useT()
-  const [month, setMonth] = useState(currentMonthKey())
+  const [month, setMonth] = useState(currentPeriodKey())
   const [suggestOpen, setSuggestOpen] = useState(false)
   const [smartBudgetOpen, setSmartBudgetOpen] = useState(false)
   const [resetKey, setResetKey] = useState(0)
@@ -62,7 +63,7 @@ export function BudgetScreen({ onOpenSettings }: Props) {
   if (!data) return null
 
   const totalBudgeted = sumBudgetEuros(data.budgets)
-  const prevMonthLbl = monthLabel(addMonths(month, -1))
+  const prevMonthLbl = periodLabel(addMonths(month, -1))
   const prevMonthHasBudgets = data.prevMonthBudgets.length > 0
 
   async function handleCopyPrev() {
@@ -70,7 +71,7 @@ export function BudgetScreen({ onOpenSettings }: Props) {
       setCopyMessage(t.budget.noBudgetToCopy(prevMonthLbl))
       return
     }
-    if (!confirm(t.budget.confirmCopy(prevMonthLbl, monthLabel(month)))) return
+    if (!confirm(t.budget.confirmCopy(prevMonthLbl, periodLabel(month)))) return
     setCopyMessage(null)
     await copyBudgetsFromMonth(addMonths(month, -1), month)
     setResetKey((k) => k + 1)
@@ -119,7 +120,7 @@ export function BudgetScreen({ onOpenSettings }: Props) {
             onClick={handleCopyPrev}
             aria-disabled={!prevMonthHasBudgets}
           >
-            {t.budget.copyFrom(prevMonthLbl.split(' ')[0])}
+            {t.budget.copyFrom(periodLabelCompact(addMonths(month, -1)))}
           </button>
         </div>
         {copyMessage && (
