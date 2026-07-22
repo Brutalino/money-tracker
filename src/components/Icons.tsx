@@ -161,6 +161,15 @@ export const IconUpload = (p: IconProps) =>
     p
   )
 
+export const IconBook = (p: IconProps) =>
+  base(
+    <>
+      <path d="M12 6.5c-1.8-1.3-4.4-2-7-2a1 1 0 0 0-1 1v11.5a1 1 0 0 0 1 1c2.6 0 5.2.7 7 2 1.8-1.3 4.4-2 7-2a1 1 0 0 0 1-1V5.5a1 1 0 0 0-1-1c-2.6 0-5.2.7-7 2Z" />
+      <path d="M12 6.5V20" />
+    </>,
+    p
+  )
+
 export const IconRepeat = (p: IconProps) =>
   base(
     <>

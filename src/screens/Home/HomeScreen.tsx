@@ -17,7 +17,7 @@ import {
   computePace,
   goalSavedCents,
 } from '../../lib/stats'
-import { currentMonthKey, monthLabel, monthElapsedFraction } from '../../lib/dates'
+import { currentPeriodKey, periodLabel, periodElapsedFraction } from '../../lib/period'
 import { formatCents, formatEuros } from '../../lib/money'
 import { getSavingsPlan } from '../../lib/savingsPlan'
 import { useT } from '../../i18n'
@@ -31,7 +31,7 @@ interface Props {
 
 export function HomeScreen({ onOpenSettings, onNavigate }: Props) {
   const t = useT()
-  const currentMonth = currentMonthKey()
+  const currentMonth = currentPeriodKey()
   const [editingTx, setEditingTx] = useState<Transaction | null>(null)
 
   const data = useLiveQuery(async () => {
@@ -60,12 +60,12 @@ export function HomeScreen({ onOpenSettings, onNavigate }: Props) {
   const remainingCents = totalBudgetCents - variableSpentCents
   const spentFraction = totalBudgetCents > 0 ? variableSpentCents / totalBudgetCents : 0
   const status = budgetStatus(spentFraction)
-  const elapsedFraction = monthElapsedFraction(currentMonth)
+  const elapsedFraction = periodElapsedFraction(currentMonth)
   const pace = computePace(spentFraction, elapsedFraction)
 
   return (
     <div className="screen-root">
-      <Header title={monthLabel(currentMonth)} onOpenSettings={onOpenSettings} />
+      <Header title={periodLabel(currentMonth)} onOpenSettings={onOpenSettings} />
       <div className={`screen-pad ${styles.wrap}`}>
         {hasBudget ? (
           <div className={`card ${styles.mainCard}`}>

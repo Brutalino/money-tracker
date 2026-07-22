@@ -9,7 +9,7 @@ import { IconPlus } from '../../components/Icons'
 import styles from './RisparmiScreen.module.css'
 import { db } from '../../db/db'
 import { getMonthTransactions, sumCents, goalSavedCents } from '../../lib/stats'
-import { currentMonthKey, monthLabel } from '../../lib/dates'
+import { currentPeriodKey, periodLabelCompact } from '../../lib/period'
 import { formatCents } from '../../lib/money'
 import { useT } from '../../i18n'
 import type { Goal, Contribution } from '../../db/types'
@@ -23,7 +23,7 @@ export function RisparmiScreen({ onOpenSettings }: Props) {
   const [goalSheet, setGoalSheet] = useState<{ item: Goal | null } | null>(null)
   const [contribGoal, setContribGoal] = useState<{ goal: Goal; initial?: number } | null>(null)
 
-  const currentMonth = currentMonthKey()
+  const currentMonth = currentPeriodKey()
 
   const data = useLiveQuery(async () => {
     const goalsAll = await db.goals.toArray()
@@ -49,7 +49,7 @@ export function RisparmiScreen({ onOpenSettings }: Props) {
       <Header title={t.nav.savings} onOpenSettings={onOpenSettings} />
       <div className="screen-pad">
         <div className={`card ${styles.leftoverCard}`}>
-          <div className={styles.leftoverLabel}>{t.risparmi.leftoverOf(monthLabel(currentMonth).split(' ')[0])}</div>
+          <div className={styles.leftoverLabel}>{t.risparmi.leftoverOf(periodLabelCompact(currentMonth))}</div>
           <div
             className={styles.leftoverValue}
             style={{ color: data.leftoverCents < 0 ? 'var(--status-critical)' : 'var(--status-good-text)' }}

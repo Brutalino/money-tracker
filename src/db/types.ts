@@ -90,4 +90,5 @@ export const SETTINGS_KEYS = {
   onboardingDone: 'onboarding-done',
   lastMaterializedMonth: 'last-materialized-month',
   savingsPlan: 'savings-plan',
+  periodStartDay: 'period-start-day',
 } as const

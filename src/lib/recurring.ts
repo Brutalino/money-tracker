@@ -43,6 +43,10 @@ export function makeRecurringTxId(recurringId: string, monthKey: string): string
  * ignored below.
  */
 export async function materializeRecurring(): Promise<void> {
+  // Deliberately calendar-month-based, independent of the user's accounting-
+  // period start day (src/lib/period.ts): every period of any start day
+  // contains exactly one 1st-of-month, so each period naturally ends up with
+  // one materialization per active recurring item.
   const nowKey = currentMonthKey()
   const items: Recurring[] = (await db.recurring.toArray()).filter((r) => r.active)
 

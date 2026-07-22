@@ -184,6 +184,8 @@ export const en = {
   },
   settings: {
     title: 'Settings',
+    guideTitle: 'Guide',
+    openGuide: 'Open the guide',
     appearance: 'Appearance',
     themeAuto: 'Auto',
     themeLight: 'Light',
@@ -191,6 +193,14 @@ export const en = {
     language: 'Language',
     languageEnglish: 'English',
     languageItalian: 'Italiano',
+    periodTitle: 'Counting period',
+    periodStartLabel: 'Period starts on',
+    periodFirstDay: '1st of the month',
+    periodDayN: (day) => `Day ${day}`,
+    periodSheetTitle: 'Period start day',
+    periodExplainer:
+      'Choose the day your money month starts — for example the day your salary arrives. Home, budgets, stats and savings all follow this period.',
+    periodFootnote: 'In shorter months the start day adapts automatically (e.g. 31 → 28 February).',
     expenseCategories: 'Expense categories',
     incomeCategories: 'Income categories',
     archivedTag: 'Archived',
@@ -269,5 +279,95 @@ export const en = {
     noHistoryTitle: 'Not enough history',
     noHistoryBody:
       "There isn't enough spending history yet to build a savings-target budget. Log a few expenses and try again later.",
+  },
+  guide: {
+    title: 'Guide',
+    intro: 'A quick tour of every screen — how to log things, and what all the numbers mean.',
+    sections: {
+      gettingStarted: {
+        title: 'Getting started',
+        body: [
+          'Money Tracker is a personal expense, budget and savings tracker in euros. Everything you record stays private to this device.',
+          'Five tabs at the bottom get you around: Home, Expenses, Budget, Savings and Report. Tap the gear icon on any screen to open Settings.',
+          "There's no account and no cloud: all your data lives in this installation of the app, nowhere else. Use Settings → Export regularly to keep a backup.",
+          'Tip: install the app to your home screen (Share → Add to Home Screen on iOS) for a full-screen, app-like experience.',
+        ],
+      },
+      home: {
+        title: 'Home',
+        body: [
+          "Home shows your current period at a glance: a ring with how much you can still spend, and how much of your budget you've used so far.",
+          "A pace indicator tells you whether you're spending on track for this point in the period — ahead, on track, or too fast.",
+          'Below that, your top savings goal and your most recent transactions, so you can jump straight to editing something you just logged.',
+        ],
+      },
+      addTransaction: {
+        title: 'Adding a transaction',
+        body: [
+          'Tap the round + button to open quick entry. Type the amount on the keypad, then choose Expense or Income.',
+          'Pick a category, optionally add a short note and change the date (it defaults to today).',
+          'To edit or delete a transaction later, just tap it wherever it appears — Home, Expenses, or anywhere else in the app.',
+        ],
+      },
+      spese: {
+        title: 'Expenses',
+        body: [
+          'The Expenses tab lets you browse any period: use the arrows next to the period label to move backward and forward.',
+          'Transactions are grouped by day, most recent first. Use the search box to filter by note, or tap a category chip to show only that category.',
+          'The fixed costs card at the top shows the combined monthly equivalent of your active recurring items — tap it to expand and see each one.',
+        ],
+      },
+      recurring: {
+        title: 'Fixed costs',
+        body: [
+          'Fixed costs are for things like rent, subscriptions or installments — anything that repeats. Each one is just an amount and a frequency (monthly, every 2 months, quarterly or yearly): deliberately no due dates.',
+          'Every month, each active fixed cost is automatically recorded as a transaction on the 1st, and converted to a monthly equivalent for the fixed-costs total.',
+          'Pausing a fixed cost stops it from being recorded further. Reactivating it starts recording again from the current month onward — the months it was paused are never backfilled.',
+        ],
+      },
+      budget: {
+        title: 'Budget',
+        body: [
+          'Set a spending limit per category, in whole euros, for each period. A progress bar fills up as you spend, changing color as you approach or exceed it.',
+          '"From my habits" proposes a budget based on the average of your last 3 periods. "With a savings target" works backward from how much you want to save (based on your income) and spreads the cuts across categories based on how flexible each one is.',
+          'You can also copy the whole budget from the previous period with one tap.',
+        ],
+      },
+      risparmi: {
+        title: 'Savings',
+        body: [
+          'Create a goal with a target amount and, if you want, a deadline. Add contributions to it whenever you set money aside.',
+          "The leftover card at the top shows what's left of this period — income minus expenses — so you know how much you could set aside right now.",
+          "Each goal card shows your progress and your average contribution pace, so you can see whether you're on track to hit the deadline.",
+        ],
+      },
+      report: {
+        title: 'Report',
+        body: [
+          "A donut chart breaks down this period's spending by category.",
+          'A bar chart compares income and expenses over the last 6 periods, so you can spot trends at a glance.',
+          'A trend line follows a single category over the same 6 periods — pick which one from the dropdown.',
+          'At the top, your savings rate for this period and the 6-period average.',
+        ],
+      },
+      settings: {
+        title: 'Settings',
+        body: [
+          'Edit your categories — name, emoji, color, and for expense categories, a flexibility level (essential, flexible, very flexible) used by the smart budget.',
+          'Switch the app language between English and Italian, and choose light, dark or automatic theme.',
+          'The counting period, by default, runs from the 1st of the month. You can pick any start day instead — for example the day your salary arrives, like the 26th, so your periods run from the 26th to the 25th of the next month. The whole app — Home, budgets, stats and savings — follows this period and re-maps immediately when you change it.',
+          'Back up your data as a JSON file (or restore from one), export your transactions as CSV, or wipe everything from the danger zone.',
+        ],
+      },
+    },
+  },
+  welcome: {
+    title: 'Welcome to Money Tracker',
+    subtitle: 'Track your spending, set budgets, and save toward what matters — all on your phone.',
+    bullet1: 'Log an expense or income in seconds',
+    bullet2: 'Set budgets and savings goals',
+    bullet3: 'All your data stays on your phone',
+    openGuide: 'Open the guide',
+    skip: 'Start right away',
   },
 } satisfies TranslationKeys

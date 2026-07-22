@@ -1,6 +1,7 @@
 import { db } from '../db/db'
 import type { Transaction, Budget, Contribution } from '../db/types'
 import { addMonths, lastNMonths } from './dates'
+import { periodStartISO, periodEndISO, periodKeyForDate } from './period'
 import { roundToNearest5 } from './money'
 import { monthlyEquivalentCents } from './recurring'
 
@@ -15,7 +16,7 @@ export interface MonthTransactions {
 export async function getMonthTransactions(monthKey: string): Promise<MonthTransactions> {
   const all = await db.transactions
     .where('date')
-    .between(`${monthKey}-01`, `${monthKey}-31`, true, true)
+    .between(periodStartISO(monthKey), periodEndISO(monthKey), true, true)
     .toArray()
   const expenses = all.filter((t) => t.type === 'expense')
   const incomes = all.filter((t) => t.type === 'income')
@@ -187,7 +188,7 @@ export function averageMonthlyContribution(contributions: Contribution[], months
   if (months.length === 0) return 0
   const monthSet = new Set(months)
   const total = contributions
-    .filter((c) => monthSet.has(c.date.slice(0, 7)))
+    .filter((c) => monthSet.has(periodKeyForDate(c.date)))
     .reduce((sum, c) => sum + c.amountCents, 0)
   return total / months.length
 }

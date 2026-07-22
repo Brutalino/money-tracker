@@ -10,11 +10,13 @@ Personal finance PWA for Fabio (EUR). UI is **English by default** with Italian 
 
 ## Architecture
 
-- React 18 + TypeScript + Vite, Dexie (IndexedDB, schema v2 in `src/db/db.ts`), Recharts, vite-plugin-pwa, CSS Modules. No backend, no accounts: all data is local to the device.
+- React 18 + TypeScript + Vite, Dexie (IndexedDB, schema v4 in `src/db/db.ts`), Recharts, vite-plugin-pwa, CSS Modules. No backend, no accounts: all data is local to the device.
 - `src/lib/` is pure domain logic (money, dates, recurring, stats, budgets, backup); screens live in `src/screens/<Tab>/`.
 - **All money is integer cents** (`amountCents`). Budgets are integer euros by design (`amountEuros`), suggestions rounded to nearest 5€.
 - Dates are local-timezone ISO strings (`yyyy-mm-dd`), month keys `yyyy-mm`; never construct dates via `new Date(isoString)`.
 - **Recurring items have no due dates by user decision**: amount + frequency only, converted to a monthly equivalent and materialized as a transaction dated the 1st of each month with deterministic id `rec-<recurringId>-<yyyy-mm>` (primary-key uniqueness makes materialization race-free; see `src/lib/recurring.ts`). Reactivating a paused item resets `createdMonth` — do not backfill paused months.
+- **Configurable accounting-period start day**: period keys stay `yyyy-mm` meaning "period starting in that month"; see `src/lib/period.ts` + `src/period/` (React context mirror). Recurring materialization deliberately stays calendar-based (always the 1st of the month) regardless of the chosen period start day.
+- **In-app Guide** (`src/screens/Guide/`) plus a one-time Welcome sheet shown on fresh installs, gated by the `onboarding-done` settings flag (`src/lib/onboarding.ts`) and a zero-transaction check so existing active users never see it.
 - App shell: page never scrolls; header and bottom nav are fixed flex children, only the content area scrolls. Home, Risparmi and the quick-entry sheet must fit 402×874 with zero internal scrolling.
 
 ## iOS PWA landmines (do not regress these)

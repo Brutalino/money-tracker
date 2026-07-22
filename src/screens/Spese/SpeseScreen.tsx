@@ -11,7 +11,8 @@ import styles from './SpeseScreen.module.css'
 import { db } from '../../db/db'
 import { getMonthTransactions, sumCents } from '../../lib/stats'
 import { monthlyEquivalentCents } from '../../lib/recurring'
-import { currentMonthKey, dayLabel } from '../../lib/dates'
+import { dayLabel } from '../../lib/dates'
+import { currentPeriodKey } from '../../lib/period'
 import { formatCents } from '../../lib/money'
 import { useT } from '../../i18n'
 import { localeTag } from '../../lib/locale'
@@ -23,7 +24,7 @@ interface Props {
 
 export function SpeseScreen({ onOpenSettings }: Props) {
   const t = useT()
-  const [month, setMonth] = useState(currentMonthKey())
+  const [month, setMonth] = useState(currentPeriodKey())
   const [search, setSearch] = useState('')
   const [filterCategoryId, setFilterCategoryId] = useState<string | null>(null)
   const [editingTx, setEditingTx] = useState<Transaction | null>(null)

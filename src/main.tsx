@@ -5,6 +5,7 @@ import './styles/global.css'
 import './styles/ui.css'
 import App from './App.tsx'
 import { I18nProvider } from './i18n'
+import { PeriodProvider } from './period'
 
 // iOS's "Add to Home Screen" snapshots whatever the service worker is
 // currently serving in this Safari tab — it does not force a fresh network
@@ -33,7 +34,9 @@ registerSW({
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <I18nProvider>
-      <App />
+      <PeriodProvider>
+        <App />
+      </PeriodProvider>
     </I18nProvider>
   </StrictMode>
 )
