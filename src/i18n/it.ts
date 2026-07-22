@@ -151,6 +151,7 @@ export const it = {
     setAside: 'Metti da parte',
     noGoalsSubtitle: 'Crea il tuo primo obiettivo di risparmio: una vacanza, un acquisto, un fondo di emergenza.',
     newGoal: 'Nuovo obiettivo',
+    firstPeriodHint: (date) => `Primo periodo — tracci dal ${date}. I conti potrebbero essere parziali.`,
   },
   goalCard: {
     reached: 'Obiettivo raggiunto! 🎉',
@@ -292,6 +293,16 @@ export const it = {
           "In basso trovi cinque schede per muoverti: Home, Spese, Budget, Risparmi e Report. Tocca l'icona a forma di ingranaggio in qualsiasi schermata per aprire le Impostazioni.",
           "Non c'è nessun account né un cloud: i tuoi dati vivono solo in questa installazione dell'app, da nessun'altra parte. Usa Impostazioni → Esporta di tanto in tanto per avere un backup.",
           'Consiglio: installa l\'app sulla home screen (Condividi → Aggiungi a Home su iOS) per un\'esperienza a schermo intero.',
+        ],
+      },
+      startingOut: {
+        title: 'Da dove comincio?',
+        body: [
+          "L'app traccia i soldi dal giorno in cui inizi — non conosce (e non le serve) il tuo saldo in banca. Una spesa conta il giorno in cui la paghi, un'entrata il giorno in cui arriva. Niente altro viene dato per scontato.",
+          'Puoi iniziare qualsiasi giorno, anche a metà periodo. Il primo periodo sembrerà semplicemente incompleto: l\'avanzo può perfino essere negativo se lo stipendio è arrivato prima che iniziassi, e medie e suggerimenti di budget si baseranno su dati parziali. Si sistema tutto da solo dal primo periodo pieno.',
+          'Non registrare il saldo del conto come una grossa entrata iniziale per far tornare i numeri — gonfierebbe le entrate di quel periodo e falserebbe statistiche e budget smart per mesi. Se hai già dei soldi da parte, registrali piuttosto come contributo a un obiettivo di risparmio.',
+          'Bollette e stipendi a cavallo dell\'inizio seguono una regola semplice: ciò che paghi dopo aver iniziato conta nel periodo in cui lo paghi, anche se "appartiene" a soldi guadagnati prima. Dopo un ciclo completo torna tutto da solo.',
+          'Per avere numeri puliti fin dal primo giorno, inizia all\'inizio di un periodo — il 1° del mese, o il giorno dello stipendio se imposti un giorno di inizio personalizzato nelle Impostazioni. Vanno bene entrambi: mese solare o stipendio-a-stipendio, scegli quello che rispecchia come vivi davvero.',
         ],
       },
       home: {

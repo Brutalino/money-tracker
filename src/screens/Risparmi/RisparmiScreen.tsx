@@ -9,8 +9,9 @@ import { IconPlus } from '../../components/Icons'
 import styles from './RisparmiScreen.module.css'
 import { db } from '../../db/db'
 import { getMonthTransactions, sumCents, goalSavedCents } from '../../lib/stats'
-import { currentPeriodKey, periodLabelCompact } from '../../lib/period'
+import { currentPeriodKey, periodLabelCompact, periodKeyForDate } from '../../lib/period'
 import { formatCents } from '../../lib/money'
+import { dayMonthLabel } from '../../lib/dates'
 import { useT } from '../../i18n'
 import type { Goal, Contribution } from '../../db/types'
 
@@ -37,12 +38,14 @@ export function RisparmiScreen({ onOpenSettings }: Props) {
     }
     const monthTx = await getMonthTransactions(currentMonth)
     const leftoverCents = sumCents(monthTx.incomes) - sumCents(monthTx.expenses)
-    return { goals, contributionsByGoal, savedByGoal, leftoverCents }
+    const firstTx = await db.transactions.orderBy('date').first()
+    return { goals, contributionsByGoal, savedByGoal, leftoverCents, firstTx }
   }, [currentMonth])
 
   if (!data) return null
 
   const topGoal = data.goals[0] ?? null
+  const showFirstPeriodHint = !!data.firstTx && periodKeyForDate(data.firstTx.date) === currentMonth
 
   return (
     <div className="screen-root">
@@ -71,6 +74,11 @@ export function RisparmiScreen({ onOpenSettings }: Props) {
               </button>
             )}
           </div>
+          {showFirstPeriodHint && data.firstTx && (
+            <div className={styles.firstPeriodHint}>
+              {t.risparmi.firstPeriodHint(dayMonthLabel(data.firstTx.date))}
+            </div>
+          )}
         </div>
 
         {data.goals.length === 0 ? (

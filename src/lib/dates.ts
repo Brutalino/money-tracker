@@ -51,6 +51,13 @@ export function dayLabel(iso: string): string {
   return `${capitalize(weekday)} ${day} ${month}`
 }
 
+/** Day + short month label, in the active language, e.g. "22 Jul" / "22 lug". Not capitalized — meant to sit mid-sentence. */
+export function dayMonthLabel(iso: string): string {
+  const date = parseISODate(iso)
+  const month = new Intl.DateTimeFormat(localeTag(), { month: 'short' }).format(date).replace(/\.$/, '')
+  return `${date.getDate()} ${month}`
+}
+
 export function parseISODate(iso: string): Date {
   const [y, m, d] = iso.split('-').map(Number)
   return new Date(y, m - 1, d)

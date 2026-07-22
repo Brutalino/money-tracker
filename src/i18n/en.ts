@@ -151,6 +151,7 @@ export const en = {
     setAside: 'Set aside',
     noGoalsSubtitle: 'Create your first savings goal: a trip, a purchase, an emergency fund.',
     newGoal: 'New goal',
+    firstPeriodHint: (date) => `First period — tracking since ${date}. Totals may be partial.`,
   },
   goalCard: {
     reached: 'Goal reached! 🎉',
@@ -291,6 +292,16 @@ export const en = {
           'Five tabs at the bottom get you around: Home, Expenses, Budget, Savings and Report. Tap the gear icon on any screen to open Settings.',
           "There's no account and no cloud: all your data lives in this installation of the app, nowhere else. Use Settings → Export regularly to keep a backup.",
           'Tip: install the app to your home screen (Share → Add to Home Screen on iOS) for a full-screen, app-like experience.',
+        ],
+      },
+      startingOut: {
+        title: 'Where do I start?',
+        body: [
+          "The app tracks money from the day you begin — it doesn't know (or need) your bank balance. An expense counts on the day you pay it, an income on the day it arrives. Nothing else is assumed.",
+          'You can start any day, even mid-period. Your first period will just look incomplete: the leftover may even be negative if your salary arrived before you started, and averages or budget suggestions will be based on partial data. This fixes itself from your first full period.',
+          "Don't log your current bank balance as a big initial income to make the numbers look right — it would inflate that period's income and skew statistics and smart-budget suggestions for months. If you have money already set aside, record it as a contribution to a savings goal instead.",
+          'Bills and salaries that straddle your start date follow one simple rule: whatever is paid after you start counts in the period you pay it, even if it "belongs" to money earned before. After one full cycle everything lines up on its own.',
+          'For the cleanest numbers from day one, start at the beginning of a period — the 1st of the month, or your payday if you set a custom start day in Settings. Both work: think in calendar months, or payday to payday. Pick the one that matches how you actually live.',
         ],
       },
       home: {
