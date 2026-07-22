@@ -55,6 +55,7 @@ export interface TranslationKeys {
   transactionRow: {
     categoryFallback: string
     generatedFromRecurring: string
+    scheduled: string
   }
   fab: {
     addTransaction: string
