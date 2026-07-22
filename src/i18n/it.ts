@@ -52,6 +52,7 @@ export const it = {
   transactionRow: {
     categoryFallback: 'Categoria',
     generatedFromRecurring: 'Generata da costo fisso',
+    scheduled: 'Programmata',
   },
   fab: {
     addTransaction: 'Aggiungi transazione',
@@ -151,7 +152,7 @@ export const it = {
     setAside: 'Metti da parte',
     noGoalsSubtitle: 'Crea il tuo primo obiettivo di risparmio: una vacanza, un acquisto, un fondo di emergenza.',
     newGoal: 'Nuovo obiettivo',
-    firstPeriodHint: (date) => `Primo periodo — tracci dal ${date}. I conti potrebbero essere parziali.`,
+    firstPeriodHint: (date) => `Primo periodo: tracci dal ${date}. I conti potrebbero essere parziali.`,
   },
   goalCard: {
     reached: 'Obiettivo raggiunto! 🎉',
@@ -200,7 +201,7 @@ export const it = {
     periodDayN: (day) => `Giorno ${day}`,
     periodSheetTitle: 'Giorno di inizio periodo',
     periodExplainer:
-      'Scegli il giorno in cui inizia il tuo mese contabile — ad esempio il giorno in cui arriva lo stipendio. Home, budget, statistiche e risparmi seguono questo periodo.',
+      'Scegli il giorno in cui inizia il tuo mese contabile, ad esempio il giorno in cui arriva lo stipendio. Home, budget, statistiche e risparmi seguono questo periodo.',
     periodFootnote: 'Nei mesi più corti il giorno si adatta automaticamente (es. 31 → 28 febbraio).',
     expenseCategories: 'Categorie di spesa',
     incomeCategories: 'Categorie di entrata',
@@ -253,7 +254,7 @@ export const it = {
     targetQuestion: 'Quanto vuoi risparmiare al mese?',
     targetInputLabel: 'Obiettivo di risparmio mensile (€)',
     linkGoalLabel: 'Collega a un obiettivo (opzionale)',
-    linkGoalNone: '— Nessuno —',
+    linkGoalNone: 'Nessuno',
     goalPaceHint: (amount) => `Precompilato dalla scadenza di questo obiettivo: ${amount}/mese`,
     motivationLabel: 'Oppure, perché stai risparmiando? (opzionale)',
     motivationPlaceholder: "Es. è bello avere dei soldi da parte",
@@ -263,10 +264,10 @@ export const it = {
       'Aggiungi prima il tuo stipendio come entrata ricorrente, poi torna qui per impostare un obiettivo di risparmio.',
     absurdTitle: 'I conti non tornano',
     absurdMessage: (target, max) =>
-      `Per risparmiare ${target} dovresti vivere con meno di zero. Il massimo teorico è ${max} — e vorrebbe dire non spendere assolutamente nulla.`,
+      `Per risparmiare ${target} dovresti vivere con meno di zero. Il massimo teorico è ${max}, e vorrebbe dire non spendere assolutamente nulla.`,
     adjustTarget: 'Modifica obiettivo',
     noCutsNeededBanner: (slack) =>
-      `Il tuo obiettivo rientra nelle tue abitudini attuali — nessun taglio necessario, hai anche ${slack} di margine.`,
+      `Il tuo obiettivo rientra nelle tue abitudini attuali: nessun taglio necessario, hai anche ${slack} di margine.`,
     cutsAppliedBanner: (target) => `Ecco come far rientrare ${target}/mese di risparmio nel tuo budget.`,
     insufficientBanner: (max, target) =>
       `Con tagli realistici (max −30%) puoi risparmiare fino a ${max}/mese, non ${target}.`,
@@ -284,7 +285,7 @@ export const it = {
   },
   guide: {
     title: 'Guida',
-    intro: 'Un giro veloce di ogni schermata — come registrare le cose, e cosa significano tutti i numeri.',
+    intro: 'Un giro veloce di ogni schermata: come registrare le cose, e cosa significano tutti i numeri.',
     sections: {
       gettingStarted: {
         title: 'Per iniziare',
@@ -298,18 +299,18 @@ export const it = {
       startingOut: {
         title: 'Da dove comincio?',
         body: [
-          "L'app traccia i soldi dal giorno in cui inizi — non conosce (e non le serve) il tuo saldo in banca. Una spesa conta il giorno in cui la paghi, un'entrata il giorno in cui arriva. Niente altro viene dato per scontato.",
+          "L'app traccia i soldi dal giorno in cui inizi. Non conosce (e non le serve) il tuo saldo in banca. Una spesa conta il giorno in cui la paghi, un'entrata il giorno in cui arriva. Niente altro viene dato per scontato.",
           'Puoi iniziare qualsiasi giorno, anche a metà periodo. Il primo periodo sembrerà semplicemente incompleto: l\'avanzo può perfino essere negativo se lo stipendio è arrivato prima che iniziassi, e medie e suggerimenti di budget si baseranno su dati parziali. Si sistema tutto da solo dal primo periodo pieno.',
-          'Non registrare il saldo del conto come una grossa entrata iniziale per far tornare i numeri — gonfierebbe le entrate di quel periodo e falserebbe statistiche e budget smart per mesi. Se hai già dei soldi da parte, registrali piuttosto come contributo a un obiettivo di risparmio.',
+          'Non registrare il saldo del conto come una grossa entrata iniziale per far tornare i numeri: gonfierebbe le entrate di quel periodo e falserebbe statistiche e budget smart per mesi. Se hai già dei soldi da parte, registrali piuttosto come contributo a un obiettivo di risparmio.',
           'Bollette e stipendi a cavallo dell\'inizio seguono una regola semplice: ciò che paghi dopo aver iniziato conta nel periodo in cui lo paghi, anche se "appartiene" a soldi guadagnati prima. Dopo un ciclo completo torna tutto da solo.',
-          'Per avere numeri puliti fin dal primo giorno, inizia all\'inizio di un periodo — il 1° del mese, o il giorno dello stipendio se imposti un giorno di inizio personalizzato nelle Impostazioni. Vanno bene entrambi: mese solare o stipendio-a-stipendio, scegli quello che rispecchia come vivi davvero.',
+          'Per avere numeri puliti fin dal primo giorno, inizia all\'inizio di un periodo: il 1° del mese, o il giorno dello stipendio se imposti un giorno di inizio personalizzato nelle Impostazioni. Vanno bene entrambi: mese solare o stipendio-a-stipendio, scegli quello che rispecchia come vivi davvero.',
         ],
       },
       home: {
         title: 'Home',
         body: [
           'La Home mostra il periodo corrente a colpo d\'occhio: un anello con quanto puoi ancora spendere e quanto budget hai già usato.',
-          'Un indicatore di ritmo ti dice se stai spendendo in linea per questo punto del periodo — in anticipo, in linea, o troppo veloce.',
+          'Un indicatore di ritmo ti dice se stai spendendo in linea per questo punto del periodo: in anticipo, in linea, o troppo veloce.',
           "Sotto trovi il tuo obiettivo di risparmio principale e le transazioni più recenti, così puoi modificare al volo qualcosa che hai appena registrato.",
         ],
       },
@@ -318,7 +319,8 @@ export const it = {
         body: [
           'Tocca il pulsante rotondo + per aprire l\'inserimento rapido. Digita l\'importo sul tastierino, poi scegli Uscita o Entrata.',
           'Scegli una categoria, aggiungi facoltativamente una breve nota e cambia la data (di default è oggi).',
-          'Per modificare o eliminare una transazione in seguito, toccala ovunque compaia — in Home, in Spese o altrove nell\'app.',
+          'Per modificare o eliminare una transazione in seguito, toccala ovunque compaia: in Home, in Spese o altrove nell\'app.',
+          'Se conosci già una spesa futura, come una bolletta con data di addebito nota, registrala subito con quella data: comparirà come "Programmata" finché il giorno non arriva, e conterà nel periodo in cui viene pagata.',
         ],
       },
       spese: {
@@ -326,15 +328,15 @@ export const it = {
         body: [
           'La scheda Spese ti permette di sfogliare qualsiasi periodo: usa le frecce accanto all\'etichetta del periodo per andare avanti e indietro.',
           'Le transazioni sono raggruppate per giorno, dalla più recente. Usa la casella di ricerca per filtrare per nota, oppure tocca un chip categoria per mostrare solo quella categoria.',
-          'La card dei costi fissi in alto mostra l\'equivalente mensile combinato dei tuoi costi fissi attivi — toccala per espanderla e vedere ogni voce.',
+          'La card dei costi fissi in alto mostra l\'equivalente mensile combinato dei tuoi costi fissi attivi: toccala per espanderla e vedere ogni voce.',
         ],
       },
       recurring: {
         title: 'Costi fissi',
         body: [
-          'I costi fissi servono per cose come affitto, abbonamenti o rate — tutto ciò che si ripete. Ognuno è solo un importo e una frequenza (mensile, ogni 2 mesi, trimestrale o annuale): niente scadenze, di proposito.',
+          'I costi fissi servono per cose come affitto, abbonamenti o rate: tutto ciò che si ripete. Ognuno è solo un importo e una frequenza (mensile, ogni 2 mesi, trimestrale o annuale): niente scadenze, di proposito.',
           'Ogni mese, ogni costo fisso attivo viene registrato automaticamente come transazione il giorno 1, e convertito nel suo equivalente mensile per il totale dei costi fissi.',
-          'Mettere in pausa un costo fisso ne interrompe la registrazione. Riattivarlo la fa ripartire dal mese corrente in poi — i mesi in cui era in pausa non vengono mai recuperati.',
+          'Mettere in pausa un costo fisso ne interrompe la registrazione. Riattivarlo la fa ripartire dal mese corrente in poi: i mesi in cui era in pausa non vengono mai recuperati.',
         ],
       },
       budget: {
@@ -349,7 +351,7 @@ export const it = {
         title: 'Risparmi',
         body: [
           'Crea un obiettivo con un importo target e, se vuoi, una scadenza. Aggiungi contributi ogni volta che metti via dei soldi.',
-          'La card dell\'avanzo in alto mostra quanto resta di questo periodo — entrate meno uscite — così sai quanto potresti mettere da parte adesso.',
+          'La card dell\'avanzo in alto mostra quanto resta di questo periodo, entrate meno uscite, così sai quanto potresti mettere da parte adesso.',
           'Ogni card obiettivo mostra il tuo progresso e il ritmo medio dei contributi, così vedi se sei in linea per rispettare la scadenza.',
         ],
       },
@@ -358,16 +360,16 @@ export const it = {
         body: [
           'Un grafico a ciambella mostra come si dividono le spese di questo periodo per categoria.',
           'Un grafico a barre confronta entrate e uscite negli ultimi 6 periodi, così noti le tendenze a colpo d\'occhio.',
-          'Una linea segue una singola categoria negli stessi 6 periodi — scegli quale dal menu a tendina.',
+          'Una linea segue una singola categoria negli stessi 6 periodi: scegli quale dal menu a tendina.',
           'In alto trovi il tuo tasso di risparmio di questo periodo e la media degli ultimi 6.',
         ],
       },
       settings: {
         title: 'Impostazioni',
         body: [
-          'Modifica le tue categorie — nome, emoji, colore e, per le categorie di spesa, un livello di flessibilità (essenziale, flessibile, molto flessibile) usato dal budget smart.',
+          'Modifica le tue categorie: nome, emoji, colore e, per le categorie di spesa, un livello di flessibilità (essenziale, flessibile, molto flessibile) usato dal budget smart.',
           'Cambia la lingua dell\'app tra inglese e italiano, e scegli il tema chiaro, scuro o automatico.',
-          'Il periodo di conteggio, di default, va dal 1° del mese. Puoi scegliere un altro giorno di inizio — per esempio il giorno in cui arriva lo stipendio, tipo il 26, così i tuoi periodi vanno dal 26 al 25 del mese successivo. Tutta l\'app — Home, budget, statistiche e risparmi — segue questo periodo e si riadatta subito quando lo cambi.',
+          'Il periodo di conteggio, di default, va dal 1° del mese. Puoi scegliere un altro giorno di inizio, per esempio il giorno in cui arriva lo stipendio, tipo il 26, così i tuoi periodi vanno dal 26 al 25 del mese successivo. Tutta l\'app (Home, budget, statistiche e risparmi) segue questo periodo e si riadatta subito quando lo cambi.',
           'Fai il backup dei tuoi dati in un file JSON (o ripristina da uno), esporta le transazioni in CSV, oppure cancella tutto dalla zona pericolosa.',
         ],
       },
@@ -375,7 +377,7 @@ export const it = {
   },
   welcome: {
     title: 'Benvenuto in Money Tracker',
-    subtitle: 'Tieni traccia delle spese, imposta un budget e risparmia per quello che conta — tutto dal telefono.',
+    subtitle: 'Tieni traccia delle spese, imposta un budget e risparmia per quello che conta, tutto dal telefono.',
     bullet1: 'Registra una spesa o un\'entrata in pochi secondi',
     bullet2: 'Imposta budget e obiettivi di risparmio',
     bullet3: 'Tutti i tuoi dati restano sul telefono',

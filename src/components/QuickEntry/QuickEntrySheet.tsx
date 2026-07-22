@@ -150,7 +150,6 @@ export function QuickEntrySheet({ onClose, editingTransaction, defaultType = 'ex
               type="date"
               className={styles.dateInput}
               value={date}
-              max={todayISO()}
               onChange={(e) => setDate(e.target.value)}
             />
           </div>

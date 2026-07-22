@@ -173,7 +173,7 @@ export function SpeseScreen({ onOpenSettings }: Props) {
             ))}
         </div>
 
-        <MonthSelector month={month} onChange={setMonth} />
+        <MonthSelector month={month} onChange={setMonth} disableFuture={false} />
 
         <div className={styles.statsRow}>
           <div className={styles.statCard}>

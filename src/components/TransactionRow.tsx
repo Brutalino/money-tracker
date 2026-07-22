@@ -1,6 +1,7 @@
 import styles from './TransactionRow.module.css'
 import type { Transaction, Category } from '../db/types'
 import { formatCentsCompact } from '../lib/money'
+import { todayISO } from '../lib/dates'
 import { useT } from '../i18n'
 
 interface Props {
@@ -12,6 +13,7 @@ interface Props {
 export function TransactionRow({ transaction, category, onClick }: Props) {
   const t = useT()
   const isExpense = transaction.type === 'expense'
+  const isScheduled = transaction.date > todayISO()
   return (
     <button
       type="button"
@@ -30,6 +32,7 @@ export function TransactionRow({ transaction, category, onClick }: Props) {
               🔁
             </span>
           )}
+          {isScheduled && <span className={styles.scheduledBadge}>{t.transactionRow.scheduled}</span>}
         </div>
         {transaction.note && <div className={styles.note}>{transaction.note}</div>}
       </div>
