@@ -336,6 +336,7 @@ export const en = {
           'Fixed costs are for things like rent, subscriptions or installments: anything that repeats. Each one is just an amount and a frequency (monthly, every 2 months, quarterly or yearly): deliberately no due dates.',
           'Every month, each active fixed cost is automatically recorded as a transaction on the 1st, and converted to a monthly equivalent for the fixed-costs total.',
           'Pausing a fixed cost stops it from being recorded further. Reactivating it starts recording again from the current month onward: the months it was paused are never backfilled.',
+          'Variable bills (like power or gas) don\'t belong here: the amount changes every time. When a bill arrives, log it as a normal expense dated with its debit date: it will show as "Scheduled" until that day.',
         ],
       },
       budget: {
