@@ -337,6 +337,7 @@ export const it = {
           'I costi fissi servono per cose come affitto, abbonamenti o rate: tutto ciò che si ripete. Ognuno è solo un importo e una frequenza (mensile, ogni 2 mesi, trimestrale o annuale): niente scadenze, di proposito.',
           'Ogni mese, ogni costo fisso attivo viene registrato automaticamente come transazione il giorno 1, e convertito nel suo equivalente mensile per il totale dei costi fissi.',
           'Mettere in pausa un costo fisso ne interrompe la registrazione. Riattivarlo la fa ripartire dal mese corrente in poi: i mesi in cui era in pausa non vengono mai recuperati.',
+          'Le bollette variabili (luce, gas) non vanno tra i costi fissi: l\'importo cambia ogni volta. Quando arriva la bolletta, registrala come spesa normale con la data di addebito indicata: comparirà come "Programmata" fino a quel giorno.',
         ],
       },
       budget: {
