@@ -200,7 +200,7 @@ No scheduled work; just rules that keep this plan cheap:
 
 Expo app, TypeScript, workspaces set up, core package extracted and imported,
 tab navigation with 5 empty screens, i18n + period + theme contexts running,
-Intl smoke test (Section 4.4) passing on a real iPhone dev build.
+Intl smoke test (Section 4.4) passing on the real iPhone (via Expo Go, see Phase 6).
 
 **Gate: `formatCents(123456)` and `monthLabel` render correctly in both languages on device.**
 
@@ -265,14 +265,26 @@ Now the features impossible in the PWA, prioritized on that day:
   Fabio reopens that decision**.
 - Optional: Face ID lock.
 
-### Phase 6: distribution
+### Phase 6: distribution and device testing
 
-- **iOS**: an Apple Developer Program membership (99 USD/year) is effectively required
-  for daily personal use: without it, dev builds expire after 7 days. With it:
-  EAS Build in the cloud (no Mac needed), install via TestFlight. App Store publication
-  is optional and a separate decision.
-- **Android**: build an APK with EAS, sideload for free. Play Store optional
-  (one-time 25 USD) and only relevant if distributing to others.
+How the app gets onto the iPhone at each stage (decided up front, because we develop
+on Linux: no Xcode and no iOS Simulator, ever; EAS Build in the cloud is the only way
+to produce an iOS binary):
+
+1. **Phases 1 to 3, free**: test with **Expo Go** on the iPhone (App Store app that
+   runs the JS bundle straight from the dev server over Wi-Fi). No Apple account, no
+   signing, instant reload. Verify at execution time that expo-sqlite still runs
+   inside Expo Go; if it does not, the paid account moves earlier.
+2. **From native features onward** (widgets, notifications, share-sheet intake) and
+   for the Phase 4 parallel month: **Apple Developer Program (99 USD/year)** becomes
+   necessary. Free-account signing is not a real option for us: builds expire after
+   7 days and re-signing needs a Mac or fragile third-party tools, and EAS cloud
+   builds for a physical device require the paid membership anyway.
+3. **Install path with the paid account**: EAS Build in the cloud, delivered via
+   **TestFlight** (builds last 90 days, auto-update on the device). App Store
+   publication is optional and a separate decision.
+- **Android**: true free sideloading. Build an APK with EAS, install it directly.
+  Play Store optional (one-time 25 USD) and only relevant if distributing to others.
 
 ## 7. Effort estimate (honest)
 
