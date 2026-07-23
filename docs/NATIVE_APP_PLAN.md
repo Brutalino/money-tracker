@@ -241,11 +241,29 @@ mismatch. Only then does the PWA stop being primary.**
 
 Now the features impossible in the PWA, prioritized on that day:
 - Scheduled-bill / salary-day notifications (expo-notifications, all local, no server).
-- Home-screen widget: remaining budget for the month (WidgetKit via Expo config
-  plugin + a small native extension; the hardest item here).
+- **Quick-entry widget (iOS)**. Design note, because iOS constrains this hard:
+  WidgetKit widgets have no text fields and no keyboard; interactivity is limited to
+  Button/Toggle controls backed by App Intents (stateless background actions,
+  iOS 17+, still true as of iOS 26). The widget can never host the keypad, so the
+  design that actually saves time is:
+  1. Category buttons on the widget, each deep-linking straight into the QuickEntry
+     sheet with that category preselected and the keypad ready. One tap from the
+     home screen to typing digits.
+  2. Optional fixed-price buttons for habitual purchases (the usual coffee): the
+     App Intent writes the transaction in the background without opening the app.
+  3. The same App Intent exposed to Shortcuts/Siri and mapped to the iPhone's
+     Action Button: press it anywhere, land on the keypad. Cheapest big win,
+     no widget required.
+  App and widget share data via an App Group container (shared SQLite file or a
+  snapshot JSON); after every in-app write, ask WidgetKit to reload timelines
+  (the system throttles overly frequent reloads, batch them).
+- Display widget: remaining budget for the month. Read-only companion, refreshed on
+  a system timeline plus explicit reload on writes. Widgets are a native SwiftUI
+  extension target (added to the Expo project via config plugin); this is the
+  hardest build item in this phase.
 - Share-sheet CSV intake, feeding the shelved bank-reconciliation design **only if
   Fabio reopens that decision**.
-- Optional: Face ID lock, Siri Shortcut for quick entry.
+- Optional: Face ID lock.
 
 ### Phase 6: distribution
 
