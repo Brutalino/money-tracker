@@ -267,24 +267,59 @@ Now the features impossible in the PWA, prioritized on that day:
 
 ### Phase 6: distribution and device testing
 
-How the app gets onto the iPhone at each stage (decided up front, because we develop
-on Linux: no Xcode and no iOS Simulator, ever; EAS Build in the cloud is the only way
-to produce an iOS binary):
+Strategy (decided 2026-07-23, distribution options verified online the same day):
+friends give feedback early and for free, Apple gets paid only once the app has
+proven itself. We develop on Linux (no Xcode, no iOS Simulator, ever), so EAS Build
+in the cloud is the only way to produce an iOS binary at any stage.
 
-1. **Phases 1 to 3, free**: test with **Expo Go** on the iPhone (App Store app that
-   runs the JS bundle straight from the dev server over Wi-Fi). No Apple account, no
-   signing, instant reload. Verify at execution time that expo-sqlite still runs
-   inside Expo Go; if it does not, the paid account moves earlier.
-2. **From native features onward** (widgets, notifications, share-sheet intake) and
-   for the Phase 4 parallel month: **Apple Developer Program (99 USD/year)** becomes
-   necessary. Free-account signing is not a real option for us: builds expire after
-   7 days and re-signing needs a Mac or fragile third-party tools, and EAS cloud
-   builds for a physical device require the paid membership anyway.
-3. **Install path with the paid account**: EAS Build in the cloud, delivered via
-   **TestFlight** (builds last 90 days, auto-update on the device). App Store
-   publication is optional and a separate decision.
-- **Android**: true free sideloading. Build an APK with EAS, install it directly.
-  Play Store optional (one-time 25 USD) and only relevant if distributing to others.
+**Stage A. Development testing, free: Expo Go.** During Phases 1 to 3, run the app
+on the real iPhone via Expo Go (App Store app that runs the JS bundle from the dev
+server over Wi-Fi). No Apple account, no signing. Verify at execution time that
+expo-sqlite still runs inside Expo Go; if not, Stage C moves earlier.
+
+**Stage B. Friends beta: PWA first, then Android APKs, all free.**
+- Product feedback (categories, budgets, usability, copy) does not need a native
+  binary: the PWA is already public and friends can start using it any day.
+- The native beta runs on **Android**: EAS builds an APK, friends sideload it
+  directly. State of play verified 2026-07: free and unrestricted in Italy today.
+  Google's developer-verification program enforces first on 2026-09-30 in Brazil,
+  Indonesia, Singapore and Thailand only; EU timing is unconfirmed ("2027 and
+  beyond") and under DMA scrutiny. If it ever lands here, a free "Limited
+  Distribution" tier (email-only registration, up to 20 devices, aimed at
+  hobbyists) or the one-time per-device "advanced flow" acknowledgment keeps
+  friend-to-friend APKs free. Revisit only if Google publishes a concrete EU date.
+- This beta slots between Phase 3 and Phase 4: friends polish the product before
+  Apple is paid; Fabio's own parallel month (the Phase 4 gate) then runs on the
+  Stage C build, since his daily phone is an iPhone.
+
+**Stage C. iOS, once proven: Apple Developer Program (99 USD/year).** One
+membership buys both channels we need:
+- **Personal permanent install, the chosen channel: ad hoc via EAS internal
+  distribution.** Never touches the App Store, no review. Fully Linux-driven:
+  `eas device:create` registers the iPhone UDID through a QR link, an internal
+  distribution build produces a signed .ipa installable from a URL in Safari, and
+  EAS manages certificates and profiles automatically. Provisioning profiles last
+  1 year. **Hard operational rule: standard accounts get no grace period; if the
+  membership or profile lapses, the installed app stops launching immediately.
+  Set a recurring reminder at month 11 to renew and rebuild.** One-time device
+  step: enable Developer Mode (Settings, Privacy and Security) for
+  non-App-Store installs; TestFlight builds are exempt from this.
+- **TestFlight, only if iPhone-owning friends join the beta:** internal testers
+  (up to 100) receive builds with no review, but every build expires 90 days
+  after upload, so it costs a re-upload every 3 months. It is the friends
+  channel, not the personal one; ad hoc is the personal one.
+
+**Routes investigated and ruled out (2026-07):** EU DMA Web Distribution requires
+2+ years of membership plus an app with 1M+ first annual EU installs, unreachable
+by design for a personal app; alternative marketplaces (AltStore PAL) cost the same
+99 USD/year plus Apple notarization and self-hosting for zero benefit at this
+scale; the Enterprise Program requires a 100+ employee organization; unlisted App
+Store distribution still goes through full App Review and lives on the store;
+free-Apple-ID signing (AltStore Classic/SideStore) expires every 7 days, caps at
+3 apps and relies on fragile automation, the opposite of stable.
+
+App Store publication stays optional and a separate decision, relevant only if the
+app should reach strangers. Play Store likewise (one-time 25 USD).
 
 ## 7. Effort estimate (honest)
 
@@ -312,6 +347,9 @@ Do not trust any of these names/choices without re-checking on the day:
 - [ ] Chart decision: hand-rolled react-native-svg vs victory-native health
 - [ ] expo-router vs react-navigation as the tabs default
 - [ ] EAS Build pricing/free tier for a personal app
-- [ ] Apple Developer Program price and the 7-day dev-build limit still current
+- [ ] Apple Developer Program price, ad hoc profile 1-year validity and the
+      no-grace-period rule still current
+- [ ] Google developer-verification enforcement status for EU/Italy (Android APK
+      sideloading; free Limited Distribution tier availability)
 - [ ] Whether React itself has moved (React 19+, RN new-architecture status)
 - [ ] Re-read project memory for decisions made after 2026-07-23 that touch this plan
