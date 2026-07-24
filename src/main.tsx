@@ -6,6 +6,10 @@ import './styles/ui.css'
 import App from './App.tsx'
 import { I18nProvider } from './i18n'
 import { PeriodProvider } from './period'
+import { initKeyboardInsetWatcher } from './lib/keyboardInset'
+
+// Keyboard overlap handling for the pinned iOS PWA shell (see lib/keyboardInset.ts).
+initKeyboardInsetWatcher()
 
 // iOS's "Add to Home Screen" snapshots whatever the service worker is
 // currently serving in this Safari tab — it does not force a fresh network
