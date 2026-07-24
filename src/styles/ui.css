@@ -14,6 +14,7 @@
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
   padding: 10px 16px 20px;
+  padding-bottom: calc(20px + var(--keyboard-inset, 0px));
 }
 
 .card {
