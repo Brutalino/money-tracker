@@ -18,15 +18,14 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: var(--keyboard-inset, 0px);
+  bottom: 0;
   background: var(--surface-1);
   border-radius: 20px 20px 0 0;
-  max-height: min(88vh, calc(var(--app-height, 100vh) - var(--keyboard-inset, 0px) - 8px));
+  max-height: 88vh;
   display: flex;
   flex-direction: column;
   animation: slideUp 0.22s cubic-bezier(0.32, 0.72, 0, 1);
   padding-bottom: var(--safe-bottom);
-  transition: bottom 0.2s ease-out;
 }
 
 .panelFull {
