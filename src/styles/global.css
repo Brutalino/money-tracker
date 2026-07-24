@@ -46,8 +46,6 @@
   --radius-lg: 22px;
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-top: env(safe-area-inset-top, 0px);
-  /* Software-keyboard overlap, driven by lib/keyboardInset.ts */
-  --keyboard-inset: 0px;
 
   --tab-bar-height: 54px;
 }
