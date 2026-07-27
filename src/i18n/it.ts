@@ -386,4 +386,9 @@ export const it = {
     openGuide: 'Apri la guida',
     skip: 'Inizia subito',
   },
+  whatsNew: {
+    title: 'Novità',
+    subtitle: (version) => `Ora hai la versione ${version}`,
+    gotIt: 'Ho capito',
+  },
 } satisfies TranslationKeys

@@ -385,4 +385,9 @@ export const en = {
     openGuide: 'Open the guide',
     skip: 'Start right away',
   },
+  whatsNew: {
+    title: "What's new",
+    subtitle: (version) => `You are now on version ${version}`,
+    gotIt: 'Got it',
+  },
 } satisfies TranslationKeys

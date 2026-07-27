@@ -91,4 +91,5 @@ export const SETTINGS_KEYS = {
   lastMaterializedMonth: 'last-materialized-month',
   savingsPlan: 'savings-plan',
   periodStartDay: 'period-start-day',
+  lastSeenVersion: 'last-seen-version',
 } as const
