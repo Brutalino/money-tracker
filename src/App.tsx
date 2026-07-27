@@ -4,6 +4,7 @@ import { BottomNav } from './components/BottomNav'
 import { Fab } from './components/Fab'
 import { QuickEntrySheet } from './components/QuickEntry/QuickEntrySheet'
 import { WelcomeSheet } from './components/WelcomeSheet'
+import { WhatsNewSheet } from './components/WhatsNewSheet'
 import { SettingsScreen } from './screens/Settings/SettingsScreen'
 import { GuideScreen } from './screens/Guide/GuideScreen'
 import { HomeScreen } from './screens/Home/HomeScreen'
@@ -17,6 +18,8 @@ import { ensureSeeded } from './lib/seed'
 import { materializeRecurring, dedupeMaterializedTransactions } from './lib/recurring'
 import { applyThemeToDocument, getStoredTheme } from './lib/theme'
 import { getOnboardingDone, setOnboardingDone } from './lib/onboarding'
+import { changelogToShow, getLastSeenVersion, setLastSeenVersion } from './lib/changelog'
+import type { ChangelogEntry } from './lib/changelog'
 import { useT } from './i18n'
 import { usePeriodStartDay } from './period'
 
@@ -29,6 +32,7 @@ function App() {
   const [quickAddOpen, setQuickAddOpen] = useState(false)
   const [welcomeOpen, setWelcomeOpen] = useState(false)
   const [guideOpen, setGuideOpen] = useState(false)
+  const [whatsNew, setWhatsNew] = useState<ChangelogEntry[]>([])
 
   useEffect(() => {
     let cancelled = false
@@ -38,15 +42,29 @@ function App() {
       await materializeRecurring()
       const mode = await getStoredTheme()
       applyThemeToDocument(mode)
+      let freshInstall = false
       if (!(await getOnboardingDone())) {
         // Only fresh installs (zero transactions) see the welcome sheet —
         // existing active users must never see it, even if they somehow
         // never had the flag set to true.
         const txCount = await db.transactions.count()
         if (txCount === 0) {
+          freshInstall = true
           setWelcomeOpen(true)
         } else {
           await setOnboardingDone()
+        }
+      }
+      // A fresh install has no update to catch up on, so it only records the
+      // version it started on. This also keeps the two sheets from stacking.
+      if (freshInstall) {
+        await setLastSeenVersion(__APP_VERSION__)
+      } else {
+        const entries = changelogToShow(await getLastSeenVersion(), __APP_VERSION__)
+        if (entries.length > 0) {
+          if (!cancelled) setWhatsNew(entries)
+        } else {
+          await setLastSeenVersion(__APP_VERSION__)
         }
       }
       if (!cancelled) setReady(true)
@@ -66,6 +84,11 @@ function App() {
   async function handleSkipWelcome() {
     setWelcomeOpen(false)
     await setOnboardingDone()
+  }
+
+  async function handleCloseWhatsNew() {
+    setWhatsNew([])
+    await setLastSeenVersion(__APP_VERSION__)
   }
 
   if (!ready) {
@@ -101,6 +124,7 @@ function App() {
         <WelcomeSheet onOpenGuide={handleOpenGuideFromWelcome} onSkip={handleSkipWelcome} />
       )}
       {guideOpen && <GuideScreen onClose={() => setGuideOpen(false)} />}
+      {whatsNew.length > 0 && <WhatsNewSheet entries={whatsNew} onClose={handleCloseWhatsNew} />}
     </div>
   )
 }

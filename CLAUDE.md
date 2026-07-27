@@ -17,6 +17,7 @@ Personal finance PWA for Fabio (EUR). UI is **English by default** with Italian 
 - **Recurring items have no due dates by user decision**: amount + frequency only, converted to a monthly equivalent and materialized as a transaction dated the 1st of each month with deterministic id `rec-<recurringId>-<yyyy-mm>` (primary-key uniqueness makes materialization race-free; see `src/lib/recurring.ts`). Reactivating a paused item resets `createdMonth` — do not backfill paused months.
 - **Configurable accounting-period start day**: period keys stay `yyyy-mm` meaning "period starting in that month"; see `src/lib/period.ts` + `src/period/` (React context mirror). Recurring materialization deliberately stays calendar-based (always the 1st of the month) regardless of the chosen period start day.
 - **In-app Guide** (`src/screens/Guide/`) plus a one-time Welcome sheet shown on fresh installs, gated by the `onboarding-done` settings flag (`src/lib/onboarding.ts`) and a zero-transaction check so existing active users never see it.
+- **What's new popup** (`src/lib/changelog.ts` + `src/components/WhatsNewSheet.tsx`): every version bump with user-visible changes needs an en+it entry in `CHANGELOG`; the popup shows entries newer than `last-seen-version` and is skipped on fresh installs.
 - App shell: page never scrolls; header and bottom nav are fixed flex children, only the content area scrolls. Home, Risparmi and the quick-entry sheet must fit 402×874 with zero internal scrolling.
 
 ## iOS PWA landmines (do not regress these)

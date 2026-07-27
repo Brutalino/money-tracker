@@ -300,4 +300,9 @@ export interface TranslationKeys {
     openGuide: string
     skip: string
   }
+  whatsNew: {
+    title: string
+    subtitle: (version: string) => string
+    gotIt: string
+  }
 }
