@@ -18,6 +18,14 @@ export interface ChangelogEntry {
 // leaves updatedIn alone and shows no popup.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.10',
+    updatedIn: '0.10.0',
+    items: {
+      en: ['Choose when a recurring cost starts: this month or the next one'],
+      it: ['Scegli quando parte un costo ricorrente: questo mese o il prossimo'],
+    },
+  },
+  {
     version: '0.9',
     updatedIn: '0.9.0',
     items: {

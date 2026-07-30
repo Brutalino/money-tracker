@@ -41,6 +41,9 @@ export function makeRecurringTxId(recurringId: string, monthKey: string): string
  * that even a genuinely concurrent writer (another tab, another instance)
  * can't create a duplicate row — the primary-key collision is caught and
  * ignored below.
+ *
+ * A `createdMonth` in the future means the item starts later: it materializes
+ * nothing until that month arrives.
  */
 export async function materializeRecurring(): Promise<void> {
   // Deliberately calendar-month-based, independent of the user's accounting-
@@ -52,7 +55,8 @@ export async function materializeRecurring(): Promise<void> {
 
   await db.transaction('rw', db.transactions, async () => {
     for (const item of items) {
-      const startMonth = item.createdMonth && item.createdMonth <= nowKey ? item.createdMonth : nowKey
+      const startMonth = item.createdMonth ?? nowKey
+      if (startMonth > nowKey) continue
       const months = monthsBetweenInclusive(startMonth, nowKey)
       for (const monthKey of months) {
         const dateISO = firstOfMonth(monthKey)

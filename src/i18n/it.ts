@@ -122,6 +122,9 @@ export const it = {
     namePlaceholder: 'Es. Affitto, Netflix, Palestra...',
     amountLabel: 'Importo (per la frequenza scelta)',
     frequencyLabel: 'Frequenza',
+    startsLabel: 'Inizia',
+    startsThisMonth: 'Questo mese',
+    startsNextMonth: 'Mese prossimo',
     deactivate: 'Disattiva',
     confirmDelete: 'Eliminare questo costo fisso? Le transazioni già generate rimarranno nello storico.',
     confirmDeleteThisMonthTx: (amount) => `Eliminare anche la transazione di questo mese (${amount})?`,
@@ -341,6 +344,7 @@ export const it = {
         body: [
           'I costi fissi servono per cose come affitto, abbonamenti o rate: tutto ciò che si ripete. Ognuno è solo un importo e una frequenza (mensile, ogni 2 mesi, trimestrale o annuale): niente scadenze, di proposito.',
           'Ogni mese, ogni costo fisso attivo viene registrato automaticamente come transazione il giorno 1, e convertito nel suo equivalente mensile per il totale dei costi fissi.',
+          'Quando aggiungi o riattivi un costo fisso, puoi scegliere se farlo partire questo mese o il prossimo.',
           'Mettere in pausa un costo fisso ne interrompe la registrazione. Riattivarlo la fa ripartire dal mese corrente in poi: i mesi in cui era in pausa non vengono mai recuperati.',
           'Le bollette variabili (luce, gas) non vanno tra i costi fissi: l\'importo cambia ogni volta. Quando arriva la bolletta, registrala come spesa normale con la data di addebito indicata: comparirà come "Programmata" fino a quel giorno.',
         ],
