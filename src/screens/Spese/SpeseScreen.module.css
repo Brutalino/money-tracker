@@ -5,7 +5,9 @@
 }
 
 .fixedCard {
-  margin-bottom: 10px;
+  /* Match the visual gap below the month selector: its own 8px bottom
+     padding plus the stats row's 10px top margin. */
+  margin-bottom: 18px;
 }
 
 .fixedHeaderRow {

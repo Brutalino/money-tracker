@@ -19,7 +19,7 @@ export interface ChangelogEntry {
 export const CHANGELOG: ChangelogEntry[] = [
   {
     version: '0.10',
-    updatedIn: '0.10.1',
+    updatedIn: '0.10.2',
     items: {
       en: [
         'Choose when a recurring cost starts: this month or the next one',
