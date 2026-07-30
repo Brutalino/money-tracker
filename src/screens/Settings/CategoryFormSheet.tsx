@@ -33,6 +33,7 @@ export function CategoryFormSheet({ onClose, editing, defaultKind = 'expense' }:
   const [habit, setHabit] = useState(editing?.habit ?? false)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [closing, setClosing] = useState(false)
 
   const canSave = name.trim().length > 0 && emoji.trim().length > 0 && !saving
 
@@ -64,7 +65,7 @@ export function CategoryFormSheet({ onClose, editing, defaultKind = 'expense' }:
           ...flexFields,
         })
       }
-      onClose()
+      setClosing(true)
     } catch {
       setError(t.common.saveFailed)
     } finally {
@@ -75,11 +76,15 @@ export function CategoryFormSheet({ onClose, editing, defaultKind = 'expense' }:
   async function handleToggleArchive() {
     if (!editing) return
     await db.categories.update(editing.id, { archived: !editing.archived })
-    onClose()
+    setClosing(true)
   }
 
   return (
-    <Sheet title={editing ? t.categoryForm.editTitle : t.categoryForm.newTitle} onClose={onClose}>
+    <Sheet
+      title={editing ? t.categoryForm.editTitle : t.categoryForm.newTitle}
+      closing={closing}
+      onClose={onClose}
+    >
       <div className="stack">
         <div className="row" style={{ gap: 8 }}>
           <button

@@ -103,7 +103,7 @@ function App() {
 
   return (
     <div className={styles.root}>
-      <div className={styles.content} key={periodStartDay}>
+      <div className={styles.content} key={`${periodStartDay}-${activeTab}`}>
         {activeTab === 'home' && (
           <HomeScreen onOpenSettings={() => setSettingsOpen(true)} onNavigate={setActiveTab} />
         )}

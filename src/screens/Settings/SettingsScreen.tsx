@@ -34,6 +34,7 @@ export function SettingsScreen({ onClose, onOpenGuide }: Props) {
   const [feedbackSheetOpen, setFeedbackSheetOpen] = useState(false)
   const [busy, setBusy] = useState(false)
   const [diagnostics, setDiagnostics] = useState<DiagnosticsSnapshot | null>(null)
+  const [closing, setClosing] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -114,9 +115,14 @@ export function SettingsScreen({ onClose, onOpenGuide }: Props) {
   }
 
   return (
-    <Sheet variant="full" hideHeader onClose={onClose}>
+    <Sheet variant="full" hideHeader closing={closing} onClose={onClose}>
       <div className={styles.top}>
-        <button type="button" className={styles.backBtn} onClick={onClose} aria-label={t.common.back}>
+        <button
+          type="button"
+          className={styles.backBtn}
+          onClick={() => setClosing(true)}
+          aria-label={t.common.back}
+        >
           <IconBack width={18} height={18} />
         </button>
         <span className={styles.title}>{t.settings.title}</span>

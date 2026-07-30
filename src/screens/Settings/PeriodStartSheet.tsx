@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Sheet } from '../../components/ui/Sheet'
 import styles from './PeriodStartSheet.module.css'
 import { usePeriodStartDay } from '../../period'
@@ -12,14 +13,15 @@ const DAYS = Array.from({ length: 31 }, (_, i) => i + 1)
 export function PeriodStartSheet({ onClose }: Props) {
   const t = useT()
   const { periodStartDay, setPeriodStartDay } = usePeriodStartDay()
+  const [closing, setClosing] = useState(false)
 
   function handleSelect(day: number) {
     setPeriodStartDay(day)
-    onClose()
+    setClosing(true)
   }
 
   return (
-    <Sheet title={t.settings.periodSheetTitle} onClose={onClose}>
+    <Sheet title={t.settings.periodSheetTitle} closing={closing} onClose={onClose}>
       <p className={styles.explainer}>{t.settings.periodExplainer}</p>
       <div className={styles.grid}>
         {DAYS.map((day) => (

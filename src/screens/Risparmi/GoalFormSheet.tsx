@@ -21,6 +21,7 @@ export function GoalFormSheet({ onClose, editing }: Props) {
   const [deadline, setDeadline] = useState(editing?.deadline ?? '')
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [closing, setClosing] = useState(false)
 
   const targetCents = eurosToCents(Number.parseFloat(target.replace(',', '.')) || 0)
   const canSave = name.trim().length > 0 && targetCents > 0 && !saving
@@ -50,7 +51,7 @@ export function GoalFormSheet({ onClose, editing }: Props) {
           sortOrder: nextSortOrder,
         })
       }
-      onClose()
+      setClosing(true)
     } catch {
       setError(t.common.saveFailed)
     } finally {
@@ -61,7 +62,7 @@ export function GoalFormSheet({ onClose, editing }: Props) {
   async function handleArchive() {
     if (!editing) return
     await db.goals.update(editing.id, { archived: !editing.archived })
-    onClose()
+    setClosing(true)
   }
 
   async function handleDelete() {
@@ -71,11 +72,11 @@ export function GoalFormSheet({ onClose, editing }: Props) {
       await db.contributions.where('goalId').equals(editing.id).delete()
       await db.goals.delete(editing.id)
     })
-    onClose()
+    setClosing(true)
   }
 
   return (
-    <Sheet title={editing ? t.goalForm.editTitle : t.goalForm.newTitle} onClose={onClose}>
+    <Sheet title={editing ? t.goalForm.editTitle : t.goalForm.newTitle} closing={closing} onClose={onClose}>
       <div className="stack">
         <div className="field">
           <label>{t.common.emoji}</label>

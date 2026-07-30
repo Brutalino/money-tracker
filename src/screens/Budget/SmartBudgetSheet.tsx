@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { Sheet } from '../../components/ui/Sheet'
 import { db } from '../../db/db'
@@ -45,6 +45,16 @@ export function SmartBudgetSheet({ month, categories, onClose, onApplied }: Prop
   const [editedProposals, setEditedProposals] = useState<Map<string, number>>(new Map())
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [closing, setClosing] = useState(false)
+  // Two distinct actions can dismiss this sheet (plain close vs. applied);
+  // remember which one the user picked so it fires only after the exit
+  // animation finishes.
+  const pendingActionRef = useRef<() => void>(onClose)
+
+  function handleClose() {
+    pendingActionRef.current = onClose
+    setClosing(true)
+  }
 
   const categoryIds = categories.map((c) => c.id)
   const habitCategoryIds = categories.filter((c) => c.habit).map((c) => c.id)
@@ -160,7 +170,8 @@ export function SmartBudgetSheet({ month, categories, onClose, onApplied }: Prop
       for (const [catId, euros] of editedProposals.entries()) {
         await upsertBudget(month, catId, euros)
       }
-      onApplied()
+      pendingActionRef.current = onApplied
+      setClosing(true)
     } catch {
       setError(t.common.saveFailed)
       setSaving(false)
@@ -170,7 +181,7 @@ export function SmartBudgetSheet({ month, categories, onClose, onApplied }: Prop
   const categoryById = new Map(categories.map((c) => [c.id, c]))
 
   return (
-    <Sheet title={t.smartBudget.title} onClose={onClose}>
+    <Sheet title={t.smartBudget.title} closing={closing} onClose={() => pendingActionRef.current()}>
       {!data ? (
         <p className="secondary-text" style={{ fontSize: 13 }}>
           {t.common.loading}
@@ -233,7 +244,7 @@ export function SmartBudgetSheet({ month, categories, onClose, onApplied }: Prop
           <p className="secondary-text" style={{ fontSize: 13.5 }}>
             {t.smartBudget.noIncomeBody}
           </p>
-          <button type="button" className="btn btn-block" onClick={onClose}>
+          <button type="button" className="btn btn-block" onClick={handleClose}>
             {t.common.close}
           </button>
         </div>
@@ -256,7 +267,7 @@ export function SmartBudgetSheet({ month, categories, onClose, onApplied }: Prop
           <p className="secondary-text" style={{ fontSize: 13.5 }}>
             {t.smartBudget.noHistoryBody}
           </p>
-          <button type="button" className="btn btn-block" onClick={onClose}>
+          <button type="button" className="btn btn-block" onClick={handleClose}>
             {t.common.close}
           </button>
         </div>

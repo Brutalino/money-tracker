@@ -23,6 +23,7 @@ export function ContributionSheet({ goal, onClose, initialAmountCents }: Props) 
   const [note, setNote] = useState('')
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [closing, setClosing] = useState(false)
 
   const amountCents = eurosToCents(Number.parseFloat(amount.replace(',', '.')) || 0)
   const canSave = amountCents > 0 && !saving
@@ -39,7 +40,7 @@ export function ContributionSheet({ goal, onClose, initialAmountCents }: Props) 
         date,
         note: note.trim() || undefined,
       })
-      onClose()
+      setClosing(true)
     } catch {
       setError(t.common.saveFailed)
     } finally {
@@ -48,7 +49,7 @@ export function ContributionSheet({ goal, onClose, initialAmountCents }: Props) 
   }
 
   return (
-    <Sheet title={t.contributionSheet.title(goal.name)} onClose={onClose}>
+    <Sheet title={t.contributionSheet.title(goal.name)} closing={closing} onClose={onClose}>
       <div className="stack">
         <div className="field">
           <label htmlFor="cs-amount">{t.contributionSheet.amountLabel}</label>

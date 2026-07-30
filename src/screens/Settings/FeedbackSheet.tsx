@@ -14,6 +14,7 @@ export function FeedbackSheet({ onClose }: Props) {
   const [sending, setSending] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [sent, setSent] = useState(false)
+  const [closing, setClosing] = useState(false)
 
   const canSend = message.trim().length > 0 && !sending
 
@@ -33,11 +34,11 @@ export function FeedbackSheet({ onClose }: Props) {
 
   if (sent) {
     return (
-      <Sheet title={t.feedback.title} onClose={onClose} variant="full">
+      <Sheet title={t.feedback.title} closing={closing} onClose={onClose} variant="full">
         <div className="stack" style={{ alignItems: 'center', textAlign: 'center', padding: '16px 0' }}>
           <div style={{ fontSize: 40 }}>💌</div>
           <div>{t.feedback.thanks}</div>
-          <button type="button" className="btn btn-primary" onClick={onClose}>
+          <button type="button" className="btn btn-primary" onClick={() => setClosing(true)}>
             {t.common.close}
           </button>
         </div>
@@ -50,7 +51,7 @@ export function FeedbackSheet({ onClose }: Props) {
     // iOS pan the whole standalone viewport to reveal the caret and the sheet
     // slides off screen. Anchored at the top, everything already sits above
     // the keyboard and iOS has nothing to pan.
-    <Sheet title={t.feedback.title} onClose={onClose} variant="full">
+    <Sheet title={t.feedback.title} closing={closing} onClose={onClose} variant="full">
       <div className="stack">
         <div className="muted" style={{ fontSize: 13 }}>
           {t.feedback.hint}
