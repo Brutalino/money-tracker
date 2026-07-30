@@ -190,6 +190,8 @@ export const en = {
     title: 'Settings',
     guideTitle: 'Guide',
     openGuide: 'Open the guide',
+    feedbackTitle: 'Feedback',
+    sendFeedback: 'Send feedback',
     appearance: 'Appearance',
     themeAuto: 'Auto',
     themeLight: 'Light',
@@ -391,5 +393,14 @@ export const en = {
     title: "What's new",
     subtitle: (version) => `You are now on version ${version}`,
     gotIt: 'Got it',
+  },
+  feedback: {
+    title: 'Send feedback',
+    hint: "Tell me what works, what doesn't or what you'd like to see. The message is anonymous and includes the app version.",
+    placeholder: 'Write your feedback here',
+    send: 'Send',
+    sending: 'Sending…',
+    thanks: 'Thank you! Your feedback has been sent.',
+    error: 'Could not send. Check your connection and try again.',
   },
 } satisfies TranslationKeys

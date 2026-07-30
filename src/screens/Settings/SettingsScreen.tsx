@@ -5,6 +5,7 @@ import { Sheet } from '../../components/ui/Sheet'
 import { IconBack, IconDownload, IconUpload, IconChevronRight, IconBook } from '../../components/Icons'
 import { CategoryFormSheet } from './CategoryFormSheet'
 import { PeriodStartSheet } from './PeriodStartSheet'
+import { FeedbackSheet } from './FeedbackSheet'
 import styles from './SettingsScreen.module.css'
 import { db } from '../../db/db'
 import { getStoredTheme, setStoredTheme, applyThemeToDocument } from '../../lib/theme'
@@ -30,6 +31,7 @@ export function SettingsScreen({ onClose, onOpenGuide }: Props) {
     null
   )
   const [periodSheetOpen, setPeriodSheetOpen] = useState(false)
+  const [feedbackSheetOpen, setFeedbackSheetOpen] = useState(false)
   const [busy, setBusy] = useState(false)
   const [diagnostics, setDiagnostics] = useState<DiagnosticsSnapshot | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -128,6 +130,15 @@ export function SettingsScreen({ onClose, onOpenGuide }: Props) {
               <IconBook width={16} height={16} />
             </div>
             <span className={styles.catName}>{t.settings.openGuide}</span>
+            <IconChevronRight width={16} height={16} style={{ color: 'var(--text-muted)', flexShrink: 0 }} />
+          </button>
+        </div>
+
+        <div className="section-title">{t.settings.feedbackTitle}</div>
+        <div className="card">
+          <button type="button" className={styles.catRow} onClick={() => setFeedbackSheetOpen(true)}>
+            <div className={styles.catEmoji}>💬</div>
+            <span className={styles.catName}>{t.settings.sendFeedback}</span>
             <IconChevronRight width={16} height={16} style={{ color: 'var(--text-muted)', flexShrink: 0 }} />
           </button>
         </div>
@@ -297,6 +308,7 @@ export function SettingsScreen({ onClose, onOpenGuide }: Props) {
         />
       )}
       {periodSheetOpen && <PeriodStartSheet onClose={() => setPeriodSheetOpen(false)} />}
+      {feedbackSheetOpen && <FeedbackSheet onClose={() => setFeedbackSheetOpen(false)} />}
     </Sheet>
   )
 }
