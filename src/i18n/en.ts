@@ -73,17 +73,13 @@ export const en = {
     noExpensesInCategory: 'No expenses in this category',
   },
   home: {
-    canStillSpend: 'You can still spend',
-    spentOfBudget: (spent, budget) => `${spent} spent of ${budget} budget`,
-    observeModeTitle: 'Observation mode',
-    observeModeText:
-      "This month we're watching your spending, then I'll suggest a realistic budget. Go to Budget whenever you want to set one.",
-    goToBudget: 'Go to Budget',
+    leftThisMonth: 'Left this month',
+    heroBreakdown: (income, spent) => `Income ${income} · Spent ${spent}`,
+    heroSetAside: (amount) => `Set aside ${amount}`,
+    budgetRemainingShort: (amount) => `Budget: ${amount} left`,
     noGoalsSubtitle: 'Create a savings goal to start putting something aside.',
     recentTransactions: 'Recent transactions',
     noTransactionsSubtitle: 'Tap the + button to log your first expense or income.',
-    savingsTargetLine: (amount, detail) => `Savings target: ${amount}/month${detail ? ` · ${detail}` : ''}`,
-    setAsideLine: (amount) => `${amount} set aside this month`,
   },
   transactions: {
     noneTitle: 'No transactions',
@@ -319,8 +315,8 @@ export const en = {
       home: {
         title: 'Home',
         body: [
-          "Home shows your current month at a glance: a ring with how much you can still spend, and how much of your budget you've used so far.",
-          "A pace indicator tells you whether you're spending on track for this point in the month: ahead, on track, or too fast.",
+          'Home opens with one big number: the money you have left this month, income minus all your expenses minus anything set aside in savings.',
+          "If you've set a budget for the month, a slim progress bar underneath shows how much of it is left.",
           'Below that, your top savings goal and your most recent transactions, so you can jump straight to editing something you just logged.',
         ],
       },

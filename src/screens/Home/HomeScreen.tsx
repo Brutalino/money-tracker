@@ -14,14 +14,13 @@ import {
   sumBudgetEuros,
   sumCents,
   budgetStatus,
-  computePace,
   goalSavedCents,
   getPeriodContributions,
   sumContributionCents,
+  monthLeftoverCents,
 } from '../../lib/stats'
-import { currentPeriodKey, periodLabel, periodElapsedFraction } from '../../lib/period'
-import { formatCents, formatEuros } from '../../lib/money'
-import { getSavingsPlan } from '../../lib/savingsPlan'
+import { currentPeriodKey, periodLabel } from '../../lib/period'
+import { formatCents } from '../../lib/money'
 import { useT } from '../../i18n'
 import type { TabKey } from '../../types/nav'
 import type { Transaction } from '../../db/types'
@@ -48,9 +47,7 @@ export function HomeScreen({ onOpenSettings, onNavigate }: Props) {
     const activeGoals = goalsAll.filter((g) => !g.archived).sort((a, b) => a.sortOrder - b.sortOrder)
     const topGoal = activeGoals[0]
     const topGoalSaved = topGoal ? await goalSavedCents(topGoal.id) : 0
-    const savingsPlan = await getSavingsPlan()
-    const savingsPlanGoal = savingsPlan?.goalId ? goalsAll.find((g) => g.id === savingsPlan.goalId) : null
-    return { monthTx, budgets, categories, topGoal, topGoalSaved, recentTx, savingsPlan, savingsPlanGoal, periodContributions }
+    return { monthTx, budgets, categories, topGoal, topGoalSaved, recentTx, periodContributions }
   }, [currentMonth])
 
   if (!data) return null
@@ -64,61 +61,37 @@ export function HomeScreen({ onOpenSettings, onNavigate }: Props) {
   const remainingCents = totalBudgetCents - variableSpentCents - setAsideCents
   const usedFraction = totalBudgetCents > 0 ? (variableSpentCents + setAsideCents) / totalBudgetCents : 0
   const status = budgetStatus(usedFraction)
-  const elapsedFraction = periodElapsedFraction(currentMonth)
-  const pace = computePace(usedFraction, elapsedFraction)
+  const incomeCents = sumCents(data.monthTx.incomes)
+  const spentCents = sumCents(data.monthTx.expenses)
+  const availableCents = monthLeftoverCents(data.monthTx, data.periodContributions)
 
   return (
     <div className="screen-root">
       <Header title={periodLabel(currentMonth)} onOpenSettings={onOpenSettings} />
       <div className={`screen-pad ${styles.wrap}`}>
-        {hasBudget ? (
-          <div className={`card ${styles.mainCard}`}>
-            <div className={styles.mainLabel}>{t.home.canStillSpend}</div>
-            <div
-              className={styles.mainAmount}
-              style={{ color: remainingCents < 0 ? 'var(--status-critical)' : 'var(--text-primary)' }}
-            >
-              {formatCents(remainingCents)}
-            </div>
-            <ProgressBar fraction={usedFraction} status={status} />
-            <div className={styles.mainSub}>
-              {t.home.spentOfBudget(formatCents(variableSpentCents), formatCents(totalBudgetCents))}
-            </div>
-            {setAsideCents > 0 && (
-              <div className={styles.mainSub}>{t.home.setAsideLine(formatCents(setAsideCents))}</div>
-            )}
-            <div className={styles.paceRow}>
-              <span
-                className={`pill pill-${pace.status}`}
-                style={{ padding: '4px 10px', borderRadius: 999 }}
-              >
-                {t.pace[pace.messageKey]}
+        <div className={`card ${styles.mainCard}`}>
+          <div className={styles.mainLabel}>{t.home.leftThisMonth}</div>
+          <div
+            className={styles.mainAmount}
+            style={{ color: availableCents < 0 ? 'var(--status-critical)' : 'var(--text-primary)' }}
+          >
+            {formatCents(availableCents)}
+          </div>
+          <div className={styles.heroBreakdown}>
+            {t.home.heroBreakdown(formatCents(incomeCents), formatCents(spentCents))}
+            {setAsideCents > 0 && ` · ${t.home.heroSetAside(formatCents(setAsideCents))}`}
+          </div>
+          {hasBudget && (
+            <div className={styles.budgetRow}>
+              <div style={{ flex: 1 }}>
+                <ProgressBar fraction={usedFraction} status={status} />
+              </div>
+              <span className="muted" style={{ fontSize: 11.5, whiteSpace: 'nowrap' }}>
+                {t.home.budgetRemainingShort(formatCents(remainingCents))}
               </span>
             </div>
-            {data.savingsPlan && (
-              <div className="muted" style={{ fontSize: 11.5, marginTop: 8 }}>
-                {t.home.savingsTargetLine(
-                  formatEuros(data.savingsPlan.amountEuros),
-                  data.savingsPlanGoal?.name ?? data.savingsPlan.motivation
-                )}
-              </div>
-            )}
-          </div>
-        ) : (
-          <div className={`card`}>
-            <div className={styles.observeEmoji}>👀</div>
-            <div className={styles.observeTitle}>{t.home.observeModeTitle}</div>
-            <div className={styles.observeText}>{t.home.observeModeText}</div>
-            <button
-              type="button"
-              className="btn btn-primary"
-              style={{ marginTop: 12 }}
-              onClick={() => onNavigate('budget')}
-            >
-              {t.home.goToBudget}
-            </button>
-          </div>
-        )}
+          )}
+        </div>
 
         <div>
           <div className={styles.sectionHeaderRow}>

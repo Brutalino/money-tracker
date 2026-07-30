@@ -8,7 +8,7 @@ import { ContributionSheet } from './ContributionSheet'
 import { IconPlus } from '../../components/Icons'
 import styles from './RisparmiScreen.module.css'
 import { db } from '../../db/db'
-import { getMonthTransactions, sumCents, goalSavedCents, getPeriodContributions, sumContributionCents } from '../../lib/stats'
+import { getMonthTransactions, goalSavedCents, getPeriodContributions, sumContributionCents, monthLeftoverCents } from '../../lib/stats'
 import { currentPeriodKey, periodLabelCompact, periodKeyForDate } from '../../lib/period'
 import { formatCents } from '../../lib/money'
 import { dayMonthLabel } from '../../lib/dates'
@@ -39,7 +39,7 @@ export function RisparmiScreen({ onOpenSettings }: Props) {
     const monthTx = await getMonthTransactions(currentMonth)
     const periodContributions = await getPeriodContributions(currentMonth)
     const setAsideCents = sumContributionCents(periodContributions)
-    const leftoverCents = sumCents(monthTx.incomes) - sumCents(monthTx.expenses) - setAsideCents
+    const leftoverCents = monthLeftoverCents(monthTx, periodContributions)
     const firstTx = await db.transactions.orderBy('date').first()
     return { goals, contributionsByGoal, savedByGoal, leftoverCents, setAsideCents, firstTx }
   }, [currentMonth])

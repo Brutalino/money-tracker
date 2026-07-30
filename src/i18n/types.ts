@@ -76,16 +76,13 @@ export interface TranslationKeys {
     noExpensesInCategory: string
   }
   home: {
-    canStillSpend: string
-    spentOfBudget: (spent: string, budget: string) => string
-    observeModeTitle: string
-    observeModeText: string
-    goToBudget: string
+    leftThisMonth: string
+    heroBreakdown: (income: string, spent: string) => string
+    heroSetAside: (amount: string) => string
+    budgetRemainingShort: (amount: string) => string
     noGoalsSubtitle: string
     recentTransactions: string
     noTransactionsSubtitle: string
-    savingsTargetLine: (amount: string, detail?: string) => string
-    setAsideLine: (amount: string) => string
   }
   transactions: {
     noneTitle: string
