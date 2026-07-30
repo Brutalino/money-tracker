@@ -210,6 +210,11 @@ export function sumContributionCents(contributions: Contribution[]): number {
   return contributions.reduce((sum, c) => sum + c.amountCents, 0)
 }
 
+/** Money left this month: income minus ALL expenses (fixed and variable) minus savings set aside in the month. */
+export function monthLeftoverCents(monthTx: MonthTransactions, contributions: Contribution[]): number {
+  return sumCents(monthTx.incomes) - sumCents(monthTx.expenses) - sumContributionCents(contributions)
+}
+
 /** Contributions (savings deposits) dated inside the given period. */
 export async function getPeriodContributions(monthKey: string): Promise<Contribution[]> {
   return db.contributions

@@ -73,17 +73,13 @@ export const it = {
     noExpensesInCategory: 'Nessuna spesa in questa categoria',
   },
   home: {
-    canStillSpend: 'Puoi ancora spendere',
-    spentOfBudget: (spent, budget) => `${spent} spesi su ${budget} di budget`,
-    observeModeTitle: 'Modalità osservazione',
-    observeModeText:
-      'Questo mese osserviamo le tue spese, poi ti proporrò un budget realistico. Vai su Budget quando vuoi impostarne uno.',
-    goToBudget: 'Vai a Budget',
+    leftThisMonth: 'Ti rimangono questo mese',
+    heroBreakdown: (income, spent) => `Entrate ${income} · Uscite ${spent}`,
+    heroSetAside: (amount) => `Da parte ${amount}`,
+    budgetRemainingShort: (amount) => `Budget: ${amount} rimasti`,
     noGoalsSubtitle: 'Crea un obiettivo di risparmio per iniziare a mettere via qualcosa.',
     recentTransactions: 'Ultime transazioni',
     noTransactionsSubtitle: 'Tocca il pulsante + per registrare la tua prima spesa o entrata.',
-    savingsTargetLine: (amount, detail) => `Obiettivo di risparmio: ${amount}/mese${detail ? ` · ${detail}` : ''}`,
-    setAsideLine: (amount) => `${amount} messi da parte questo mese`,
   },
   transactions: {
     noneTitle: 'Nessuna transazione',
@@ -320,8 +316,8 @@ export const it = {
       home: {
         title: 'Home',
         body: [
-          'La Home mostra il mese corrente a colpo d\'occhio: un anello con quanto puoi ancora spendere e quanto budget hai già usato.',
-          'Un indicatore di ritmo ti dice se stai spendendo in linea per questo punto del mese: in anticipo, in linea, o troppo veloce.',
+          'La Home si apre con un numero grande: i soldi che ti rimangono questo mese, cioè le entrate meno tutte le uscite meno quanto hai messo da parte nei risparmi.',
+          'Se hai impostato un budget per il mese, una barra di avanzamento sottile sotto mostra quanto te ne rimane.',
           "Sotto trovi il tuo obiettivo di risparmio principale e le transazioni più recenti, così puoi modificare al volo qualcosa che hai appena registrato.",
         ],
       },

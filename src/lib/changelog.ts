@@ -18,6 +18,20 @@ export interface ChangelogEntry {
 // leaves updatedIn alone and shows no popup.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.12',
+    updatedIn: '0.12.0',
+    items: {
+      en: [
+        'The Home now opens with a big number: the money you have left this month',
+        'Your budget shows underneath it as a slim progress bar',
+      ],
+      it: [
+        'La Home ora si apre con un numero in grande: i soldi che ti rimangono questo mese',
+        'Il budget compare sotto come barra di avanzamento sottile',
+      ],
+    },
+  },
+  {
     version: '0.11',
     updatedIn: '0.11.0',
     items: {
