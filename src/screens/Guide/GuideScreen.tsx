@@ -32,6 +32,7 @@ export function GuideScreen({ onClose }: Props) {
   // welcome sheet, where landing on an empty wall of collapsed rows would
   // be a poor first impression.
   const [openIds, setOpenIds] = useState<Set<SectionId>>(new Set(['gettingStarted']))
+  const [closing, setClosing] = useState(false)
 
   function toggle(id: SectionId) {
     setOpenIds((prev) => {
@@ -43,9 +44,14 @@ export function GuideScreen({ onClose }: Props) {
   }
 
   return (
-    <Sheet variant="full" hideHeader onClose={onClose}>
+    <Sheet variant="full" hideHeader closing={closing} onClose={onClose}>
       <div className={styles.top}>
-        <button type="button" className={styles.backBtn} onClick={onClose} aria-label={t.common.back}>
+        <button
+          type="button"
+          className={styles.backBtn}
+          onClick={() => setClosing(true)}
+          aria-label={t.common.back}
+        >
           <IconBack width={18} height={18} />
         </button>
         <span className={styles.title}>{t.guide.title}</span>

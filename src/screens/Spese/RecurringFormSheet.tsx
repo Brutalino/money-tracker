@@ -30,6 +30,7 @@ export function RecurringFormSheet({ onClose, editing }: Props) {
   const [frequency, setFrequency] = useState<RecurringFrequency>(editing?.frequency ?? 'monthly')
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [closing, setClosing] = useState(false)
 
   const amountCents = eurosToCents(Number.parseFloat(amount.replace(',', '.')) || 0)
   const canSave = name.trim().length > 0 && amountCents > 0 && !!categoryId && !saving
@@ -62,7 +63,7 @@ export function RecurringFormSheet({ onClose, editing }: Props) {
         // without requiring an app reload.
         await materializeRecurring()
       }
-      onClose()
+      setClosing(true)
     } catch {
       setError(t.common.saveFailed)
     } finally {
@@ -79,7 +80,7 @@ export function RecurringFormSheet({ onClose, editing }: Props) {
     try {
       await db.recurring.update(editing.id, patch)
       if (nowActive) await materializeRecurring()
-      onClose()
+      setClosing(true)
     } catch {
       setError(t.common.saveFailed)
     }
@@ -104,14 +105,18 @@ export function RecurringFormSheet({ onClose, editing }: Props) {
           await db.transactions.delete(thisMonthTx.id)
         }
       }
-      onClose()
+      setClosing(true)
     } catch {
       setError(t.recurringForm.deleteFailedRetry)
     }
   }
 
   return (
-    <Sheet title={editing ? t.recurringForm.editTitle : t.recurringForm.newTitle} onClose={onClose}>
+    <Sheet
+      title={editing ? t.recurringForm.editTitle : t.recurringForm.newTitle}
+      closing={closing}
+      onClose={onClose}
+    >
       <div className="stack">
         <div className="row" style={{ gap: 8 }}>
           <button

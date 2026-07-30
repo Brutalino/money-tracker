@@ -81,6 +81,17 @@
   min-height: 0;
 }
 
+.backdropClosing {
+  animation: fadeOut 0.18s ease forwards;
+  pointer-events: none;
+}
+.panelClosing {
+  animation: slideDown 0.22s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+}
+.panelFullClosing {
+  animation: fadeOut 0.15s ease forwards;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -96,5 +107,17 @@
   }
   to {
     transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideDown {
+  to {
+    transform: translateY(100%);
   }
 }

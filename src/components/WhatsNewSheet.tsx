@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Sheet } from './ui/Sheet'
 import styles from './WhatsNewSheet.module.css'
 import { useT, useLanguage } from '../i18n'
@@ -11,13 +12,14 @@ interface Props {
 export function WhatsNewSheet({ entries, onClose }: Props) {
   const t = useT()
   const { language } = useLanguage()
+  const [closing, setClosing] = useState(false)
   // Only label each block with its version when there's more than one entry
   // to tell apart — with a single entry the version is already in the
   // subtitle, so repeating it would just be noise.
   const showVersionLabels = entries.length > 1
 
   return (
-    <Sheet hideHeader onClose={onClose}>
+    <Sheet hideHeader closing={closing} onClose={onClose}>
       <div className={styles.wrap}>
         <div className={styles.emoji}>✨</div>
         <div className={styles.title}>{t.whatsNew.title}</div>
@@ -37,7 +39,7 @@ export function WhatsNewSheet({ entries, onClose }: Props) {
           ))}
         </div>
 
-        <button type="button" className="btn btn-primary btn-block" onClick={onClose}>
+        <button type="button" className="btn btn-primary btn-block" onClick={() => setClosing(true)}>
           {t.whatsNew.gotIt}
         </button>
       </div>

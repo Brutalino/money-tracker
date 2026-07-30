@@ -35,6 +35,7 @@ export function QuickEntrySheet({ onClose, editingTransaction, defaultType = 'ex
   const [note, setNote] = useState(editingTransaction?.note ?? '')
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [closing, setClosing] = useState(false)
 
   // When switching type (and not editing), reset category selection so it matches the new kind.
   useEffect(() => {
@@ -76,7 +77,7 @@ export function QuickEntrySheet({ onClose, editingTransaction, defaultType = 'ex
           note: note.trim() || undefined,
         })
       }
-      onClose()
+      setClosing(true)
     } catch {
       setError(t.common.saveFailed)
     } finally {
@@ -88,13 +89,18 @@ export function QuickEntrySheet({ onClose, editingTransaction, defaultType = 'ex
     if (!editingTransaction) return
     if (!confirm(t.quickEntry.confirmDelete)) return
     await db.transactions.delete(editingTransaction.id)
-    onClose()
+    setClosing(true)
   }
 
   return (
-    <Sheet variant="full" hideHeader onClose={onClose}>
+    <Sheet variant="full" hideHeader closing={closing} onClose={onClose}>
       <div className={styles.top}>
-        <button type="button" className={styles.closeBtn} onClick={onClose} aria-label={t.quickEntry.closeAriaLabel}>
+        <button
+          type="button"
+          className={styles.closeBtn}
+          onClick={() => setClosing(true)}
+          aria-label={t.quickEntry.closeAriaLabel}
+        >
           <IconClose width={18} height={18} />
         </button>
         <div className={styles.segmented}>

@@ -18,6 +18,20 @@ export interface ChangelogEntry {
 // leaves updatedIn alone and shows no popup.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.9',
+    updatedIn: '0.9.0',
+    items: {
+      en: [
+        'Smoother animations: panels now glide away when closed and switching section fades in gently',
+        "Animations respect your device's Reduce Motion setting",
+      ],
+      it: [
+        'Animazioni più fluide: i pannelli ora scivolano via alla chiusura e il cambio di sezione sfuma dolcemente',
+        "Le animazioni rispettano l'impostazione Riduci movimento del dispositivo",
+      ],
+    },
+  },
+  {
     version: '0.8',
     updatedIn: '0.8.1',
     items: {
