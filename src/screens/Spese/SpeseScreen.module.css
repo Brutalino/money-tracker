@@ -4,6 +4,10 @@
   gap: 4px;
 }
 
+.fixedCard {
+  margin-bottom: 10px;
+}
+
 .fixedHeaderRow {
   display: flex;
   align-items: center;

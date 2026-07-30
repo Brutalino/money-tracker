@@ -19,10 +19,16 @@ export interface ChangelogEntry {
 export const CHANGELOG: ChangelogEntry[] = [
   {
     version: '0.10',
-    updatedIn: '0.10.0',
+    updatedIn: '0.10.1',
     items: {
-      en: ['Choose when a recurring cost starts: this month or the next one'],
-      it: ['Scegli quando parte un costo ricorrente: questo mese o il prossimo'],
+      en: [
+        'Choose when a recurring cost starts: this month or the next one',
+        'Fixed the month selector touching the fixed costs bar in Expenses',
+      ],
+      it: [
+        'Scegli quando parte un costo ricorrente: questo mese o il prossimo',
+        'Corretto il selettore del mese che toccava la barra dei costi fissi in Spese',
+      ],
     },
   },
   {
