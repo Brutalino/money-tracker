@@ -13,6 +13,19 @@ export interface ChangelogEntry {
 // What's new popup.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.7.0',
+    items: {
+      en: [
+        'Money you set aside for a savings goal now reduces what you can still spend this month.',
+        'The monthly leftover in Savings no longer counts money you already set aside.',
+      ],
+      it: [
+        'I soldi che metti da parte per un obiettivo ora riducono quello che puoi ancora spendere nel mese.',
+        "L'avanzo del mese in Risparmi non conta più i soldi già messi da parte.",
+      ],
+    },
+  },
+  {
     version: '0.6.0',
     items: {
       en: [

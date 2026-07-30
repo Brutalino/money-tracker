@@ -83,6 +83,7 @@ export const en = {
     recentTransactions: 'Recent transactions',
     noTransactionsSubtitle: 'Tap the + button to log your first expense or income.',
     savingsTargetLine: (amount, detail) => `Savings target: ${amount}/month${detail ? ` · ${detail}` : ''}`,
+    setAsideLine: (amount) => `${amount} set aside this month`,
   },
   transactions: {
     noneTitle: 'No transactions',
@@ -148,7 +149,8 @@ export const en = {
   },
   risparmi: {
     leftoverOf: (month) => `${month} leftover`,
-    leftoverExplanation: 'Income minus expenses this month',
+    leftoverExplanation: 'Income minus expenses and money set aside',
+    alreadySetAside: (amount) => `${amount} already set aside this month`,
     setAside: 'Set aside',
     noGoalsSubtitle: 'Create your first savings goal: a trip, a purchase, an emergency fund.',
     newGoal: 'New goal',
@@ -352,7 +354,7 @@ export const en = {
         title: 'Savings',
         body: [
           'Create a goal with a target amount and, if you want, a deadline. Add contributions to it whenever you set money aside.',
-          "The leftover card at the top shows what's left of this month, income minus expenses, so you know how much you could set aside right now.",
+          "The leftover card at the top shows what's left of this month, income minus expenses and money you've already set aside, so you know how much more you could set aside right now.",
           "Each goal card shows your progress and your average contribution pace, so you can see whether you're on track to hit the deadline.",
         ],
       },

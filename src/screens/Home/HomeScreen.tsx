@@ -16,6 +16,8 @@ import {
   budgetStatus,
   computePace,
   goalSavedCents,
+  getPeriodContributions,
+  sumContributionCents,
 } from '../../lib/stats'
 import { currentPeriodKey, periodLabel, periodElapsedFraction } from '../../lib/period'
 import { formatCents, formatEuros } from '../../lib/money'
@@ -35,19 +37,20 @@ export function HomeScreen({ onOpenSettings, onNavigate }: Props) {
   const [editingTx, setEditingTx] = useState<Transaction | null>(null)
 
   const data = useLiveQuery(async () => {
-    const [monthTx, budgets, categories, goalsAll, recentTx] = await Promise.all([
+    const [monthTx, budgets, categories, goalsAll, recentTx, periodContributions] = await Promise.all([
       getMonthTransactions(currentMonth),
       getBudgetsForMonth(currentMonth),
       db.categories.toArray(),
       db.goals.toArray(),
       db.transactions.orderBy('date').reverse().limit(3).toArray(),
+      getPeriodContributions(currentMonth),
     ])
     const activeGoals = goalsAll.filter((g) => !g.archived).sort((a, b) => a.sortOrder - b.sortOrder)
     const topGoal = activeGoals[0]
     const topGoalSaved = topGoal ? await goalSavedCents(topGoal.id) : 0
     const savingsPlan = await getSavingsPlan()
     const savingsPlanGoal = savingsPlan?.goalId ? goalsAll.find((g) => g.id === savingsPlan.goalId) : null
-    return { monthTx, budgets, categories, topGoal, topGoalSaved, recentTx, savingsPlan, savingsPlanGoal }
+    return { monthTx, budgets, categories, topGoal, topGoalSaved, recentTx, savingsPlan, savingsPlanGoal, periodContributions }
   }, [currentMonth])
 
   if (!data) return null
@@ -56,12 +59,13 @@ export function HomeScreen({ onOpenSettings, onNavigate }: Props) {
   const totalBudgetEuros = sumBudgetEuros(data.budgets)
   const hasBudget = data.budgets.length > 0
   const variableSpentCents = sumCents(data.monthTx.variableExpenses)
+  const setAsideCents = sumContributionCents(data.periodContributions)
   const totalBudgetCents = totalBudgetEuros * 100
-  const remainingCents = totalBudgetCents - variableSpentCents
-  const spentFraction = totalBudgetCents > 0 ? variableSpentCents / totalBudgetCents : 0
-  const status = budgetStatus(spentFraction)
+  const remainingCents = totalBudgetCents - variableSpentCents - setAsideCents
+  const usedFraction = totalBudgetCents > 0 ? (variableSpentCents + setAsideCents) / totalBudgetCents : 0
+  const status = budgetStatus(usedFraction)
   const elapsedFraction = periodElapsedFraction(currentMonth)
-  const pace = computePace(spentFraction, elapsedFraction)
+  const pace = computePace(usedFraction, elapsedFraction)
 
   return (
     <div className="screen-root">
@@ -76,10 +80,13 @@ export function HomeScreen({ onOpenSettings, onNavigate }: Props) {
             >
               {formatCents(remainingCents)}
             </div>
-            <ProgressBar fraction={spentFraction} status={status} />
+            <ProgressBar fraction={usedFraction} status={status} />
             <div className={styles.mainSub}>
               {t.home.spentOfBudget(formatCents(variableSpentCents), formatCents(totalBudgetCents))}
             </div>
+            {setAsideCents > 0 && (
+              <div className={styles.mainSub}>{t.home.setAsideLine(formatCents(setAsideCents))}</div>
+            )}
             <div className={styles.paceRow}>
               <span
                 className={`pill pill-${pace.status}`}
