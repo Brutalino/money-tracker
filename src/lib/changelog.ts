@@ -13,6 +13,13 @@ export interface ChangelogEntry {
 // What's new popup.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.8.1',
+    items: {
+      en: ['The feedback sheet now opens full screen, so the keyboard no longer pushes it off the screen.'],
+      it: ['Il foglio del feedback ora si apre a schermo intero, così la tastiera non lo spinge più fuori dallo schermo.'],
+    },
+  },
+  {
     version: '0.8.0',
     items: {
       en: ['You can now send feedback from Settings, anonymously and straight from the app.'],

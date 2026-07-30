@@ -33,7 +33,7 @@ export function FeedbackSheet({ onClose }: Props) {
 
   if (sent) {
     return (
-      <Sheet title={t.feedback.title} onClose={onClose}>
+      <Sheet title={t.feedback.title} onClose={onClose} variant="full">
         <div className="stack" style={{ alignItems: 'center', textAlign: 'center', padding: '16px 0' }}>
           <div style={{ fontSize: 40 }}>💌</div>
           <div>{t.feedback.thanks}</div>
@@ -46,14 +46,18 @@ export function FeedbackSheet({ onClose }: Props) {
   }
 
   return (
-    <Sheet title={t.feedback.title} onClose={onClose}>
+    // Full-screen on purpose: as a bottom sheet, focusing the textarea makes
+    // iOS pan the whole standalone viewport to reveal the caret and the sheet
+    // slides off screen. Anchored at the top, everything already sits above
+    // the keyboard and iOS has nothing to pan.
+    <Sheet title={t.feedback.title} onClose={onClose} variant="full">
       <div className="stack">
         <div className="muted" style={{ fontSize: 13 }}>
           {t.feedback.hint}
         </div>
         <textarea
           className="textarea"
-          rows={5}
+          rows={7}
           maxLength={2000}
           placeholder={t.feedback.placeholder}
           value={message}
