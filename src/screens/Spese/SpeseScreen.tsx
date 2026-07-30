@@ -90,7 +90,7 @@ export function SpeseScreen({ onOpenSettings }: Props) {
     <div className="screen-root">
       <Header title={t.nav.expenses} onOpenSettings={onOpenSettings} />
       <div className="screen-pad">
-        <div className="card">
+        <div className={`card ${styles.fixedCard}`}>
           <button
             type="button"
             className={styles.fixedHeaderRow}
