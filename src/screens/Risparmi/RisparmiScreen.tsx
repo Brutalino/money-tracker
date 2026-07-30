@@ -8,7 +8,7 @@ import { ContributionSheet } from './ContributionSheet'
 import { IconPlus } from '../../components/Icons'
 import styles from './RisparmiScreen.module.css'
 import { db } from '../../db/db'
-import { getMonthTransactions, sumCents, goalSavedCents } from '../../lib/stats'
+import { getMonthTransactions, sumCents, goalSavedCents, getPeriodContributions, sumContributionCents } from '../../lib/stats'
 import { currentPeriodKey, periodLabelCompact, periodKeyForDate } from '../../lib/period'
 import { formatCents } from '../../lib/money'
 import { dayMonthLabel } from '../../lib/dates'
@@ -37,9 +37,11 @@ export function RisparmiScreen({ onOpenSettings }: Props) {
       savedByGoal.set(g.id, await goalSavedCents(g.id))
     }
     const monthTx = await getMonthTransactions(currentMonth)
-    const leftoverCents = sumCents(monthTx.incomes) - sumCents(monthTx.expenses)
+    const periodContributions = await getPeriodContributions(currentMonth)
+    const setAsideCents = sumContributionCents(periodContributions)
+    const leftoverCents = sumCents(monthTx.incomes) - sumCents(monthTx.expenses) - setAsideCents
     const firstTx = await db.transactions.orderBy('date').first()
-    return { goals, contributionsByGoal, savedByGoal, leftoverCents, firstTx }
+    return { goals, contributionsByGoal, savedByGoal, leftoverCents, setAsideCents, firstTx }
   }, [currentMonth])
 
   if (!data) return null
@@ -74,6 +76,11 @@ export function RisparmiScreen({ onOpenSettings }: Props) {
               </button>
             )}
           </div>
+          {data.setAsideCents > 0 && (
+            <div className="muted" style={{ fontSize: 12.5, marginTop: 6 }}>
+              {t.risparmi.alreadySetAside(formatCents(data.setAsideCents))}
+            </div>
+          )}
           {showFirstPeriodHint && data.firstTx && (
             <div className={styles.firstPeriodHint}>
               {t.risparmi.firstPeriodHint(dayMonthLabel(data.firstTx.date))}

@@ -85,6 +85,7 @@ export interface TranslationKeys {
     recentTransactions: string
     noTransactionsSubtitle: string
     savingsTargetLine: (amount: string, detail?: string) => string
+    setAsideLine: (amount: string) => string
   }
   transactions: {
     noneTitle: string
@@ -149,6 +150,7 @@ export interface TranslationKeys {
   risparmi: {
     leftoverOf: (month: string) => string
     leftoverExplanation: string
+    alreadySetAside: (amount: string) => string
     setAside: string
     noGoalsSubtitle: string
     newGoal: string

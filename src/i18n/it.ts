@@ -83,6 +83,7 @@ export const it = {
     recentTransactions: 'Ultime transazioni',
     noTransactionsSubtitle: 'Tocca il pulsante + per registrare la tua prima spesa o entrata.',
     savingsTargetLine: (amount, detail) => `Obiettivo di risparmio: ${amount}/mese${detail ? ` · ${detail}` : ''}`,
+    setAsideLine: (amount) => `${amount} messi da parte questo mese`,
   },
   transactions: {
     noneTitle: 'Nessuna transazione',
@@ -148,7 +149,8 @@ export const it = {
   },
   risparmi: {
     leftoverOf: (month) => `Avanzo di ${month}`,
-    leftoverExplanation: 'Entrate meno uscite di questo mese',
+    leftoverExplanation: 'Entrate meno uscite e soldi messi da parte',
+    alreadySetAside: (amount) => `${amount} già messi da parte questo mese`,
     setAside: 'Metti da parte',
     noGoalsSubtitle: 'Crea il tuo primo obiettivo di risparmio: una vacanza, un acquisto, un fondo di emergenza.',
     newGoal: 'Nuovo obiettivo',
@@ -353,7 +355,7 @@ export const it = {
         title: 'Risparmi',
         body: [
           'Crea un obiettivo con un importo target e, se vuoi, una scadenza. Aggiungi contributi ogni volta che metti via dei soldi.',
-          'La card dell\'avanzo in alto mostra quanto resta di questo mese, entrate meno uscite, così sai quanto potresti mettere da parte adesso.',
+          'La card dell\'avanzo in alto mostra quanto resta di questo mese, entrate meno uscite e soldi già messi da parte, così sai quanto altro potresti mettere da parte adesso.',
           'Ogni card obiettivo mostra il tuo progresso e il ritmo medio dei contributi, così vedi se sei in linea per rispettare la scadenza.',
         ],
       },

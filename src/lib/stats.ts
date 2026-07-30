@@ -210,6 +210,14 @@ export function sumContributionCents(contributions: Contribution[]): number {
   return contributions.reduce((sum, c) => sum + c.amountCents, 0)
 }
 
+/** Contributions (savings deposits) dated inside the given period. */
+export async function getPeriodContributions(monthKey: string): Promise<Contribution[]> {
+  return db.contributions
+    .where('date')
+    .between(periodStartISO(monthKey), periodEndISO(monthKey), true, true)
+    .toArray()
+}
+
 /** Which pace copy to show; distinct from PaceStatus because "good" has two
  * different messages (on-track vs. well-ahead) that share the same status/color. */
 export type PaceMessageKey = 'good' | 'critical' | 'warning' | 'wayAhead'
