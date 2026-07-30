@@ -4,6 +4,7 @@ import { db } from '../../db/db'
 import { makeId } from '../../lib/id'
 import { useT } from '../../i18n'
 import { categoryFlexibility } from '../../lib/smartBudget'
+import { deleteCategoryIfUnused } from '../../lib/categories'
 import type { Category, Flexibility, TransactionType } from '../../db/types'
 
 interface Props {
@@ -77,6 +78,17 @@ export function CategoryFormSheet({ onClose, editing, defaultKind = 'expense' }:
     if (!editing) return
     await db.categories.update(editing.id, { archived: !editing.archived })
     setClosing(true)
+  }
+
+  async function handleDelete() {
+    if (!editing) return
+    if (!confirm(t.categoryForm.confirmDeleteCategory)) return
+    const result = await deleteCategoryIfUnused(editing.id)
+    if (result === 'deleted') {
+      setClosing(true)
+    } else {
+      setError(t.categoryForm.cannotDeleteInUse)
+    }
   }
 
   return (
@@ -237,9 +249,14 @@ export function CategoryFormSheet({ onClose, editing, defaultKind = 'expense' }:
         )}
 
         {editing && (
-          <button type="button" className="btn btn-block" onClick={handleToggleArchive}>
-            {editing.archived ? t.categoryForm.reactivateCategory : t.categoryForm.archiveCategory}
-          </button>
+          <div className="row" style={{ gap: 8 }}>
+            <button type="button" className="btn" style={{ flex: 1 }} onClick={handleToggleArchive}>
+              {editing.archived ? t.categoryForm.reactivateCategory : t.categoryForm.archiveCategory}
+            </button>
+            <button type="button" className="btn btn-danger" style={{ flex: 1 }} onClick={handleDelete}>
+              {t.common.delete}
+            </button>
+          </div>
         )}
       </div>
     </Sheet>

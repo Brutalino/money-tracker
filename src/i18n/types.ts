@@ -245,6 +245,8 @@ export interface TranslationKeys {
     colorLabel: string
     reactivateCategory: string
     archiveCategory: string
+    confirmDeleteCategory: string
+    cannotDeleteInUse: string
     flexibilityLabel: string
     flexibilityEssential: string
     flexibilityEssentialHint: string
