@@ -122,6 +122,9 @@ export const en = {
     namePlaceholder: 'E.g. Rent, Netflix, Gym...',
     amountLabel: 'Amount (for the chosen frequency)',
     frequencyLabel: 'Frequency',
+    startsLabel: 'Starts',
+    startsThisMonth: 'This month',
+    startsNextMonth: 'Next month',
     deactivate: 'Deactivate',
     confirmDelete: 'Delete this fixed cost? Transactions already generated will stay in the history.',
     confirmDeleteThisMonthTx: (amount) => `Also delete this month's transaction (${amount})?`,
@@ -340,6 +343,7 @@ export const en = {
         body: [
           'Fixed costs are for things like rent, subscriptions or installments: anything that repeats. Each one is just an amount and a frequency (monthly, every 2 months, quarterly or yearly): deliberately no due dates.',
           'Every month, each active fixed cost is automatically recorded as a transaction on the 1st, and converted to a monthly equivalent for the fixed-costs total.',
+          'When adding or reactivating a fixed cost, you can choose whether it starts this month or the next one.',
           'Pausing a fixed cost stops it from being recorded further. Reactivating it starts recording again from the current month onward: the months it was paused are never backfilled.',
           'Variable bills (like power or gas) don\'t belong here: the amount changes every time. When a bill arrives, log it as a normal expense dated with its debit date: it will show as "Scheduled" until that day.',
         ],

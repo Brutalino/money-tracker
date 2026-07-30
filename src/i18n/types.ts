@@ -123,6 +123,9 @@ export interface TranslationKeys {
     namePlaceholder: string
     amountLabel: string
     frequencyLabel: string
+    startsLabel: string
+    startsThisMonth: string
+    startsNextMonth: string
     deactivate: string
     confirmDelete: string
     confirmDeleteThisMonthTx: (amount: string) => string

@@ -5,7 +5,7 @@ import { useCategories } from '../../hooks/useDb'
 import { db } from '../../db/db'
 import { makeId } from '../../lib/id'
 import { eurosToCents, centsToEuros, formatCents } from '../../lib/money'
-import { currentMonthKey, firstOfMonth } from '../../lib/dates'
+import { addMonths, currentMonthKey, firstOfMonth } from '../../lib/dates'
 import { materializeRecurring, monthlyEquivalentCents } from '../../lib/recurring'
 import { useT } from '../../i18n'
 import { decimalSeparator } from '../../lib/locale'
@@ -28,12 +28,17 @@ export function RecurringFormSheet({ onClose, editing }: Props) {
   )
   const [categoryId, setCategoryId] = useState<string | null>(editing?.categoryId ?? null)
   const [frequency, setFrequency] = useState<RecurringFrequency>(editing?.frequency ?? 'monthly')
+  const [startNextMonth, setStartNextMonth] = useState(false)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [closing, setClosing] = useState(false)
 
   const amountCents = eurosToCents(Number.parseFloat(amount.replace(',', '.')) || 0)
   const canSave = name.trim().length > 0 && amountCents > 0 && !!categoryId && !saving
+  // The starting month only matters when creating a new item, or when
+  // reactivating an inactive one (which resets createdMonth). Editing an
+  // active item must never touch createdMonth.
+  const showStartsControl = !editing || !editing.active
 
   async function handleSave() {
     if (!canSave || !categoryId) return
@@ -57,7 +62,7 @@ export function RecurringFormSheet({ onClose, editing }: Props) {
           type,
           frequency,
           active: true,
-          createdMonth: currentMonthKey(),
+          createdMonth: startNextMonth ? addMonths(currentMonthKey(), 1) : currentMonthKey(),
         })
         // Materialize immediately so the current month's transaction appears
         // without requiring an app reload.
@@ -74,9 +79,11 @@ export function RecurringFormSheet({ onClose, editing }: Props) {
   async function handleToggleActive() {
     if (!editing) return
     const nowActive = !editing.active
-    // Reactivating: reset createdMonth to the current month so the materializer
-    // doesn't backfill phantom expenses for the months it was paused.
-    const patch = nowActive ? { active: nowActive, createdMonth: currentMonthKey() } : { active: nowActive }
+    // Reactivating: reset createdMonth to the chosen starting month so the
+    // materializer doesn't backfill phantom expenses for the months it was paused.
+    const patch = nowActive
+      ? { active: nowActive, createdMonth: startNextMonth ? addMonths(currentMonthKey(), 1) : currentMonthKey() }
+      : { active: nowActive }
     try {
       await db.recurring.update(editing.id, patch)
       if (nowActive) await materializeRecurring()
@@ -178,6 +185,30 @@ export function RecurringFormSheet({ onClose, editing }: Props) {
             ))}
           </select>
         </div>
+
+        {showStartsControl && (
+          <div className="field">
+            <label>{t.recurringForm.startsLabel}</label>
+            <div className="row" style={{ gap: 8 }}>
+              <button
+                type="button"
+                className={`btn ${!startNextMonth ? 'btn-primary' : ''}`}
+                style={{ flex: 1 }}
+                onClick={() => setStartNextMonth(false)}
+              >
+                {t.recurringForm.startsThisMonth}
+              </button>
+              <button
+                type="button"
+                className={`btn ${startNextMonth ? 'btn-primary' : ''}`}
+                style={{ flex: 1 }}
+                onClick={() => setStartNextMonth(true)}
+              >
+                {t.recurringForm.startsNextMonth}
+              </button>
+            </div>
+          </div>
+        )}
 
         <div className="field">
           <label>{t.common.category}</label>
