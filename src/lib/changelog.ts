@@ -18,6 +18,14 @@ export interface ChangelogEntry {
 // leaves updatedIn alone and shows no popup.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.11',
+    updatedIn: '0.11.0',
+    items: {
+      en: ['Delete unused categories from Settings'],
+      it: ['Elimina le categorie non usate dalle Impostazioni'],
+    },
+  },
+  {
     version: '0.10',
     updatedIn: '0.10.2',
     items: {

@@ -247,6 +247,9 @@ export const en = {
     colorLabel: 'Color',
     reactivateCategory: 'Reactivate category',
     archiveCategory: 'Archive category',
+    confirmDeleteCategory: 'Delete this category? Its monthly budgets will be removed too.',
+    cannotDeleteInUse:
+      "This category can't be deleted: it has transactions or fixed costs. Archive it instead to hide it while keeping the history.",
     flexibilityLabel: 'Flexibility',
     flexibilityEssential: 'Essential',
     flexibilityEssentialHint: "won't be cut",
@@ -376,7 +379,7 @@ export const en = {
       settings: {
         title: 'Settings',
         body: [
-          'Edit your categories: name, emoji, color, and for expense categories, a flexibility level (essential, flexible, very flexible) used by the smart budget.',
+          'Edit your categories: name, emoji, color, and for expense categories, a flexibility level (essential, flexible, very flexible) used by the smart budget. A category with no transactions or fixed costs can be deleted for good; otherwise, archive it to hide it while keeping its history.',
           'Switch the app language between English and Italian, and choose light, dark or automatic theme.',
           'Your month, by default, runs from the 1st to the last day of the calendar month. You can pick any start day instead, for example the day your salary arrives, like the 26th, so your month runs from the 26th to the 25th of the next one. The whole app (Home, budgets, stats and savings) follows it and re-maps immediately when you change it.',
           'Back up your data as a JSON file (or restore from one), export your transactions as CSV, or wipe everything from the danger zone.',

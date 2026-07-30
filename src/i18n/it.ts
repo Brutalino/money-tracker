@@ -247,6 +247,9 @@ export const it = {
     colorLabel: 'Colore',
     reactivateCategory: 'Riattiva categoria',
     archiveCategory: 'Archivia categoria',
+    confirmDeleteCategory: 'Eliminare questa categoria? Verranno rimossi anche i suoi budget mensili.',
+    cannotDeleteInUse:
+      'Questa categoria non si può eliminare: ha transazioni o costi fissi. Archiviala per nasconderla mantenendo lo storico.',
     flexibilityLabel: 'Flessibilità',
     flexibilityEssential: 'Essenziale',
     flexibilityEssentialHint: 'non verrà mai tagliata',
@@ -377,7 +380,7 @@ export const it = {
       settings: {
         title: 'Impostazioni',
         body: [
-          'Modifica le tue categorie: nome, emoji, colore e, per le categorie di spesa, un livello di flessibilità (essenziale, flessibile, molto flessibile) usato dal budget smart.',
+          'Modifica le tue categorie: nome, emoji, colore e, per le categorie di spesa, un livello di flessibilità (essenziale, flessibile, molto flessibile) usato dal budget smart. Una categoria senza transazioni o costi fissi può essere eliminata definitivamente; altrimenti, archiviala per nasconderla mantenendo lo storico.',
           'Cambia la lingua dell\'app tra inglese e italiano, e scegli il tema chiaro, scuro o automatico.',
           'Il tuo mese, di default, va dal 1° all\'ultimo giorno del mese solare. Puoi scegliere un altro giorno di inizio, per esempio il giorno in cui arriva lo stipendio, tipo il 26, così il tuo mese va dal 26 al 25 del successivo. Tutta l\'app (Home, budget, statistiche e risparmi) segue questo mese e si riadatta subito quando lo cambi.',
           'Fai il backup dei tuoi dati in un file JSON (o ripristina da uno), esporta le transazioni in CSV, oppure cancella tutto dalla zona pericolosa.',
