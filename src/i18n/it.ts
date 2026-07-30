@@ -190,6 +190,8 @@ export const it = {
     title: 'Impostazioni',
     guideTitle: 'Guida',
     openGuide: 'Apri la guida',
+    feedbackTitle: 'Feedback',
+    sendFeedback: 'Invia feedback',
     appearance: 'Aspetto',
     themeAuto: 'Auto',
     themeLight: 'Chiaro',
@@ -392,5 +394,14 @@ export const it = {
     title: 'Novità',
     subtitle: (version) => `Ora hai la versione ${version}`,
     gotIt: 'Ho capito',
+  },
+  feedback: {
+    title: 'Invia feedback',
+    hint: "Scrivimi cosa funziona, cosa no o cosa vorresti vedere. Il messaggio è anonimo e include la versione dell'app.",
+    placeholder: 'Scrivi qui il tuo feedback',
+    send: 'Invia',
+    sending: 'Invio…',
+    thanks: 'Grazie! Il tuo feedback è stato inviato.',
+    error: 'Invio non riuscito. Controlla la connessione e riprova.',
   },
 } satisfies TranslationKeys

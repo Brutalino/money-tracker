@@ -13,6 +13,13 @@ export interface ChangelogEntry {
 // What's new popup.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.8.0',
+    items: {
+      en: ['You can now send feedback from Settings, anonymously and straight from the app.'],
+      it: ["Ora puoi inviare un feedback dalle Impostazioni, in modo anonimo e direttamente dall'app."],
+    },
+  },
+  {
     version: '0.7.0',
     items: {
       en: [

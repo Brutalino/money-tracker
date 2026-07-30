@@ -190,6 +190,8 @@ export interface TranslationKeys {
     title: string
     guideTitle: string
     openGuide: string
+    feedbackTitle: string
+    sendFeedback: string
     appearance: string
     themeAuto: string
     themeLight: string
@@ -306,5 +308,14 @@ export interface TranslationKeys {
     title: string
     subtitle: (version: string) => string
     gotIt: string
+  }
+  feedback: {
+    title: string
+    hint: string
+    placeholder: string
+    send: string
+    sending: string
+    thanks: string
+    error: string
   }
 }
