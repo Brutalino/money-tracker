@@ -17,7 +17,7 @@ import {
   goalSavedCents,
   getPeriodContributions,
   sumContributionCents,
-  monthLeftoverCents,
+  balanceUpToPeriodCents,
 } from '../../lib/stats'
 import { currentPeriodKey, periodLabel } from '../../lib/period'
 import { formatCents } from '../../lib/money'
@@ -36,18 +36,19 @@ export function HomeScreen({ onOpenSettings, onNavigate }: Props) {
   const [editingTx, setEditingTx] = useState<Transaction | null>(null)
 
   const data = useLiveQuery(async () => {
-    const [monthTx, budgets, categories, goalsAll, recentTx, periodContributions] = await Promise.all([
+    const [monthTx, budgets, categories, goalsAll, recentTx, periodContributions, balanceCents] = await Promise.all([
       getMonthTransactions(currentMonth),
       getBudgetsForMonth(currentMonth),
       db.categories.toArray(),
       db.goals.toArray(),
       db.transactions.orderBy('date').reverse().limit(3).toArray(),
       getPeriodContributions(currentMonth),
+      balanceUpToPeriodCents(currentMonth),
     ])
     const activeGoals = goalsAll.filter((g) => !g.archived).sort((a, b) => a.sortOrder - b.sortOrder)
     const topGoal = activeGoals[0]
     const topGoalSaved = topGoal ? await goalSavedCents(topGoal.id) : 0
-    return { monthTx, budgets, categories, topGoal, topGoalSaved, recentTx, periodContributions }
+    return { monthTx, budgets, categories, topGoal, topGoalSaved, recentTx, periodContributions, balanceCents }
   }, [currentMonth])
 
   if (!data) return null
@@ -63,19 +64,19 @@ export function HomeScreen({ onOpenSettings, onNavigate }: Props) {
   const status = budgetStatus(usedFraction)
   const incomeCents = sumCents(data.monthTx.incomes)
   const spentCents = sumCents(data.monthTx.expenses)
-  const availableCents = monthLeftoverCents(data.monthTx, data.periodContributions)
+  const { balanceCents } = data
 
   return (
     <div className="screen-root">
       <Header title={periodLabel(currentMonth)} onOpenSettings={onOpenSettings} />
       <div className={`screen-pad ${styles.wrap}`}>
         <div className={`card ${styles.mainCard}`}>
-          <div className={styles.mainLabel}>{t.home.leftThisMonth}</div>
+          <div className={styles.mainLabel}>{t.home.balance}</div>
           <div
             className={styles.mainAmount}
-            style={{ color: availableCents < 0 ? 'var(--status-critical)' : 'var(--text-primary)' }}
+            style={{ color: balanceCents < 0 ? 'var(--status-critical)' : 'var(--text-primary)' }}
           >
-            {formatCents(availableCents)}
+            {formatCents(balanceCents)}
           </div>
           <div className={styles.heroBreakdown}>
             {t.home.heroBreakdown(formatCents(incomeCents), formatCents(spentCents))}

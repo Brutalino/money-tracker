@@ -187,7 +187,7 @@ export function SpeseScreen({ onOpenSettings }: Props) {
             <div className={styles.statValue}>{formatCents(uscite)}</div>
           </div>
           <div className={styles.statCard}>
-            <div className={styles.statLabel}>{t.finance.balance}</div>
+            <div className={styles.statLabel}>{t.finance.monthNet}</div>
             <div
               className={styles.statValue}
               style={{ color: saldo < 0 ? 'var(--status-critical)' : 'var(--status-good-text)' }}

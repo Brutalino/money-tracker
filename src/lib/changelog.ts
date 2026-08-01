@@ -18,6 +18,20 @@ export interface ChangelogEntry {
 // leaves updatedIn alone and shows no popup.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.13',
+    updatedIn: '0.13.0',
+    items: {
+      en: [
+        'The Home balance is now cumulative: whatever is left at the end of the month stays available the next one instead of resetting to zero',
+        "Income and expenses for the current month still show underneath the balance, and Savings shows the same running balance",
+      ],
+      it: [
+        "Il saldo della Home ora è progressivo: quello che avanza a fine mese resta disponibile il mese successivo invece di azzerarsi",
+        'Entrate e uscite del mese restano sotto il saldo, e la card dei Risparmi mostra lo stesso saldo',
+      ],
+    },
+  },
+  {
     version: '0.12',
     updatedIn: '0.12.0',
     items: {
