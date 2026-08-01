@@ -47,7 +47,7 @@ export const en = {
     incomePlural: 'Income',
     expense: 'Expense',
     expensePlural: 'Expenses',
-    balance: 'Balance',
+    monthNet: 'Net',
   },
   transactionRow: {
     categoryFallback: 'Category',
@@ -73,7 +73,7 @@ export const en = {
     noExpensesInCategory: 'No expenses in this category',
   },
   home: {
-    leftThisMonth: 'Left this month',
+    balance: 'Balance',
     heroBreakdown: (income, spent) => `Income ${income} · Spent ${spent}`,
     heroSetAside: (amount) => `Set aside ${amount}`,
     budgetRemainingShort: (amount) => `Budget: ${amount} left`,
@@ -147,8 +147,8 @@ export const en = {
     applyToMonth: 'Apply to this month',
   },
   risparmi: {
-    leftoverOf: (month) => `${month} leftover`,
-    leftoverExplanation: 'Income minus expenses and money set aside',
+    balanceLabel: 'Available balance',
+    balanceExplanation: 'Everything you have, minus what you have already set aside',
     alreadySetAside: (amount) => `${amount} already set aside this month`,
     setAside: 'Set aside',
     noGoalsSubtitle: 'Create your first savings goal: a trip, a purchase, an emergency fund.',
@@ -315,7 +315,7 @@ export const en = {
       home: {
         title: 'Home',
         body: [
-          'Home opens with one big number: the money you have left this month, income minus all your expenses minus anything set aside in savings.',
+          "Home opens with one big number: your balance, every income minus every expense minus anything you have set aside in savings, counting from the day you started using the app. Whatever is left at the end of a month stays available in the next one; a month that closes in the red carries that deficit over just the same. Underneath the balance you can see this month's income and expenses.",
           "If you've set a budget for the month, a slim progress bar underneath shows how much of it is left.",
           'Below that, your top savings goal and your most recent transactions, so you can jump straight to editing something you just logged.',
         ],
@@ -359,7 +359,7 @@ export const en = {
         title: 'Savings',
         body: [
           'Create a goal with a target amount and, if you want, a deadline. Add contributions to it whenever you set money aside.',
-          "The leftover card at the top shows what's left of this month, income minus expenses and money you've already set aside, so you know how much more you could set aside right now.",
+          'The card at the top shows your available balance, including whatever carried over from previous months, so you know how much you could set aside right now.',
           "Each goal card shows your progress and your average contribution pace, so you can see whether you're on track to hit the deadline.",
         ],
       },

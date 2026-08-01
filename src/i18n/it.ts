@@ -47,7 +47,7 @@ export const it = {
     incomePlural: 'Entrate',
     expense: 'Uscita',
     expensePlural: 'Uscite',
-    balance: 'Saldo',
+    monthNet: 'Bilancio',
   },
   transactionRow: {
     categoryFallback: 'Categoria',
@@ -73,7 +73,7 @@ export const it = {
     noExpensesInCategory: 'Nessuna spesa in questa categoria',
   },
   home: {
-    leftThisMonth: 'Ti rimangono questo mese',
+    balance: 'Saldo',
     heroBreakdown: (income, spent) => `Entrate ${income} · Uscite ${spent}`,
     heroSetAside: (amount) => `Da parte ${amount}`,
     budgetRemainingShort: (amount) => `Budget: ${amount} rimasti`,
@@ -147,8 +147,8 @@ export const it = {
     applyToMonth: 'Applica al mese',
   },
   risparmi: {
-    leftoverOf: (month) => `Avanzo di ${month}`,
-    leftoverExplanation: 'Entrate meno uscite e soldi messi da parte',
+    balanceLabel: 'Saldo disponibile',
+    balanceExplanation: 'Tutto quello che hai, meno i soldi già messi da parte',
     alreadySetAside: (amount) => `${amount} già messi da parte questo mese`,
     setAside: 'Metti da parte',
     noGoalsSubtitle: 'Crea il tuo primo obiettivo di risparmio: una vacanza, un acquisto, un fondo di emergenza.',
@@ -316,7 +316,7 @@ export const it = {
       home: {
         title: 'Home',
         body: [
-          'La Home si apre con un numero grande: i soldi che ti rimangono questo mese, cioè le entrate meno tutte le uscite meno quanto hai messo da parte nei risparmi.',
+          "La Home si apre con un numero grande: il saldo, cioè tutte le entrate meno tutte le uscite meno quanto hai messo da parte nei risparmi, da quando usi l'app. Quello che avanza alla fine di un mese resta disponibile il mese dopo; se invece un mese chiude in negativo, quel rosso te lo porti dietro allo stesso modo. Sotto il saldo trovi entrate e uscite del mese corrente.",
           'Se hai impostato un budget per il mese, una barra di avanzamento sottile sotto mostra quanto te ne rimane.',
           "Sotto trovi il tuo obiettivo di risparmio principale e le transazioni più recenti, così puoi modificare al volo qualcosa che hai appena registrato.",
         ],
@@ -360,7 +360,7 @@ export const it = {
         title: 'Risparmi',
         body: [
           'Crea un obiettivo con un importo target e, se vuoi, una scadenza. Aggiungi contributi ogni volta che metti via dei soldi.',
-          'La card dell\'avanzo in alto mostra quanto resta di questo mese, entrate meno uscite e soldi già messi da parte, così sai quanto altro potresti mettere da parte adesso.',
+          "La card in alto mostra il saldo disponibile, riporto dai mesi scorsi incluso, così sai quanto potresti mettere da parte adesso.",
           'Ogni card obiettivo mostra il tuo progresso e il ritmo medio dei contributi, così vedi se sei in linea per rispettare la scadenza.',
         ],
       },

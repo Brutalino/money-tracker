@@ -210,17 +210,34 @@ export function sumContributionCents(contributions: Contribution[]): number {
   return contributions.reduce((sum, c) => sum + c.amountCents, 0)
 }
 
-/** Money left this month: income minus ALL expenses (fixed and variable) minus savings set aside in the month. */
-export function monthLeftoverCents(monthTx: MonthTransactions, contributions: Contribution[]): number {
-  return sumCents(monthTx.incomes) - sumCents(monthTx.expenses) - sumContributionCents(contributions)
-}
-
 /** Contributions (savings deposits) dated inside the given period. */
 export async function getPeriodContributions(monthKey: string): Promise<Contribution[]> {
   return db.contributions
     .where('date')
     .between(periodStartISO(monthKey), periodEndISO(monthKey), true, true)
     .toArray()
+}
+
+/**
+ * Running balance up to the end of `periodKey`: every income minus every
+ * expense minus every contribution to a savings goal, dated on or before that
+ * period's last day. Whatever is left when a period ends stays available in
+ * the next one — a deficit carries over just the same, since money already
+ * spent is really missing. Deliberately starts from zero at the first tracked
+ * transaction: the app tracks money from the day you start using it and has no
+ * notion of a pre-existing bank balance.
+ */
+export async function balanceUpToPeriodCents(periodKey: string): Promise<number> {
+  const end = periodEndISO(periodKey)
+  const [transactions, contributions] = await Promise.all([
+    db.transactions.where('date').belowOrEqual(end).toArray(),
+    db.contributions.where('date').belowOrEqual(end).toArray(),
+  ])
+  const flows = transactions.reduce(
+    (sum, t) => sum + (t.type === 'income' ? t.amountCents : -t.amountCents),
+    0
+  )
+  return flows - sumContributionCents(contributions)
 }
 
 /** Which pace copy to show; distinct from PaceStatus because "good" has two

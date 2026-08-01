@@ -8,8 +8,8 @@ import { ContributionSheet } from './ContributionSheet'
 import { IconPlus } from '../../components/Icons'
 import styles from './RisparmiScreen.module.css'
 import { db } from '../../db/db'
-import { getMonthTransactions, goalSavedCents, getPeriodContributions, sumContributionCents, monthLeftoverCents } from '../../lib/stats'
-import { currentPeriodKey, periodLabelCompact, periodKeyForDate } from '../../lib/period'
+import { goalSavedCents, getPeriodContributions, sumContributionCents, balanceUpToPeriodCents } from '../../lib/stats'
+import { currentPeriodKey, periodKeyForDate } from '../../lib/period'
 import { formatCents } from '../../lib/money'
 import { dayMonthLabel } from '../../lib/dates'
 import { useT } from '../../i18n'
@@ -36,12 +36,11 @@ export function RisparmiScreen({ onOpenSettings }: Props) {
       contributionsByGoal.set(g.id, contribs)
       savedByGoal.set(g.id, await goalSavedCents(g.id))
     }
-    const monthTx = await getMonthTransactions(currentMonth)
     const periodContributions = await getPeriodContributions(currentMonth)
     const setAsideCents = sumContributionCents(periodContributions)
-    const leftoverCents = monthLeftoverCents(monthTx, periodContributions)
+    const balanceCents = await balanceUpToPeriodCents(currentMonth)
     const firstTx = await db.transactions.orderBy('date').first()
-    return { goals, contributionsByGoal, savedByGoal, leftoverCents, setAsideCents, firstTx }
+    return { goals, contributionsByGoal, savedByGoal, balanceCents, setAsideCents, firstTx }
   }, [currentMonth])
 
   if (!data) return null
@@ -54,23 +53,23 @@ export function RisparmiScreen({ onOpenSettings }: Props) {
       <Header title={t.nav.savings} onOpenSettings={onOpenSettings} />
       <div className="screen-pad">
         <div className={`card ${styles.leftoverCard}`}>
-          <div className={styles.leftoverLabel}>{t.risparmi.leftoverOf(periodLabelCompact(currentMonth))}</div>
+          <div className={styles.leftoverLabel}>{t.risparmi.balanceLabel}</div>
           <div
             className={styles.leftoverValue}
-            style={{ color: data.leftoverCents < 0 ? 'var(--status-critical)' : 'var(--status-good-text)' }}
+            style={{ color: data.balanceCents < 0 ? 'var(--status-critical)' : 'var(--status-good-text)' }}
           >
-            {formatCents(data.leftoverCents)}
+            {formatCents(data.balanceCents)}
           </div>
           <div className={styles.leftoverRow}>
             <span className="muted" style={{ fontSize: 12.5 }}>
-              {t.risparmi.leftoverExplanation}
+              {t.risparmi.balanceExplanation}
             </span>
-            {topGoal && data.leftoverCents > 0 && (
+            {topGoal && data.balanceCents > 0 && (
               <button
                 type="button"
                 className="btn btn-primary"
                 style={{ fontSize: 13, padding: '0 14px', minHeight: 38 }}
-                onClick={() => setContribGoal({ goal: topGoal, initial: data.leftoverCents })}
+                onClick={() => setContribGoal({ goal: topGoal, initial: data.balanceCents })}
               >
                 {t.risparmi.setAside}
               </button>

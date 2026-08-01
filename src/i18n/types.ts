@@ -50,7 +50,7 @@ export interface TranslationKeys {
     incomePlural: string
     expense: string
     expensePlural: string
-    balance: string
+    monthNet: string
   }
   transactionRow: {
     categoryFallback: string
@@ -76,7 +76,7 @@ export interface TranslationKeys {
     noExpensesInCategory: string
   }
   home: {
-    leftThisMonth: string
+    balance: string
     heroBreakdown: (income: string, spent: string) => string
     heroSetAside: (amount: string) => string
     budgetRemainingShort: (amount: string) => string
@@ -148,8 +148,8 @@ export interface TranslationKeys {
     applyToMonth: string
   }
   risparmi: {
-    leftoverOf: (month: string) => string
-    leftoverExplanation: string
+    balanceLabel: string
+    balanceExplanation: string
     alreadySetAside: (amount: string) => string
     setAside: string
     noGoalsSubtitle: string
