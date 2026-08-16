@@ -59,12 +59,6 @@ export function GoalFormSheet({ onClose, editing }: Props) {
     }
   }
 
-  async function handleArchive() {
-    if (!editing) return
-    await db.goals.update(editing.id, { archived: !editing.archived })
-    setClosing(true)
-  }
-
   async function handleDelete() {
     if (!editing) return
     if (!confirm(t.goalForm.confirmDelete)) return
@@ -147,14 +141,9 @@ export function GoalFormSheet({ onClose, editing }: Props) {
         )}
 
         {editing && (
-          <div className="row" style={{ gap: 8 }}>
-            <button type="button" className="btn" style={{ flex: 1 }} onClick={handleArchive}>
-              {editing.archived ? t.common.reactivate : t.goalForm.archive}
-            </button>
-            <button type="button" className="btn btn-danger" style={{ flex: 1 }} onClick={handleDelete}>
-              {t.common.delete}
-            </button>
-          </div>
+          <button type="button" className="btn btn-danger btn-block" onClick={handleDelete}>
+            {t.common.delete}
+          </button>
         )}
       </div>
     </Sheet>

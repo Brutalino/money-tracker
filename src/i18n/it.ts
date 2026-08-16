@@ -163,6 +163,7 @@ export const it = {
     addContributionsForProjection: 'Aggiungi contributi per vedere una proiezione',
     editGoalAriaLabel: 'Modifica obiettivo',
     addContribution: '+ Aggiungi contributo',
+    openContributionsAriaLabel: 'Contributi versati',
   },
   goalForm: {
     editTitle: 'Modifica obiettivo',
@@ -172,11 +173,17 @@ export const it = {
     targetLabel: 'Obiettivo (€)',
     deadlineLabel: 'Scadenza (opzionale)',
     confirmDelete: 'Eliminare questo obiettivo e tutti i suoi contributi?',
-    archive: 'Archivia',
   },
   contributionSheet: {
     title: (goalName) => `Aggiungi a "${goalName}"`,
     amountLabel: 'Importo (€)',
+  },
+  contributionsList: {
+    title: (goalName) => `Contributi a "${goalName}"`,
+    empty: 'Non hai ancora messo da parte niente per questo obiettivo',
+    total: (amount) => `Totale messo da parte: ${amount}`,
+    deleteAriaLabel: 'Elimina contributo',
+    confirmDelete: 'Eliminare questo contributo? I soldi tornano nel saldo disponibile.',
   },
   report: {
     savingsRate: 'Tasso di risparmio',
@@ -362,6 +369,7 @@ export const it = {
           'Crea un obiettivo con un importo target e, se vuoi, una scadenza. Aggiungi contributi ogni volta che metti via dei soldi.',
           "La card in alto mostra il saldo disponibile, riporto dai mesi scorsi incluso, così sai quanto potresti mettere da parte adesso.",
           'Ogni card obiettivo mostra il tuo progresso e il ritmo medio dei contributi, così vedi se sei in linea per rispettare la scadenza.',
+          "L'icona a lista sulla card di un obiettivo apre tutti i contributi che gli hai versato: eliminandone uno, quei soldi tornano subito nel saldo disponibile. Eliminando l'obiettivo si eliminano anche i suoi contributi.",
         ],
       },
       report: {

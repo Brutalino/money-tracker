@@ -1,7 +1,7 @@
 import styles from './GoalCard.module.css'
 import { Ring } from '../../components/ui/Ring'
 import { ProgressBar } from '../../components/ui/ProgressBar'
-import { IconEdit } from '../../components/Icons'
+import { IconEdit, IconList } from '../../components/Icons'
 import { formatCents } from '../../lib/money'
 import { monthLabel, lastNMonths, monthDiff, addMonths } from '../../lib/dates'
 import { currentPeriodKey } from '../../lib/period'
@@ -15,9 +15,17 @@ interface Props {
   contributions: Contribution[]
   onEdit: () => void
   onAddContribution: () => void
+  onOpenContributions: () => void
 }
 
-export function GoalCard({ goal, savedCents, contributions, onEdit, onAddContribution }: Props) {
+export function GoalCard({
+  goal,
+  savedCents,
+  contributions,
+  onEdit,
+  onAddContribution,
+  onOpenContributions,
+}: Props) {
   const t = useT()
   const fraction = goal.targetCents > 0 ? savedCents / goal.targetCents : 0
   const remainingCents = Math.max(0, goal.targetCents - savedCents)
@@ -79,6 +87,14 @@ export function GoalCard({ goal, savedCents, contributions, onEdit, onAddContrib
       <div className={styles.actionsRow}>
         <button type="button" className="btn btn-primary btn-block" onClick={onAddContribution}>
           {t.goalCard.addContribution}
+        </button>
+        <button
+          type="button"
+          className={`btn ${styles.historyBtn}`}
+          onClick={onOpenContributions}
+          aria-label={t.goalCard.openContributionsAriaLabel}
+        >
+          <IconList width={16} height={16} />
         </button>
       </div>
     </div>
