@@ -164,6 +164,7 @@ export interface TranslationKeys {
     addContributionsForProjection: string
     editGoalAriaLabel: string
     addContribution: string
+    openContributionsAriaLabel: string
   }
   goalForm: {
     editTitle: string
@@ -173,11 +174,17 @@ export interface TranslationKeys {
     targetLabel: string
     deadlineLabel: string
     confirmDelete: string
-    archive: string
   }
   contributionSheet: {
     title: (goalName: string) => string
     amountLabel: string
+  }
+  contributionsList: {
+    title: (goalName: string) => string
+    empty: string
+    total: (amount: string) => string
+    deleteAriaLabel: string
+    confirmDelete: string
   }
   report: {
     savingsRate: string

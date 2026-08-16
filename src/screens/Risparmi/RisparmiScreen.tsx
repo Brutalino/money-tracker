@@ -5,6 +5,7 @@ import { EmptyState } from '../../components/ui/EmptyState'
 import { GoalCard } from './GoalCard'
 import { GoalFormSheet } from './GoalFormSheet'
 import { ContributionSheet } from './ContributionSheet'
+import { ContributionsSheet } from './ContributionsSheet'
 import { IconPlus } from '../../components/Icons'
 import styles from './RisparmiScreen.module.css'
 import { db } from '../../db/db'
@@ -23,12 +24,16 @@ export function RisparmiScreen({ onOpenSettings }: Props) {
   const t = useT()
   const [goalSheet, setGoalSheet] = useState<{ item: Goal | null } | null>(null)
   const [contribGoal, setContribGoal] = useState<{ goal: Goal; initial?: number } | null>(null)
+  const [historyGoal, setHistoryGoal] = useState<Goal | null>(null)
 
   const currentMonth = currentPeriodKey()
 
   const data = useLiveQuery(async () => {
-    const goalsAll = await db.goals.toArray()
-    const goals = goalsAll.filter((g) => !g.archived).sort((a, b) => a.sortOrder - b.sortOrder)
+    // `archived` is a legacy flag: archiving a goal used to hide it everywhere while
+    // its contributions kept weighing on the balance, with no screen left to reach it
+    // from — so the money was gone for good. Goals are now listed regardless of the
+    // flag; deleting a goal (which also deletes its contributions) is the only way out.
+    const goals = (await db.goals.toArray()).sort((a, b) => a.sortOrder - b.sortOrder)
     const contributionsByGoal = new Map<string, Contribution[]>()
     const savedByGoal = new Map<string, number>()
     for (const g of goals) {
@@ -104,6 +109,7 @@ export function RisparmiScreen({ onOpenSettings }: Props) {
               contributions={data.contributionsByGoal.get(g.id) ?? []}
               onEdit={() => setGoalSheet({ item: g })}
               onAddContribution={() => setContribGoal({ goal: g })}
+              onOpenContributions={() => setHistoryGoal(g)}
             />
           ))
         )}
@@ -118,6 +124,7 @@ export function RisparmiScreen({ onOpenSettings }: Props) {
       </div>
 
       {goalSheet && <GoalFormSheet editing={goalSheet.item} onClose={() => setGoalSheet(null)} />}
+      {historyGoal && <ContributionsSheet goal={historyGoal} onClose={() => setHistoryGoal(null)} />}
       {contribGoal && (
         <ContributionSheet
           goal={contribGoal.goal}

@@ -61,9 +61,20 @@
 
 .actionsRow {
   margin-top: 8px;
+  display: flex;
+  gap: 8px;
 }
 
 .actionsRow button {
   min-height: 36px;
   font-size: 13.5px;
+  flex: 1;
+}
+
+.actionsRow .historyBtn {
+  flex: 0 0 44px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

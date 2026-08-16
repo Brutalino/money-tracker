@@ -18,6 +18,20 @@ export interface ChangelogEntry {
 // leaves updatedIn alone and shows no popup.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.14',
+    updatedIn: '0.14.0',
+    items: {
+      en: [
+        'You can now delete a single contribution to a goal: tap the list icon on the goal card, and the money goes straight back into your available balance',
+        'Goals can no longer be archived: an archived goal disappeared from every screen while its money stayed set aside, with no way to get it back. Any goal you archived is visible again',
+      ],
+      it: [
+        "Ora puoi eliminare un singolo contributo a un obiettivo: tocca l'icona a lista sulla card e quei soldi tornano subito nel saldo disponibile",
+        'Gli obiettivi non si archiviano più: un obiettivo archiviato spariva da ogni schermata ma i suoi soldi restavano messi da parte, senza più modo di recuperarli. Gli obiettivi che avevi archiviato sono di nuovo visibili',
+      ],
+    },
+  },
+  {
     version: '0.13',
     updatedIn: '0.13.0',
     items: {

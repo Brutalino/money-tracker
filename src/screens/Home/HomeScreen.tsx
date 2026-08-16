@@ -45,8 +45,8 @@ export function HomeScreen({ onOpenSettings, onNavigate }: Props) {
       getPeriodContributions(currentMonth),
       balanceUpToPeriodCents(currentMonth),
     ])
-    const activeGoals = goalsAll.filter((g) => !g.archived).sort((a, b) => a.sortOrder - b.sortOrder)
-    const topGoal = activeGoals[0]
+    // The legacy `archived` flag is deliberately ignored — see RisparmiScreen.
+    const topGoal = [...goalsAll].sort((a, b) => a.sortOrder - b.sortOrder)[0]
     const topGoalSaved = topGoal ? await goalSavedCents(topGoal.id) : 0
     return { monthTx, budgets, categories, topGoal, topGoalSaved, recentTx, periodContributions, balanceCents }
   }, [currentMonth])

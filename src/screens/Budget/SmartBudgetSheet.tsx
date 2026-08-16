@@ -61,8 +61,8 @@ export function SmartBudgetSheet({ month, categories, onClose, onApplied }: Prop
   const categoriesKey = categoryIds.join('|') + '::' + habitCategoryIds.join('|')
 
   const data = useLiveQuery(async () => {
-    const goalsAll = await db.goals.toArray()
-    const goals = goalsAll.filter((g) => !g.archived).sort((a, b) => a.sortOrder - b.sortOrder)
+    // The legacy `archived` flag is deliberately ignored — see RisparmiScreen.
+    const goals = (await db.goals.toArray()).sort((a, b) => a.sortOrder - b.sortOrder)
     const savedByGoal = new Map<string, number>()
     for (const g of goals) {
       savedByGoal.set(g.id, await goalSavedCents(g.id))

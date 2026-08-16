@@ -25,10 +25,10 @@ export function useRecurring(activeOnly = false) {
   }, [activeOnly])
 }
 
-export function useGoals(includeArchived = false) {
+/** All goals: the legacy `archived` flag is deliberately ignored — see RisparmiScreen. */
+export function useGoals() {
   return useLiveQuery(async () => {
     const all = await db.goals.toArray()
-    const filtered = includeArchived ? all : all.filter((g) => !g.archived)
-    return filtered.sort((a, b) => a.sortOrder - b.sortOrder)
-  }, [includeArchived])
+    return all.sort((a, b) => a.sortOrder - b.sortOrder)
+  }, [])
 }

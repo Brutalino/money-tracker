@@ -163,6 +163,7 @@ export const en = {
     addContributionsForProjection: 'Add contributions to see a projection',
     editGoalAriaLabel: 'Edit goal',
     addContribution: '+ Add contribution',
+    openContributionsAriaLabel: 'Contributions made',
   },
   goalForm: {
     editTitle: 'Edit goal',
@@ -172,11 +173,17 @@ export const en = {
     targetLabel: 'Target (€)',
     deadlineLabel: 'Deadline (optional)',
     confirmDelete: 'Delete this goal and all its contributions?',
-    archive: 'Archive',
   },
   contributionSheet: {
     title: (goalName) => `Add to "${goalName}"`,
     amountLabel: 'Amount (€)',
+  },
+  contributionsList: {
+    title: (goalName) => `Contributions to "${goalName}"`,
+    empty: 'Nothing set aside for this goal yet',
+    total: (amount) => `Total set aside: ${amount}`,
+    deleteAriaLabel: 'Delete contribution',
+    confirmDelete: 'Delete this contribution? The money goes back into your available balance.',
   },
   report: {
     savingsRate: 'Savings rate',
@@ -361,6 +368,7 @@ export const en = {
           'Create a goal with a target amount and, if you want, a deadline. Add contributions to it whenever you set money aside.',
           'The card at the top shows your available balance, including whatever carried over from previous months, so you know how much you could set aside right now.',
           "Each goal card shows your progress and your average contribution pace, so you can see whether you're on track to hit the deadline.",
+          'The list icon on a goal card opens every contribution you made to it: delete one and that money goes straight back into your available balance. Deleting a goal deletes its contributions too.',
         ],
       },
       report: {
