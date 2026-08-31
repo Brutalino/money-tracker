@@ -18,6 +18,18 @@ export interface ChangelogEntry {
 // leaves updatedIn alone and shows no popup.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.16',
+    updatedIn: '0.16.0',
+    items: {
+      en: [
+        'Check your month against your Fineco bank statement: load the movements file in the Report tab and see what matches and what\'s missing.',
+      ],
+      it: [
+        'Verifica il mese con l\'estratto conto Fineco: carica il file dei movimenti nella tab Report e scopri cosa combacia e cosa manca.',
+      ],
+    },
+  },
+  {
     version: '0.15',
     updatedIn: '0.15.0',
     items: {

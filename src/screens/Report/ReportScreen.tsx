@@ -6,6 +6,7 @@ import { DonutChart } from '../../components/charts/DonutChart'
 import { IncomeExpenseChart } from '../../components/charts/IncomeExpenseChart'
 import { TrendChart } from '../../components/charts/TrendChart'
 import { CategoryDetailSheet } from './CategoryDetailSheet'
+import { FinecoCheckCard } from './FinecoCheckCard'
 import styles from './ReportScreen.module.css'
 import { db } from '../../db/db'
 import { getMonthTransactions, groupByCategory, sumCents } from '../../lib/stats'
@@ -157,6 +158,8 @@ export function ReportScreen({ onOpenSettings }: Props) {
           </div>
           <TrendChart data={trendData} color={trendCategory?.color} />
         </div>
+
+        <FinecoCheckCard month={month} />
       </div>
 
       {detailCategoryId && (
