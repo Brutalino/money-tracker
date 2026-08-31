@@ -69,6 +69,11 @@
   font: inherit;
   color: inherit;
   cursor: pointer;
+  transition: transform 100ms ease-out;
+}
+
+.legendItemBtn:active {
+  transform: scale(0.96);
 }
 
 .legendChevron {

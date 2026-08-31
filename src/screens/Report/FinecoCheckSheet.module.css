@@ -17,6 +17,11 @@
   font-size: 14px;
   font-weight: 700;
   color: var(--accent);
+  transition: opacity 100ms ease-out;
+}
+
+.backRow:active {
+  opacity: 0.6;
 }
 
 .content {

@@ -16,6 +16,11 @@
   justify-content: center;
   color: var(--text-secondary);
   flex-shrink: 0;
+  transition: transform 100ms ease-out;
+}
+
+.backBtn:active {
+  transform: scale(0.9);
 }
 
 .title {
@@ -46,6 +51,11 @@
   font-size: 13.5px;
   font-weight: 700;
   color: var(--text-secondary);
+  transition: transform 100ms ease-out;
+}
+
+.segBtn:active {
+  transform: scale(0.94);
 }
 
 .segBtnActive {
@@ -62,6 +72,11 @@
   background: none;
   border: none;
   text-align: left;
+  transition: background 100ms ease-out;
+}
+
+.catRow:active {
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
 }
 
 .catEmoji {

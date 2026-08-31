@@ -71,6 +71,11 @@
   align-items: center;
   justify-content: center;
   color: var(--text-secondary);
+  transition: transform 100ms ease-out;
+}
+
+.closeBtn:active {
+  transform: scale(0.9);
 }
 
 .body {

@@ -16,6 +16,11 @@
   align-items: center;
   justify-content: center;
   color: var(--text-secondary);
+  transition: transform 100ms ease-out;
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.9);
 }
 
 .btn:disabled {

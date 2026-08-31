@@ -7,6 +7,11 @@
   background: none;
   border: none;
   text-align: left;
+  transition: background 100ms ease-out;
+}
+
+.row:active {
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
 }
 
 .emoji {

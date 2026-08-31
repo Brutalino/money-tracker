@@ -26,10 +26,17 @@
   border: none;
   color: var(--text-muted);
   padding: 4px 0 6px;
+  transition:
+    color 150ms ease,
+    transform 100ms ease-out;
 }
 
 .item.active {
   color: var(--accent);
+}
+
+.item:active {
+  transform: scale(0.92);
 }
 
 .label {
