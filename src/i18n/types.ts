@@ -330,4 +330,45 @@ export interface TranslationKeys {
     thanks: string
     error: string
   }
+  finecoCheck: {
+    cardTitle: string
+    cardBadge: string
+    cardDescription: string
+    uploadButton: string
+    parsing: string
+    verifiedOn: (date: string) => string
+    backToReport: string
+    unrecognizedTitle: string
+    unrecognizedBody: string
+    unrecognizedSteps: string[]
+    chooseAnotherFile: string
+    notCoveredTitle: (month: string) => string
+    notCoveredSub: (fromDate: string, toDate: string) => string
+    verifyMonthButton: (month: string) => string
+    okTitle: (month: string) => string
+    okSub: (nBank: number, nMatched: number) => string
+    minorTitle: string
+    minorSub: (matched: number, diffs: number) => string
+    bigTitle: string
+    bigSubBankMore: (amount: string) => string
+    bigSubAppMore: (amount: string) => string
+    partialBanner: (date: string) => string
+    nearMissSectionTitle: (n: number) => string
+    inAppLabel: string
+    onAccountLabel: string
+    nearMissTagSameDay: (diff: string) => string
+    nearMissTagGap: (days: number, diff: string) => string
+    onlyAppSectionTitle: (n: number) => string
+    openExpenseButton: string
+    onlyBankSectionTitle: (n: number) => string
+    addToAppButton: string
+    totalsTitle: string
+    totalsExpensesLabel: string
+    totalsIncomeLabel: string
+    totalsAppLabel: string
+    totalsBankLabel: string
+    totalsEqual: string
+    readingHelp: string
+    sourceBanner: (description: string, date: string) => string
+  }
 }
