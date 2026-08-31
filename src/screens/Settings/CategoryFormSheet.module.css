@@ -1,0 +1,15 @@
+.colorSwatch {
+  transition: transform 100ms ease-out;
+}
+
+.colorSwatch:active {
+  transform: scale(0.88);
+}
+
+.habitToggleRow {
+  transition: opacity 100ms ease-out;
+}
+
+.habitToggleRow:active {
+  opacity: 0.7;
+}

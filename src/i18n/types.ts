@@ -77,12 +77,26 @@ export interface TranslationKeys {
   }
   home: {
     balance: string
-    heroBreakdown: (income: string, spent: string) => string
-    heroSetAside: (amount: string) => string
-    budgetRemainingShort: (amount: string) => string
-    noGoalsSubtitle: string
-    recentTransactions: string
-    noTransactionsSubtitle: string
+    gaugeRemaining: (remainingPct: number) => string
+    gaugeEstimated: string
+    gaugeOverspent: string
+    gaugeBelowZero: (amount: string) => string
+    chipIncomeLabel: string
+    chipExpensesLabel: string
+    chipSetAsideLabel: string
+    paceTitle: string
+    paceVariableLabel: string
+    paceProjection: (amount: string) => string
+    paceTooEarly: string
+    budgetWatchTitle: string
+    budgetWatchAmounts: (spent: string, budget: string) => string
+    createGoalInvite: string
+    goalSubLine: (saved: string, target: string, remaining: string) => string
+    goalPace: (avg: string, month: string) => string
+    goalReached: string
+    goalsMultiTitle: (total: string) => string
+    goalsCompactAmounts: (saved: string, target: string) => string
+    seeAllGoals: (n: number) => string
   }
   transactions: {
     noneTitle: string

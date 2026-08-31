@@ -16,6 +16,11 @@
   justify-content: center;
   color: var(--text-secondary);
   flex-shrink: 0;
+  transition: transform 100ms ease-out;
+}
+
+.backBtn:active {
+  transform: scale(0.9);
 }
 
 .title {
@@ -51,6 +56,11 @@
   padding: 13px 14px;
   text-align: left;
   color: inherit;
+  transition: background 100ms ease-out;
+}
+
+.sectionHeader:active {
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
 }
 
 .sectionEmoji {

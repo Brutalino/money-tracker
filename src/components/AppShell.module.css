@@ -22,16 +22,6 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  animation: contentFadeIn 0.14s ease;
-}
-
-@keyframes contentFadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
 
 @media (min-width: 481px) {

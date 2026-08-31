@@ -18,6 +18,20 @@ export interface ChangelogEntry {
 // leaves updatedIn alone and shows no popup.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.17',
+    updatedIn: '0.17.0',
+    items: {
+      en: [
+        "The Home is new: a balance gauge, your month's pace with a projection, budgets at risk and all your savings goals at a glance.",
+        'Every button and row now responds the moment you touch it.',
+      ],
+      it: [
+        'La Home è nuova: il quadrante del saldo, il ritmo del mese con la proiezione, i budget a rischio e tutti i tuoi obiettivi a colpo d\'occhio.',
+        'Ogni bottone e ogni riga ora rispondono nell\'istante in cui li tocchi.',
+      ],
+    },
+  },
+  {
     version: '0.16',
     updatedIn: '0.16.0',
     items: {

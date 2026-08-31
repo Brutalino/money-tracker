@@ -137,6 +137,7 @@ html,
 body {
   margin: 0;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
   /* `height: 100%` is what caused the black band: in iOS standalone mode
      with viewport-fit=cover, a *percentage* height on html/body can make
      WebKit silently drop the cover layout, leaving a dead strip near the

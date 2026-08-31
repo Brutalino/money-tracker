@@ -20,6 +20,11 @@
   padding: 0;
   text-align: left;
   color: inherit;
+  transition: opacity 100ms ease-out;
+}
+
+.fixedHeaderRow:active {
+  opacity: 0.7;
 }
 
 .fixedTitleWrap {
@@ -62,6 +67,11 @@
   justify-content: center;
   flex-shrink: 0;
   cursor: pointer;
+  transition: transform 100ms ease-out;
+}
+
+.addBtn:active {
+  transform: scale(0.88);
 }
 
 .recurringList {
@@ -79,6 +89,11 @@
   background: none;
   border: none;
   text-align: left;
+  transition: background 100ms ease-out;
+}
+
+.recurringRow:active {
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
 }
 
 .recurringEmoji {
@@ -182,6 +197,11 @@
   display: flex;
   align-items: center;
   gap: 4px;
+  transition: transform 100ms ease-out;
+}
+
+.filterChip:active {
+  transform: scale(0.94);
 }
 
 .filterChipActive {

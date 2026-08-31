@@ -62,6 +62,11 @@
   color: var(--text-primary);
   font-size: 15px;
   font-weight: 600;
+  transition: transform 100ms ease-out;
+}
+
+.btn:active {
+  transform: scale(0.97);
 }
 
 .btn-primary {

@@ -17,6 +17,11 @@
   font-size: 14px;
   font-weight: 700;
   color: var(--accent);
+  transition: opacity 100ms ease-out;
+}
+
+.backRow:active {
+  opacity: 0.6;
 }
 
 .categoryRow {
@@ -77,6 +82,11 @@
   font-size: 11.5px;
   font-weight: 600;
   color: var(--text-secondary);
+  transition: transform 100ms ease-out;
+}
+
+.sortChip:active {
+  transform: scale(0.94);
 }
 
 .sortChipActive {

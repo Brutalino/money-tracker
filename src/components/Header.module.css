@@ -38,6 +38,11 @@
   border: 1px solid var(--border);
   color: var(--text-secondary);
   flex-shrink: 0;
+  transition: transform 100ms ease-out;
+}
+
+.gearBtn:active {
+  transform: scale(0.92);
 }
 
 .titleWrap {

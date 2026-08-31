@@ -22,6 +22,11 @@
   color: var(--text-primary);
   font-size: 13px;
   font-weight: 600;
+  transition: transform 100ms ease-out;
+}
+
+.dayBtn:active {
+  transform: scale(0.9);
 }
 
 .dayBtnActive {

@@ -55,4 +55,9 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  transition: transform 100ms ease-out;
+}
+
+.deleteBtn:active {
+  transform: scale(0.88);
 }

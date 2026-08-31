@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Sheet } from '../../components/ui/Sheet'
+import styles from './CategoryFormSheet.module.css'
 import { db } from '../../db/db'
 import { makeId } from '../../lib/id'
 import { useT } from '../../i18n'
@@ -152,6 +153,7 @@ export function CategoryFormSheet({ onClose, editing, defaultKind = 'expense' }:
               <button
                 key={c}
                 type="button"
+                className={styles.colorSwatch}
                 onClick={() => setColor(c)}
                 aria-label={c}
                 style={{
@@ -201,7 +203,7 @@ export function CategoryFormSheet({ onClose, editing, defaultKind = 'expense' }:
             <div className="field">
               <button
                 type="button"
-                className="row"
+                className={`row ${styles.habitToggleRow}`}
                 style={{ width: '100%', textAlign: 'left', background: 'none', border: 'none', padding: 0 }}
                 onClick={() => setHabit((h) => !h)}
               >
