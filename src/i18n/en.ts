@@ -191,6 +191,9 @@ export const en = {
     expensesByCategory: 'Expenses by category',
     incomeVsExpenses6m: 'Income vs expenses (6 months)',
     categoryTrend: 'Category trend',
+    sortAmount: 'Amount',
+    sortDate: 'Date',
+    expenseCount: (n) => (n === 1 ? '1 expense' : `${n} expenses`),
   },
   settings: {
     title: 'Settings',
@@ -375,6 +378,7 @@ export const en = {
         title: 'Report',
         body: [
           "A donut chart breaks down this month's spending by category.",
+          'Tap a category in the donut or its legend to see every expense in it for the month, sorted by amount or date.',
           'A bar chart compares income and expenses over the last 6 months, so you can spot trends at a glance.',
           'A trend line follows a single category over the same 6 months: pick which one from the dropdown.',
           'At the top, your savings rate for this month and the 6-month average.',

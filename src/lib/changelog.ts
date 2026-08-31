@@ -18,6 +18,18 @@ export interface ChangelogEntry {
 // leaves updatedIn alone and shows no popup.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.15',
+    updatedIn: '0.15.0',
+    items: {
+      en: [
+        'Tap a category in the Report to see all its expenses for the month, sorted by amount or date.',
+      ],
+      it: [
+        'Tocca una categoria nel Report per vedere tutte le sue spese del mese, ordinate per importo o per data.',
+      ],
+    },
+  },
+  {
     version: '0.14',
     updatedIn: '0.14.0',
     items: {

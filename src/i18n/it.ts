@@ -191,6 +191,9 @@ export const it = {
     expensesByCategory: 'Spese per categoria',
     incomeVsExpenses6m: 'Entrate vs uscite (6 mesi)',
     categoryTrend: 'Andamento categoria',
+    sortAmount: 'Importo',
+    sortDate: 'Data',
+    expenseCount: (n) => (n === 1 ? '1 spesa' : `${n} spese`),
   },
   settings: {
     title: 'Impostazioni',
@@ -376,6 +379,7 @@ export const it = {
         title: 'Report',
         body: [
           'Un grafico a ciambella mostra come si dividono le spese di questo mese per categoria.',
+          'Tocca una categoria nella ciambella o nella legenda per vedere tutte le sue spese del mese, ordinate per importo o per data.',
           'Un grafico a barre confronta entrate e uscite negli ultimi 6 mesi, così noti le tendenze a colpo d\'occhio.',
           'Una linea segue una singola categoria negli stessi 6 mesi: scegli quale dal menu a tendina.',
           'In alto trovi il tuo tasso di risparmio di questo mese e la media degli ultimi 6.',

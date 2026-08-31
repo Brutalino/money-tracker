@@ -15,6 +15,7 @@ interface Props {
   data: DonutDatum[]
   totalCents: number
   totalLabel?: string
+  onSelect?: (id: string) => void
 }
 
 interface SimpleTooltipProps {
@@ -38,7 +39,7 @@ function CustomTooltip({ active, payload }: SimpleTooltipProps) {
   )
 }
 
-export function DonutChart({ data, totalCents, totalLabel }: Props) {
+export function DonutChart({ data, totalCents, totalLabel, onSelect }: Props) {
   const t = useT()
   const resolvedTotalLabel = totalLabel ?? t.common.total
   if (data.length === 0) {
@@ -59,9 +60,17 @@ export function DonutChart({ data, totalCents, totalLabel }: Props) {
               stroke="var(--surface-1)"
               strokeWidth={2}
               isAnimationActive={false}
+              onClick={
+                onSelect
+                  ? (entry) => {
+                      const id = (entry as unknown as { payload?: DonutDatum }).payload?.id
+                      if (id) onSelect(id)
+                    }
+                  : undefined
+              }
             >
               {data.map((d) => (
-                <Cell key={d.id} fill={d.color} />
+                <Cell key={d.id} fill={d.color} style={onSelect ? { cursor: 'pointer' } : undefined} />
               ))}
             </Pie>
             <Tooltip
@@ -89,15 +98,31 @@ export function DonutChart({ data, totalCents, totalLabel }: Props) {
         </div>
       </div>
       <div className={styles.legend}>
-        {data.map((d) => (
-          <div key={d.id} className={styles.legendItem}>
-            <span className={styles.legendDot} style={{ background: d.color }} />
-            <span>
-              {d.emoji} {d.name}
-            </span>
-            <span className={styles.legendValue}>{formatCents(d.valueCents)}</span>
-          </div>
-        ))}
+        {data.map((d) =>
+          onSelect ? (
+            <button
+              key={d.id}
+              type="button"
+              className={`${styles.legendItem} ${styles.legendItemBtn}`}
+              onClick={() => onSelect(d.id)}
+            >
+              <span className={styles.legendDot} style={{ background: d.color }} />
+              <span>
+                {d.emoji} {d.name}
+              </span>
+              <span className={styles.legendValue}>{formatCents(d.valueCents)}</span>
+              <span className={styles.legendChevron}>›</span>
+            </button>
+          ) : (
+            <div key={d.id} className={styles.legendItem}>
+              <span className={styles.legendDot} style={{ background: d.color }} />
+              <span>
+                {d.emoji} {d.name}
+              </span>
+              <span className={styles.legendValue}>{formatCents(d.valueCents)}</span>
+            </div>
+          )
+        )}
       </div>
     </div>
   )

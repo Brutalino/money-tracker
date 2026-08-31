@@ -5,6 +5,7 @@ import { MonthSelector } from '../../components/MonthSelector'
 import { DonutChart } from '../../components/charts/DonutChart'
 import { IncomeExpenseChart } from '../../components/charts/IncomeExpenseChart'
 import { TrendChart } from '../../components/charts/TrendChart'
+import { CategoryDetailSheet } from './CategoryDetailSheet'
 import styles from './ReportScreen.module.css'
 import { db } from '../../db/db'
 import { getMonthTransactions, groupByCategory, sumCents } from '../../lib/stats'
@@ -24,6 +25,7 @@ export function ReportScreen({ onOpenSettings }: Props) {
   const t = useT()
   const [month, setMonth] = useState(currentPeriodKey())
   const [trendCategoryId, setTrendCategoryId] = useState<string | null>(null)
+  const [detailCategoryId, setDetailCategoryId] = useState<string | null>(null)
 
   const last6 = useMemo(() => lastNMonths(month, 6), [month])
 
@@ -128,7 +130,7 @@ export function ReportScreen({ onOpenSettings }: Props) {
           <div className={styles.sectionTitleRow}>
             <span className={styles.sectionTitle}>{t.report.expensesByCategory}</span>
           </div>
-          <DonutChart data={donutData} totalCents={donutTotal} />
+          <DonutChart data={donutData} totalCents={donutTotal} onSelect={setDetailCategoryId} />
         </div>
 
         <div className={`card ${styles.sectionCard}`}>
@@ -156,6 +158,14 @@ export function ReportScreen({ onOpenSettings }: Props) {
           <TrendChart data={trendData} color={trendCategory?.color} />
         </div>
       </div>
+
+      {detailCategoryId && (
+        <CategoryDetailSheet
+          categoryId={detailCategoryId}
+          month={month}
+          onClose={() => setDetailCategoryId(null)}
+        />
+      )}
     </div>
   )
 }

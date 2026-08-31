@@ -61,6 +61,21 @@
   color: var(--text-primary);
 }
 
+.legendItemBtn {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.legendChevron {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
 .emptyChart {
   display: flex;
   align-items: center;
