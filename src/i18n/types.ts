@@ -192,6 +192,9 @@ export interface TranslationKeys {
     expensesByCategory: string
     incomeVsExpenses6m: string
     categoryTrend: string
+    sortAmount: string
+    sortDate: string
+    expenseCount: (n: number) => string
   }
   settings: {
     title: string
