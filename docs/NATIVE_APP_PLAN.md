@@ -1,12 +1,19 @@
-# Native App Plan (iOS + Android)
+# Native App Plan (iOS in Swift, Android later)
 
-Written 2026-07-23 against v0.5.5 (~7,000 LOC of TS/TSX, plus ~800 lines of CSS).
-This is a dormant plan: nothing here is scheduled. It exists so that the day we decide
-to build the native app, we start from decisions already made instead of a blank page.
+This plan was first written 2026-07-23 against v0.5.5 (~7,000 LOC of TS/TSX, plus
+~800 lines of CSS), choosing React Native with Expo. That framework decision was
+superseded on 2026-08-31 (revision 2): the native app is **Swift and SwiftUI for
+iOS**, not React Native. This text was updated 2026-09-04 against v0.17.0 (still
+~7,000 LOC of TS/TSX). Revision 1 is preserved in git history (commit 886634f) for
+the record; it must not be re-proposed.
 
-The plan is written to survive time. It pins **decisions and interfaces**, never library
-versions. Anything marked "verify at execution time" must be re-checked against the
-ecosystem of that day before writing code.
+This plan is no longer dormant. Phase 0, the MoneyCore Swift package (Section 4.1),
+can start any day on any PC, Linux included. A development Mac (a MacBook Pro) has
+been available since 2026-09-04, so Phase 1 is no longer gated on hardware either.
+
+The plan is written to survive time. It pins **decisions and interfaces**, never
+library versions. Anything marked "verify at execution time" must be re-checked
+against the ecosystem of that day before writing code.
 
 ---
 
@@ -14,65 +21,72 @@ ecosystem of that day before writing code.
 
 The PWA is the product until one of these becomes a real need:
 
-- **Reliable notifications** (scheduled bills, salary day, budget warnings). iOS Web Push
-  exists but is fragile for an installed PWA; native notifications just work.
+- **Reliable notifications** (scheduled bills, salary day, budget warnings). iOS Web
+  Push exists but is fragile for an installed PWA; native notifications just work.
 - **Home-screen widgets** (remaining budget at a glance). Impossible as a PWA.
-- **Share-sheet / file intake**, e.g. the shelved Fineco CSV reconciliation
-  (see the layered design recorded in project memory; shelved by decision on 2026-07-22,
-  do not build unprompted). A native app can receive files from the share sheet.
+- **Share-sheet file intake.** The Fineco bank statement check already exists in the
+  PWA since v0.16.0 (the user picks the statement file inside the app). Native adds
+  receiving that file straight from the iOS share sheet, without opening the app
+  first and picking a file manually.
 - **PSD2 / LLM integrations**, which were explicitly parked "for the future native app".
 - **App Store presence**, if the app should ever be distributed to others.
 - iOS PWA support regresses in a way we cannot work around (we already fight WebKit
   bug 237961 and the status-bar sizing bug).
 
-If none of these is pressing, do not start. The PWA costs zero to keep running.
+The decision to start was taken on 2026-08-31, driven by the native payoff (widgets,
+App Intents, notifications, native feel) and by the wish to do one rewrite done
+right rather than a stopgap plus a second rewrite. The PWA stays live and primary
+until the Phase 3 gate.
 
-## 2. The decision: React Native with Expo
+## 2. The decision: Swift and SwiftUI
 
-**Chosen: React Native, Expo managed workflow, EAS Build.**
+**Chosen: Swift + SwiftUI for iOS. Android later as a separate Kotlin + Jetpack
+Compose project (Kotlin Multiplatform only if sharing the domain core turns out to
+make sense on that day).**
 
 Rationale:
-- Fabio has used React Native before, likes how it bridges to native OS features,
-  and finds it simple. Developer preference is a real input for a personal project.
-- The app is React + TypeScript today; the mental model (components, hooks, context)
-  transfers directly. Both i18n contexts and all domain logic are framework-portable.
-- Expo (rather than bare RN) because: iOS builds in the cloud without owning a Mac
-  (EAS Build), first-party modules for everything this app needs (sqlite, file system,
-  sharing, document picker, notifications, crypto), and config plugins for the
-  native-extension work in Phase 5 (widgets).
+- Fabio's conviction that native is the right move for a personal app he will use
+  for years; native frameworks remain the dominant choice for polished iOS apps.
+- The native payoff (WidgetKit widgets, App Intents, Action Button, local
+  notifications, materials, springs, haptics) is first class in SwiftUI rather than
+  reached through config plugins and bridges.
+- One rewrite done right beats an RN stopgap followed by a second rewrite.
+- Revision 1 chose Expo only because no Mac existed anywhere, Linux at work and at
+  home. That constraint fell on 2026-08-31, when an Intel MacBook Pro 2018 was
+  identified as usable, and definitively on 2026-09-04, when a MacBook Pro became
+  the actual development machine.
 
-**The honest cost, stated plainly** (this was the earlier "harder than it should be"
-concern, now quantified against the real codebase):
-
-React Native is **not a port of the web app**. It is a rewrite of the UI and storage
-layers with reuse of the domain core:
+**The honest cost, stated plainly:** this is a 100% rewrite in another language,
+including the domain core.
 
 | Layer | LOC (approx.) | Fate |
 |---|---|---|
-| Pure domain logic (`money`, `dates`, `smartBudget`, `keypadBuffer`, `locale`, `id`, `db/types`, `i18n/types`) | ~900 | Ports unchanged |
-| i18n dictionaries (`en.ts`, `it.ts`) | ~780 | Port as data; call sites are rewritten anyway |
-| DB-coupled logic (`stats`, `recurring`, `period`, `seed`, `budgets`, settings accessors, backup build/validate/import) | ~750 | Logic ports; the Dexie seam becomes a storage adapter |
-| UI (screens, components, app shell, all CSS) | ~4,800 + CSS | Full rewrite in RN primitives |
-| Web-only infrastructure (service worker, `--app-height` probe, PWA manifest, apple meta tags, Diagnostica viewport probes, Blob/anchor downloads) | ~150 | Dropped entirely. This is the good news: every iOS PWA landmine in CLAUDE.md stops existing |
+| Pure domain logic (`money`, `dates`, `smartBudget`, `keypadBuffer`, `locale`, `id`, `db/types`, `i18n/types`) | ~900 | Ported to Swift under parity tests (Section 4.1) |
+| DB-coupled logic (`stats`, `recurring`, `period`, `seed`, `budgets`, settings accessors, backup build/validate/import) | ~750 | Ported to Swift under parity tests (Section 4.1) |
+| i18n dictionaries (`en.ts`, `it.ts`) | ~780 | Becomes String Catalog content |
+| UI (screens, components, app shell, all CSS) | ~4,800 + CSS | Full rewrite in SwiftUI (it was a full rewrite in revision 1 too) |
+| Web-only infrastructure (service worker, `--app-height` probe, PWA manifest, apple meta tags, Diagnostica viewport probes, Blob/anchor downloads) | ~150 | Dropped entirely. Every iOS PWA landmine in CLAUDE.md stops existing |
 
-So roughly **a quarter of the authored code carries over, and it is the quarter that
-matters** (all the money math, period math, smart-budget waterfall, validation).
-The other three quarters are UI, and UI is exactly what an agentic rebuild handles well
-when parity criteria are written down (Section 7).
+Stated plainly: the extra cost versus revision 1 is porting ~1,650 LOC of
+TypeScript logic to Swift. The parity tests (Section 4.1) turn that from a risk
+into a mechanical task with an objective finish line: same numbers on both sides
+means ported.
+
+Swift itself is new to Fabio. The `write-swift` skill (Emil Kowalski's skills
+repo) is the style reference from Phase 0 on, and the port is executed agentically.
 
 **Alternatives considered and set aside:**
-- **Capacitor**: wraps the existing web app in a native shell. Near-zero rewrite and it
-  would ship in a weekend, but the UI stays a WebView (same WebKit engine, same class of
-  quirks we fight today), and native features are bolted on rather than first-class.
-  Kept as the official fallback (Section 8).
-- **Flutter / native Swift+Kotlin**: rewrite of 100% including the domain core, in
-  another language. No reuse, no preference match. Rejected.
+- **Expo / React Native (revision 1)**: superseded, see the rationale above.
+- **Capacitor**: no longer the fallback (see Section 8). A WebView shell forfeits
+  exactly the native feel that motivates this rewrite.
+- **Flutter**: no preference match, no platform-native feel.
+- **Kotlin Multiplatform now**: premature. Android is a later, separate project.
 
 ## 3. The data bridge: the backup JSON is the contract
 
 This is the single most important long-term rule in this document.
 
-The only bridge between the PWA and the future native app is the backup file:
+The only bridge between the PWA and the native app is the backup file:
 
 ```
 { version: 1, exportedAt, transactions[], categories[], recurring[],
@@ -80,7 +94,8 @@ The only bridge between the PWA and the future native app is the backup file:
 ```
 
 (`BackupPayload` in `src/lib/backup.ts`, validated by `isValidBackup` with per-record
-checks and foreign-key cross-checks, imported atomically by `importBackup`.)
+checks and foreign-key cross-checks, imported atomically by `importBackup`. Backup
+`version` is 1 today; verify in `src/lib/backup.ts` at execution time.)
 
 **First-run flow of the native app: import a backup exported from the PWA.** No other
 migration path exists, and none is needed.
@@ -93,30 +108,52 @@ Standing invariants for the PWA, effective immediately:
 3. New settings keys keep flowing through the `settings` table (never localStorage),
    so they ride along in backups automatically.
 
+MoneyCore (Section 4.1) defines Codable models mirroring `BackupPayload` and a
+validator with the same strict per-record and foreign-key checks from day one of
+Phase 0, so a production backup is readable by Swift before any UI exists.
+
 ## 4. Architecture of the native app
 
-### 4.1 Code sharing
+### 4.1 MoneyCore: the domain as a Swift package, verified by parity tests
 
-Default: convert this repo to npm workspaces at execution time:
+`MoneyCore` is a Swift Package (SwiftPM), Foundation only, no UIKit/SwiftUI import,
+builds and tests on **Linux** (official swift.org toolchain) and on macOS. It ports,
+in this order: `money` (integer cents, formatting), `dates` (local ISO `yyyy-mm-dd`,
+`yyyy-mm` month keys), `period` (configurable month start day), `stats`, `recurring`
+(monthly equivalent, materialization ids `rec-<recurringId>-<yyyy-mm>`), `budgets` +
+`smartBudget` (integer euros, suggestions rounded to 5), `savingsPlan`,
+`keypadBuffer`, `fineco` (statement matching), and the backup model + validator. The
+current modules live in `src/lib/`: `backup`, `budgets`, `categories`, `dates`,
+`fineco`, `id`, `keypadBuffer`, `locale`, `money`, `period`, `recurring`,
+`savingsPlan`, `seed`, `smartBudget`, `stats`. (`changelog`, `diagnostics`,
+`feedback`, `language`, `onboarding`, `theme` are app-shell concerns and are not
+part of MoneyCore.)
 
-```
-apps/web        (current app, moved)
-apps/native     (Expo app)
-packages/core   (pure lib + db/types + i18n dictionaries + backup validation)
-```
+Design change on purpose: the web app uses module-level mirrors (`lib/locale.ts`,
+`lib/period.ts`) so pure functions can format without React. MoneyCore does not use
+globals: every function takes its `Locale` / month-start configuration explicitly.
+Pure functions, no hidden state.
 
-`packages/core` contains everything in the "ports unchanged" rows above. The GitHub
-Pages workflow needs its paths updated when `apps/web` moves.
+**Parity tests are the definition of "ported".** Shared JSON fixtures live in the
+repo at `parity/fixtures/` (one file per module: inputs plus expected outputs). The
+TypeScript side is the oracle: a Vitest suite in the PWA (Vitest is not installed
+today, adding it is the first task of Phase 0) generates or checks the fixtures
+against `src/lib`; a swift-testing suite in MoneyCore reads the same files and
+asserts the same numbers and strings. Same numbers on both sides means ported.
+Fixtures cover edge cases explicitly: month boundaries with a non-1 start day, leap
+years, rounding of cents and of 5-euro suggestions, recurring frequencies,
+paused/reactivated items, and both languages for formatting.
 
-Acceptable lighter alternative if the monorepo feels heavy on the day: copy the core
-files into the new app and accept drift (reasonable if the PWA is being retired;
-wrong if both apps live on).
+Repo layout: the PWA stays at the repo root untouched (GitHub Pages workflow
+unchanged). Add `MoneyCore/` (with `Package.swift`) and `parity/` at the root. The
+Xcode app project goes in `ios/` from Phase 1 (default: same repo; a separate repo
+is acceptable if Xcode noise in this repo becomes annoying, decide in Phase 1).
 
-### 4.2 Storage: SQLite behind a repository interface
+### 4.2 Storage: SQLite behind a repository protocol
 
-Dexie/IndexedDB does not exist in RN. Replacement: **expo-sqlite** (verify at execution
-time; alternatives op-sqlite, WatermelonDB, but plain sqlite is enough for 7 tables and
-one user).
+Default **GRDB** (SQLite); SwiftData only after a concrete spike proves it handles
+the schema, the deterministic recurring ids and observation without surprises
+(verify at execution time).
 
 - Tables map 1:1 from the Dexie schema (v4 in `src/db/db.ts`): `transactions`,
   `categories`, `recurring`, `budgets`, `goals`, `contributions`, `settings`
@@ -127,48 +164,46 @@ one user).
 - **Preserve the race-free recurring materialization**: the deterministic primary key
   `rec-<recurringId>-<yyyy-mm>` plus `INSERT OR IGNORE` gives exactly the same
   guarantee IndexedDB primary-key uniqueness gives today. Do not redesign this.
-- All DB-coupled lib modules (`stats`, `recurring`, `period`, `seed`, `budgets`,
-  `language`, `theme`, `savingsPlan`, `onboarding`, `backup`) touch Dexie only through
-  the single `import { db }` seam. Port them onto a small repository layer
-  (`getTransactionsByMonth`, `putSetting`, ...) instead of translating Dexie calls
+- Port the DB-coupled modules onto a small repository protocol
+  (`getTransactionsByMonth`, `putSetting`, ...) rather than translating Dexie calls
   one by one.
-- **Live queries**: the web app uses `dexie-react-hooks`' `useLiveQuery` (via
-  `src/hooks/useDb.ts`). SQLite has no built-in equivalent. Simplest correct
-  replacement for a single-user app: the repository emits a change event on every
-  write; a `useLiveData(queryFn, deps)` hook re-runs on those events. Do not add a
-  reactive-database dependency for this.
+- **Live queries**: GRDB's `ValueObservation` replaces `useLiveQuery`; if SwiftData
+  wins the spike, `@Query` does. No extra reactive-database dependency.
 
 ### 4.3 UI mapping
 
-| Web today | Native |
+| Web today | SwiftUI |
 |---|---|
-| 5-tab state switch in `App.tsx` + `BottomNav` buttons (no router) | react-navigation bottom tabs (or expo-router). Native tab bar is a feel upgrade |
-| `Sheet` component (CSS overlay, two variants, no gestures) | Native bottom sheet (e.g. @gorhom/bottom-sheet; verify at execution time). Drag-to-dismiss becomes free |
-| Custom `Keypad` (12 buttons over pure `keypadBuffer.ts`) | Same 12 buttons as RN Pressables; the buffer logic ports untouched |
-| CSS Modules + `global.css`/`ui.css` (theme via `data-theme` attribute + CSS variables) | `StyleSheet.create` with a theme object in context. Re-author, keeping the same design tokens (colors, spacing, radii) extracted from `global.css` |
-| Recharts: 3 chart files only (`DonutChart` PieChart, `IncomeExpenseChart` BarChart, `TrendChart` AreaChart) plus an already-custom SVG `Ring` | Preferred: hand-roll all three on react-native-svg (they are simple, and `Ring` proves the pattern). Alternative: victory-native if it is healthy that day |
-| `alert()` / `confirm()` in Settings (import/delete flows) | `Alert.alert` with callbacks; the synchronous `confirm()` pattern must become async |
-| Blob + anchor download (backup/CSV export), `<input type="file">` (import) | expo-file-system + expo-sharing (export via share sheet), expo-document-picker (import) |
-| Safe-area CSS `env()`, `--app-height` probe | react-native-safe-area-context, `useWindowDimensions`. The WebKit workarounds die here |
-| `__APP_VERSION__` via Vite define | expo-constants / app config version. Keep the Diagnostica idea: a screen proving which build runs |
-| Service worker + manifest + apple meta tags | Nothing. Native apps do not need them |
+| 5-tab state switch in `App.tsx` + `BottomNav` buttons (no router) | `TabView` with five tabs (native tab bar, a feel upgrade) |
+| `Sheet` component (CSS overlay, no gestures) | `.sheet` with `presentationDetents`; drag to dismiss and interactive springs come free |
+| Custom `Keypad` (12 buttons over pure `keypadBuffer.ts`) | SwiftUI grid of 12 buttons; the buffer logic lives in MoneyCore untouched |
+| CSS Modules + `global.css`/`ui.css` (theme via `data-theme` attribute + CSS variables) | A `Theme` with the same design tokens (colors, spacing, radii) extracted from `global.css`; colors as asset-catalog color sets with dark variants; `preferredColorScheme` for the user override, system otherwise |
+| Recharts (`DonutChart` PieChart, `IncomeExpenseChart` BarChart, `TrendChart` AreaChart) plus the custom SVG `Ring` | Swift Charts (`SectorMark`, `BarMark`, `AreaMark`; verify minimum iOS for `SectorMark`); `Ring` becomes a custom `Shape` |
+| `alert()` / `confirm()` in Settings | `.alert` and `.confirmationDialog`; the synchronous `confirm()` pattern becomes async |
+| Blob + anchor download (backup/CSV export), `<input type="file">` (import) | `ShareLink` / `fileExporter` for export, `fileImporter` for import (backup JSON and the Fineco statement) |
+| Fineco statement parsing (the PWA uses the `xlsx` package) | CoreXLSX or equivalent (verify at execution time); the matching logic is in MoneyCore |
+| Safe-area CSS `env()`, `--app-height` probe | Nothing, SwiftUI handles it; the WebKit workarounds die here |
+| `__APP_VERSION__` via Vite define | `CFBundleShortVersionString` + build number shown in a native Diagnostica screen (keep the idea: a screen proving which build runs) |
+| Typed i18n dictionaries (`en.ts`/`it.ts` sharing `TranslationKeys`, build fails on a missing key) | String Catalogs (`.xcstrings`) for en and it. The compile-time safety net must be preserved: verify at execution time whether Xcode's generated string symbols give it; otherwise add a build-phase script that fails on untranslated keys |
+| Service worker + manifest + apple meta tags | Nothing |
 
-### 4.4 Runtime portability notes (small but real)
+### 4.4 Runtime portability notes
 
-- `crypto.randomUUID()` in `lib/id.ts`: needs expo-crypto (or the `react-native-get-random-values` polyfill). The existing fallback already guards, but do it properly.
-- `Intl.NumberFormat` / `Intl.DateTimeFormat` (used by `money.ts`, `dates.ts`,
-  `locale.ts`): Hermes Intl coverage must be smoke-tested for `it-IT`/`en-GB` in
-  Phase 1, before any UI exists. Test exactly: `formatCents`, `monthLabel`,
-  `decimalSeparator`.
-- `theme.ts` splits: the Dexie read/write ports; `applyThemeToDocument` is replaced by
-  RN `useColorScheme` + theme context.
-- `document.documentElement.lang` in `i18n/context.tsx` is dropped; the rest of both
-  contexts (`i18n`, `period`, including the module-level mirror pattern into
-  `lib/locale.ts` / `lib/period.ts`) ports as-is. Keep that mirror pattern: it is what
-  lets pure functions format correctly without React.
-- `lib/diagnostics.ts` is web-only; write a native Diagnostica (app version, device,
-  OS, DB row counts) because "which build is running" stays the number one debugging
-  question.
+- Formatting: `Intl.NumberFormat` / `Intl.DateTimeFormat` become Foundation
+  `FormatStyle` (currency, decimal, dates) with explicit `Locale("it_IT")` /
+  `Locale("en_GB")`. Foundation on Linux (swift-corelibs-foundation /
+  swift-foundation) can format differently from Foundation on Apple platforms:
+  formatting parity fixtures run on Linux in Phase 0 and **must be re-run on macOS
+  and on the device in Phase 1** before any UI exists. Test exactly the equivalents
+  of `formatCents`, `monthLabel`, `decimalSeparator`.
+- Ids: `crypto.randomUUID()` becomes Foundation `UUID`; keep the deterministic
+  recurring ids as plain strings.
+- Theme: `applyThemeToDocument` is replaced by `colorScheme` environment +
+  `preferredColorScheme`.
+- `document.documentElement.lang` is dropped; the language setting drives the app's
+  locale explicitly (pass it to MoneyCore functions) and the String Catalog lookup.
+- `lib/diagnostics.ts` is web only; write a native Diagnostica (app version, build,
+  device, OS version, DB row counts).
 
 ## 5. Product invariants (unchanged in native)
 
@@ -178,178 +213,172 @@ one user).
 - Recurring items: amount + frequency only, no due dates; materialized on the 1st of
   the calendar month regardless of the configurable period start day.
 - Period keys stay `yyyy-mm` meaning "period starting in that month".
-- English default, Italian selectable; every string through typed dictionaries
-  (port the `TranslationKeys` mechanism verbatim; it is the compile-time safety net).
+- English default, Italian selectable; every string through a checked mechanism
+  (String Catalogs with the compile-time safety net described in Section 4.3, the
+  Swift equivalent of `TranslationKeys`).
 - User-facing copy: say "month", never "period"; no em dashes.
 - Local-only data, no backend, no accounts. This survives until PSD2/LLM features are
   deliberately chosen, which is a separate decision with its own privacy trade-off.
 
 ## 6. Phases
 
-### Phase 0: standing invariants in the PWA (active now, forever)
+### Phase 0: MoneyCore on Linux (any PC, no Mac needed, start anytime)
 
-No scheduled work; just rules that keep this plan cheap:
-1. Backup-format discipline (Section 3).
-2. New domain logic goes into `src/lib`, pure or Dexie-coupled only through the
-   `import { db }` seam. No DOM APIs in `src/lib` outside `diagnostics.ts` and the
-   `downloadFile` half of `backup.ts`.
-3. i18n stays typed TS dictionaries; settings stay in the Dexie `settings` table.
-4. `db.ts` keeps its commented version history: it is the spec for the SQLite schema.
+1. Add Vitest to the PWA (devDependency only, no runtime change) and the
+   `parity/fixtures/` convention.
+2. Install the swift.org toolchain on Linux; create `MoneyCore/` with `Package.swift`,
+   a library target and a swift-testing test target.
+3. Port module by module in the order of Section 4.1, starting with `money` +
+   `dates`; each module lands together with its fixtures green on both sides.
+4. Backup Codable models + validator; read a real production backup export.
 
-### Phase 1: skeleton
+Rules while Phase 0 runs: the PWA stays live and primary; bug fixes and small
+improvements are fine; big new PWA features are frozen so the port does not chase a
+moving target.
 
-Expo app, TypeScript, workspaces set up, core package extracted and imported,
-tab navigation with 5 empty screens, i18n + period + theme contexts running,
-Intl smoke test (Section 4.4) passing on the real iPhone (via Expo Go, see Phase 6).
+**Gate: every parity fixture passes under both Vitest and swift-testing, and a real
+production backup parses and validates in MoneyCore.**
 
-**Gate: `formatCents(123456)` and `monthLabel` render correctly in both languages on device.**
+### Phase 1: skeleton (Mac)
+
+Xcode + SwiftUI app in `ios/` importing MoneyCore as a local package; `TabView`
+with 5 empty screens; theme, language and month-start settings wired as
+environment; a free Apple ID is enough to run on the real iPhone via Xcode (7-day
+re-sign, fine for development).
+
+If the development Mac is the 2018 Intel MacBook Pro, it tops out at macOS Sequoia
+15.6 and Xcode 26.3, so do not update the iPhone to an iOS major that Xcode 26.3
+cannot deploy to; a used Apple Silicon Mac mini is the priced plan B. An Apple
+Silicon Mac has no such constraint.
+
+**Gate: `formatCents(123456)` and `monthLabel` render correctly in both languages on
+the device, and the formatting parity fixtures are green on macOS.**
 
 ### Phase 2: data layer
 
-SQLite schema + repository + change events; DB-coupled lib ported; backup import
-(read a real PWA export through the ported `isValidBackup` + repository `importBackup`);
-seeding for fresh installs; recurring materialization on app foreground.
+GRDB schema + repository + observation; DB-coupled logic wired; backup import
+through the ported validator; seeding for fresh installs; recurring materialization
+on app foreground.
 
-**Gate: import a real backup from the production PWA, then per-month income, expenses,
-savings and budget status match the PWA to the cent for every month of history.**
-This gate is the whole point of the phase; automate it as a comparison script if possible.
+**Gate: import a real backup from the production PWA, then per-month income,
+expenses, savings and budget status match the PWA to the cent for every month of
+history.** Automate it: a small MoneyCore executable target prints per-month
+totals from a backup file, a TypeScript script does the same from `src/lib`, diff
+the two outputs.
 
-### Phase 3: screens, in order of daily use
+### Phase 3: screens to parity, in order of daily use
 
 1. QuickEntry sheet + keypad (the feature used every day; get entry friction right first)
-2. Home (dashboard, pace, ring)
+2. Home (dashboard, balance gauge, pace and goals)
 3. Spese (list, filters, recurring management)
 4. Risparmi (goals, contributions)
 5. Budget (including SmartBudgetSheet, the single largest UI file at ~420 lines;
    `smartBudget.ts` math is already ported so this is UI only)
-6. Report (the 3 charts, last because charts are the riskiest UI bet)
+6. Report (the 3 charts and the Fineco bank statement check, last because charts
+   are the riskiest UI bet)
 7. Settings (theme, language, period start, categories, export/import, delete-all,
    native Diagnostica) + Guide + Welcome flow
 
 **Gate per screen: side-by-side parity with the PWA on the same imported dataset.**
 
-### Phase 4: parity audit and polish
+Then the parity audit: full checklist pass against the live PWA in both languages,
+every screen, CSV export byte-compared modulo separators, backup export/import
+round-trip through the native app, dark/light/auto themes, fresh-install onboarding
+path, iPhone screen fit.
 
-Full checklist pass against the live PWA in both languages: every screen, CSV export
-byte-compared modulo separators, backup export/import round-trip through the native
-app, dark/light/auto themes, fresh-install onboarding path, iPhone screen fit.
+**Gate: Fabio uses the native app in parallel with the PWA for one full month with
+no mismatch. Only then does the PWA stop being primary.**
 
-**Gate: Fabio uses the native app in parallel with the PWA for one full month with no
-mismatch. Only then does the PWA stop being primary.**
+### Phase 4: the feel, and the native payoff
 
-### Phase 5: the native payoff (the reason we came)
-
-Now the features impossible in the PWA, prioritized on that day:
-- Scheduled-bill / salary-day notifications (expo-notifications, all local, no server).
-- **Quick-entry widget (iOS)**. Design note, because iOS constrains this hard:
-  WidgetKit widgets have no text fields and no keyboard; interactivity is limited to
-  Button/Toggle controls backed by App Intents (stateless background actions,
-  iOS 17+, still true as of iOS 26). The widget can never host the keypad, so the
-  design that actually saves time is:
+- **The feel:** SwiftUI springs, sheet physics, haptics, materials, following the
+  `apple-design` skill. This supersedes "tappa 3" (sheet physics) of the
+  Apple-design audit done on the PWA; "tappa 2" (typography, materials) may still
+  be done on the PWA in the meantime.
+- **Notifications** (local, no server): salary day, scheduled bills, budget warnings.
+- **Widgets.** WidgetKit widgets have no text fields and no keyboard; interactivity
+  is limited to Button/Toggle controls backed by App Intents (stateless background
+  actions, iOS 17+, still true as of iOS 26). The widget can never host the keypad,
+  so the design that actually saves time is:
   1. Category buttons on the widget, each deep-linking straight into the QuickEntry
      sheet with that category preselected and the keypad ready. One tap from the
      home screen to typing digits.
   2. Optional fixed-price buttons for habitual purchases (the usual coffee): the
      App Intent writes the transaction in the background without opening the app.
   3. The same App Intent exposed to Shortcuts/Siri and mapped to the iPhone's
-     Action Button: press it anywhere, land on the keypad. Cheapest big win,
-     no widget required.
+     Action Button: press it anywhere, land on the keypad. Cheapest big win, no
+     widget required.
+
   App and widget share data via an App Group container (shared SQLite file or a
-  snapshot JSON); after every in-app write, ask WidgetKit to reload timelines
-  (the system throttles overly frequent reloads, batch them).
-- Display widget: remaining budget for the month. Read-only companion, refreshed on
-  a system timeline plus explicit reload on writes. Widgets are a native SwiftUI
-  extension target (added to the Expo project via config plugin); this is the
-  hardest build item in this phase.
-- Share-sheet CSV intake, feeding the shelved bank-reconciliation design **only if
-  Fabio reopens that decision**.
+  snapshot JSON); after every in-app write, ask WidgetKit to reload timelines (the
+  system throttles overly frequent reloads, batch them). A read-only companion
+  widget shows remaining budget for the month, refreshed on a system timeline plus
+  explicit reload on writes. In a Swift project the widget extension is a plain
+  second target, no config plugin.
+- **Share-sheet intake** of the Fineco statement into the existing check.
 - Optional: Face ID lock.
 
-### Phase 6: distribution and device testing
+### Phase 5: distribution
 
-Strategy (decided 2026-07-23, distribution options verified online the same day):
-friends give feedback early and for free, Apple gets paid only once the app has
-proven itself. We develop on Linux (no Xcode, no iOS Simulator, ever), so EAS Build
-in the cloud is the only way to produce an iOS binary at any stage.
-
-**Stage A. Development testing, free: Expo Go.** During Phases 1 to 3, run the app
-on the real iPhone via Expo Go (App Store app that runs the JS bundle from the dev
-server over Wi-Fi). No Apple account, no signing. Verify at execution time that
-expo-sqlite still runs inside Expo Go; if not, Stage C moves earlier.
-
-**Stage B. Friends beta: PWA first, then Android APKs, all free.**
-- Product feedback (categories, budgets, usability, copy) does not need a native
-  binary: the PWA is already public and friends can start using it any day.
-- The native beta runs on **Android**: EAS builds an APK, friends sideload it
-  directly. State of play verified 2026-07: free and unrestricted in Italy today.
-  Google's developer-verification program enforces first on 2026-09-30 in Brazil,
-  Indonesia, Singapore and Thailand only; EU timing is unconfirmed ("2027 and
-  beyond") and under DMA scrutiny. If it ever lands here, a free "Limited
-  Distribution" tier (email-only registration, up to 20 devices, aimed at
-  hobbyists) or the one-time per-device "advanced flow" acknowledgment keeps
-  friend-to-friend APKs free. Revisit only if Google publishes a concrete EU date.
-- This beta slots between Phase 3 and Phase 4: friends polish the product before
-  Apple is paid; Fabio's own parallel month (the Phase 4 gate) then runs on the
-  Stage C build, since his daily phone is an iPhone.
-
-**Stage C. iOS, once proven: Apple Developer Program (99 USD/year).** One
-membership buys both channels we need:
-- **Personal permanent install, the chosen channel: ad hoc via EAS internal
-  distribution.** Never touches the App Store, no review. Fully Linux-driven:
-  `eas device:create` registers the iPhone UDID through a QR link, an internal
-  distribution build produces a signed .ipa installable from a URL in Safari, and
-  EAS manages certificates and profiles automatically. Provisioning profiles last
-  1 year. **Hard operational rule: standard accounts get no grace period; if the
-  membership or profile lapses, the installed app stops launching immediately.
-  Set a recurring reminder at month 11 to renew and rebuild.** One-time device
-  step: enable Developer Mode (Settings, Privacy and Security) for
-  non-App-Store installs; TestFlight builds are exempt from this.
-- **TestFlight, only if iPhone-owning friends join the beta:** internal testers
-  (up to 100) receive builds with no review, but every build expires 90 days
-  after upload, so it costs a re-upload every 3 months. It is the friends
-  channel, not the personal one; ad hoc is the personal one.
-
-**Routes investigated and ruled out (2026-07):** EU DMA Web Distribution requires
-2+ years of membership plus an app with 1M+ first annual EU installs, unreachable
-by design for a personal app; alternative marketplaces (AltStore PAL) cost the same
-99 USD/year plus Apple notarization and self-hosting for zero benefit at this
-scale; the Enterprise Program requires a 100+ employee organization; unlisted App
-Store distribution still goes through full App Review and lives on the store;
-free-Apple-ID signing (AltStore Classic/SideStore) expires every 7 days, caps at
-3 apps and relies on fragile automation, the opposite of stable.
-
-App Store publication stays optional and a separate decision, relevant only if the
-app should reach strangers. Play Store likewise (one-time 25 USD).
+- **Development:** free Apple ID + Xcode on the Mac (7-day re-sign).
+- Once the app is proven (Phase 3 gate): **Apple Developer Program (99 USD/year)**,
+  builds uploaded from Xcode. Personal channel: **TestFlight** for Fabio (and
+  possibly one friend); builds expire 90 days after upload, so it costs a re-upload
+  every 3 months. Alternative personal channel: ad hoc signed install from Xcode
+  with a 1-year profile. **Hard operational rule: standard accounts get no grace
+  period; an app signed under a lapsed membership or profile stops launching
+  immediately. Set a reminder at month 11 to renew and rebuild.** Developer Mode on
+  the iPhone is needed for non-App-Store installs; TestFlight is exempt.
+- App Store publication stays optional and a separate decision.
+- **Android:** a separate Kotlin + Compose project, planned only after the iOS app
+  is in daily use; sideloaded APKs to friends (Google's developer-verification
+  program enforces first on 2026-09-30 in Brazil, Indonesia, Singapore and
+  Thailand only; EU timing is unconfirmed and under DMA scrutiny; revisit only if
+  Google publishes a concrete EU date) or Play Store (one-time 25 USD).
+- No more EAS, Expo Go or cloud builds. Routes ruled out, kept brief: EU DMA Web
+  Distribution needs 2+ years of membership and 1M+ EU installs; alternative
+  marketplaces (AltStore PAL) cost the same 99 USD/year for no benefit at this
+  scale; the Enterprise Program needs a 100+ employee organization; unlisted App
+  Store distribution still goes through full App Review; free-Apple-ID signing
+  (AltStore Classic/SideStore) expires every 7 days and caps at 3 apps.
 
 ## 7. Effort estimate (honest)
 
-With Claude Code executing and this plan as the spec: Phases 1 and 2 are a few focused
-sessions each; Phase 3 is the bulk, roughly one session per screen with the QuickEntry
-and Budget screens the heaviest; Phases 4 to 6 a few more. Realistically **several weeks
-of evening-paced sessions end to end, not a weekend**. The Capacitor fallback would be
-1 or 2 sessions total, at the price of forfeiting most of Phase 5.
+Phase 0 is a handful of focused sessions (a mechanical port with an objective
+finish line); Phases 1 and 2 a few sessions each; Phase 3 is the bulk, roughly one
+session per screen with QuickEntry and Budget the heaviest; Phases 4 and 5 a few
+more. Realistically **several weeks of evening-paced sessions end to end, not a
+weekend.** Learning Swift along the way is part of the cost and part of the point.
 
-## 8. Checkpoint and fallback
+## 8. Checkpoint
 
-After Phase 2 there is a formal checkpoint: the data layer works and the real effort of
-Phase 3 is now visible. If the cost no longer feels worth it, **fall back to Capacitor**
-wrapping the existing web app. Nothing done so far is wasted: the core package, the
-backup contract and the SQLite schema knowledge all remain useful, and Phase 5 features
-can partially be reached from Capacitor plugins (notifications yes, widgets no).
+After Phase 2 there is a formal checkpoint: the data layer works and the real
+effort of Phase 3 is now visible. There is no Capacitor fallback anymore (decided
+2026-08-31). If the cost stops being worth it, the PWA simply remains the product;
+MoneyCore and the parity fixtures stay valuable as an executable specification of
+the domain, and nothing done is wasted.
 
 ## 9. Verify-at-execution-time checklist
 
 Do not trust any of these names/choices without re-checking on the day:
-- [ ] Current Expo SDK and whether the managed workflow still fits
-- [ ] Hermes Intl coverage for it-IT/en-GB (the Phase 1 gate)
-- [ ] expo-sqlite still the sane default (vs op-sqlite etc.)
-- [ ] Bottom-sheet library health (@gorhom/bottom-sheet or successor)
-- [ ] Chart decision: hand-rolled react-native-svg vs victory-native health
-- [ ] expo-router vs react-navigation as the tabs default
-- [ ] EAS Build pricing/free tier for a personal app
-- [ ] Apple Developer Program price, ad hoc profile 1-year validity and the
-      no-grace-period rule still current
-- [ ] Google developer-verification enforcement status for EU/Italy (Android APK
-      sideloading; free Limited Distribution tier availability)
-- [ ] Whether React itself has moved (React 19+, RN new-architecture status)
-- [ ] Re-read project memory for decisions made after 2026-07-23 that touch this plan
+- [ ] swift.org toolchain version on Linux and swift-testing availability there
+- [ ] Foundation formatting parity, Linux vs Apple platforms
+- [ ] Xcode version the development Mac supports, and the iOS version on Fabio's
+      iPhone (deployment target)
+- [ ] GRDB vs SwiftData spike outcome
+- [ ] Swift Charts `SectorMark` minimum iOS
+- [ ] String Catalog compile-time symbol generation for untranslated keys
+- [ ] CoreXLSX health (or an alternative) for the Fineco statement format
+- [ ] WidgetKit interactivity limits still as described
+- [ ] Apple Developer Program price, TestFlight 90-day expiry, profile validity and
+      the no-grace-period rule still current
+- [ ] Google developer-verification status for EU/Italy (Android, later)
+- [ ] Re-read project memory for decisions made after 2026-08-31 that touch this plan
+
+## 10. Tooling and references
+
+Claude Code skills used: `write-swift` (Swift style, from Phase 0 on), `apple-design`
+(Phase 4 feel). Living roadmap artifact:
+https://claude.ai/code/artifact/d34dddd1-789e-40e5-a2fd-26d4a9365b97 (revision 2,
+keep it updated as phases complete). Apple-design audit of the PWA:
+https://claude.ai/code/artifact/195d73ab-6c77-4a31-8775-bc29ade8f654.

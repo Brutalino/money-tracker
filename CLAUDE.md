@@ -7,6 +7,7 @@ Personal finance PWA for Fabio (EUR). UI is **English by default** with Italian 
 - The user wants the orchestrator model to delegate substantive execution to **Opus subagents** and review their output; only trivial edits are done directly.
 - Verify changes for real before pushing: `npm run build` (must pass with zero TS errors), then exercise the built app with Playwright against `npm run preview` (port 4173) at **402×874**.
 - The user tests on the installed PWA. After a deploy, the app self-updates on next launch (SW registered manually with `immediate: true` in `src/main.tsx`). For device-side layout issues, ask for a screenshot of **Impostazioni → Diagnostica** (shows version, innerHeight, safe-area insets).
+- **Native app roadmap** lives in `docs/NATIVE_APP_PLAN.md` (rev 2, 2026-08-31: Swift/SwiftUI for iOS, Kotlin later for Android; Phase 0 = `MoneyCore` Swift package with parity tests, runnable on Linux). Read it before any native-app work; the Expo/React Native revision is superseded.
 
 ## Architecture
 
