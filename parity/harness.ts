@@ -8,6 +8,11 @@ import { describe, expect, it } from 'vitest'
  * the contract: every case is asserted against src/lib. With
  * `UPDATE_FIXTURES=1` the expected values are recomputed from src/lib for the
  * cases declared in code and the file is rewritten (npm run parity:update).
+ *
+ * `impl` may be synchronous or async (DB-backed oracles such as stats.ts on
+ * fake-indexeddb). Cases run strictly in declaration order, never in
+ * parallel, because DB-backed impls share one database. Test files call
+ * `await parityModule(...)` at top level.
  */
 export interface ParityCase<I = Record<string, unknown>, E = unknown> {
   name: string
@@ -16,29 +21,24 @@ export interface ParityCase<I = Record<string, unknown>, E = unknown> {
 }
 
 export type CaseSpec<I> = { name: string; input: I }
-export type Impl<I, E> = (input: I) => E
+export type Impl<I, E> = (input: I) => E | Promise<E>
 
 const FIXTURES_DIR = join(__dirname, 'fixtures')
 const UPDATE = process.env.UPDATE_FIXTURES === '1'
 
-function fixturePath(module: string): string {
-  return join(FIXTURES_DIR, `${module}.json`)
-}
-
-/**
- * Declare a parity module: `functions` maps each function name to its input
- * cases and the src/lib implementation that computes the expected value.
- */
-export function parityModule(
+export async function parityModule(
   module: string,
   functions: Record<string, { cases: CaseSpec<any>[]; impl: Impl<any, any> }>
-): void {
-  const path = fixturePath(module)
+): Promise<void> {
+  const path = join(FIXTURES_DIR, `${module}.json`)
 
   if (UPDATE) {
     const out: Record<string, ParityCase[]> = {}
     for (const [fn, { cases, impl }] of Object.entries(functions)) {
-      out[fn] = cases.map((c) => ({ name: c.name, input: c.input, expected: impl(c.input) }))
+      out[fn] = []
+      for (const c of cases) {
+        out[fn].push({ name: c.name, input: c.input, expected: await impl(c.input) })
+      }
     }
     writeFileSync(path, JSON.stringify(out, null, 2) + '\n')
   }
@@ -60,8 +60,8 @@ export function parityModule(
     for (const [fn, { impl }] of Object.entries(functions)) {
       describe(fn, () => {
         for (const c of fixture[fn] ?? []) {
-          it(c.name, () => {
-            expect(impl(c.input)).toEqual(c.expected)
+          it(c.name, async () => {
+            expect(await impl(c.input)).toEqual(c.expected)
           })
         }
       })

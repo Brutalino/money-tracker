@@ -1,0 +1,4826 @@
+{
+  "isValidBackup": [
+    {
+      "name": "valid: full backup",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": true
+    },
+    {
+      "name": "valid: without settings table",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ]
+        }
+      },
+      "expected": true
+    },
+    {
+      "name": "invalid: settings not an array",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": {
+            "key": "theme",
+            "value": "dark"
+          }
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: missing transactions table",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: missing categories table",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: missing recurring table",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: missing budgets table",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: missing goals table",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: missing contributions table",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: transactions not an array",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": "not-an-array",
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: categories not an array",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": "not-an-array",
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: recurring not an array",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": "not-an-array",
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: budgets not an array",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": "not-an-array",
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: goals not an array",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": "not-an-array",
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: contributions not an array",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": "not-an-array",
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: category missing name",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: category empty name",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: category bad kind literal",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "transfer",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: category non-boolean archived",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": "no",
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "valid: category bad flexibility literal is not validated by isValidBackup",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "not-a-real-flexibility"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": true
+    },
+    {
+      "name": "invalid: goal non-string deadline",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": 202612,
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: recurring bad frequency literal",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "weekly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: recurring unknown categoryId",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "does-not-exist",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: transaction unknown categoryId",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "does-not-exist",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: transaction unknown recurringId",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "does-not-exist"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: transaction bad type literal",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "transfer",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: transaction non-string date",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": 20260903,
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: transaction note not a string",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": 42
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: budget unknown categoryId",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "does-not-exist",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: budget amountEuros as string",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": "400"
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: contribution unknown goalId",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "does-not-exist",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: settings record missing key",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: top-level null",
+      "input": {
+        "data": null
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: top-level array",
+      "input": {
+        "data": []
+      },
+      "expected": false
+    },
+    {
+      "name": "invalid: top-level string",
+      "input": {
+        "data": "oops"
+      },
+      "expected": false
+    },
+    {
+      "name": "valid: extra unknown top-level fields are ignored",
+      "input": {
+        "data": {
+          "version": 1,
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ],
+          "unknownField": "surprise",
+          "anotherOne": [
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      "expected": true
+    },
+    {
+      "name": "valid: version field is not required",
+      "input": {
+        "data": {
+          "exportedAt": "2026-09-08T12:00:00.000Z",
+          "categories": [
+            {
+              "id": "cat-groceries",
+              "name": "Groceries",
+              "emoji": "🛒",
+              "color": "#4CAF50",
+              "kind": "expense",
+              "sortOrder": 0,
+              "archived": false,
+              "flexibility": "flexible"
+            },
+            {
+              "id": "cat-smoking",
+              "name": "Smoking",
+              "emoji": "🚬",
+              "color": "#9E9E9E",
+              "kind": "expense",
+              "sortOrder": 1,
+              "archived": false,
+              "flexibility": "veryFlexible",
+              "habit": true
+            },
+            {
+              "id": "cat-salary",
+              "name": "Salary",
+              "emoji": "💰",
+              "color": "#2196F3",
+              "kind": "income",
+              "sortOrder": 0,
+              "archived": false
+            }
+          ],
+          "goals": [
+            {
+              "id": "goal-vacation",
+              "name": "Vacation",
+              "emoji": "🏖️",
+              "targetCents": 200000,
+              "deadline": "2026-12",
+              "archived": false,
+              "sortOrder": 0
+            },
+            {
+              "id": "goal-emergency",
+              "name": "Emergency fund",
+              "emoji": "🛟",
+              "targetCents": 500000,
+              "archived": false,
+              "sortOrder": 1
+            }
+          ],
+          "recurring": [
+            {
+              "id": "streaming",
+              "name": "Streaming subscription",
+              "amountCents": 1299,
+              "categoryId": "cat-groceries",
+              "type": "expense",
+              "frequency": "monthly",
+              "active": true,
+              "createdMonth": "2026-01"
+            }
+          ],
+          "transactions": [
+            {
+              "id": "tx-1",
+              "amountCents": 4500,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-03",
+              "note": "Weekly shop"
+            },
+            {
+              "id": "tx-2",
+              "amountCents": 250000,
+              "type": "income",
+              "categoryId": "cat-salary",
+              "date": "2026-09-01"
+            },
+            {
+              "id": "rec-streaming-2026-09",
+              "amountCents": 1299,
+              "type": "expense",
+              "categoryId": "cat-groceries",
+              "date": "2026-09-01",
+              "recurringId": "streaming"
+            }
+          ],
+          "budgets": [
+            {
+              "id": "budget-1",
+              "month": "2026-09",
+              "categoryId": "cat-groceries",
+              "amountEuros": 400
+            },
+            {
+              "id": "budget-2",
+              "month": "2026-09",
+              "categoryId": "cat-smoking",
+              "amountEuros": 50
+            }
+          ],
+          "contributions": [
+            {
+              "id": "contrib-1",
+              "goalId": "goal-vacation",
+              "amountCents": 10000,
+              "date": "2026-09-05",
+              "note": "Bonus"
+            },
+            {
+              "id": "contrib-2",
+              "goalId": "goal-emergency",
+              "amountCents": 20000,
+              "date": "2026-09-06"
+            }
+          ],
+          "settings": [
+            {
+              "key": "theme",
+              "value": "dark"
+            },
+            {
+              "key": "language",
+              "value": "en"
+            },
+            {
+              "key": "period-start-day",
+              "value": 5
+            },
+            {
+              "key": "savings-plan",
+              "value": {
+                "amountEuros": 300,
+                "goalId": "goal-vacation",
+                "motivation": "Trip fund"
+              }
+            }
+          ]
+        }
+      },
+      "expected": true
+    }
+  ]
+}

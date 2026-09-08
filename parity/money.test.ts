@@ -45,7 +45,7 @@ for (const lang of ['en', 'it'] as const) {
   }
 }
 
-parityModule('money', {
+await parityModule('money', {
   formatCents: {
     cases: formatCentsCases,
     impl: withLang<LangCents, string>((input) => formatCents(input.cents)),

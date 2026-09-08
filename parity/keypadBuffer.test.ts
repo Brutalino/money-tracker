@@ -14,7 +14,7 @@ interface FormatInput {
   lang: Language
 }
 
-parityModule('keypadBuffer', {
+await parityModule('keypadBuffer', {
   applyKeypadKey: {
     cases: [
       // comma separator

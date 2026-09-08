@@ -1,0 +1,1011 @@
+{
+  "suggestNote": [
+    {
+      "name": "Cino/ with Carta N. and IT country code",
+      "input": {
+        "description": "ESSELUNGA MILANO",
+        "descriptionFull": "Cino/ PAGAMENTO POS ESSELUNGA MILANO IT Carta N. 1234"
+      },
+      "expected": "Pagamento POS Esselunga Milano"
+    },
+    {
+      "name": "Cino (no slash) with Carta N. and LU country code",
+      "input": {
+        "description": "SPOTIFY",
+        "descriptionFull": "Cino PAYPAL *SPOTIFY 35314369001 LU Carta N. 5678"
+      },
+      "expected": "Paypal *spotify 35314369001"
+    },
+    {
+      "name": "no Carta N. in descriptionFull falls back to description (SEPA transfer)",
+      "input": {
+        "description": "BONIFICO SEPA A FAVORE DI ROSSI MARIO",
+        "descriptionFull": "BONIFICO SEPA A FAVORE DI ROSSI MARIO - CAUSALE AFFITTO SETTEMBRE"
+      },
+      "expected": "Bonifico Sepa A Favore DI Rossi Mario"
+    },
+    {
+      "name": "Cino/ with Carta N. and no trailing digits",
+      "input": {
+        "description": "AMAZON EU SARL",
+        "descriptionFull": "Cino/ AMAZON EU SARL LU Carta N."
+      },
+      "expected": "Amazon EU Sarl"
+    },
+    {
+      "name": "lowercase input, case-insensitive Cino/Carta N./country code",
+      "input": {
+        "description": "esselunga milano",
+        "descriptionFull": "cino/ pagamento pos esselunga milano it carta n. 1234"
+      },
+      "expected": "Pagamento pos Esselunga Milano"
+    },
+    {
+      "name": "3-char words stay unchanged (BAR, SRL)",
+      "input": {
+        "description": "BAR SRL ROMA",
+        "descriptionFull": "Cino/ BAR SRL ROMA IT Carta N. 111"
+      },
+      "expected": "BAR SRL Roma"
+    },
+    {
+      "name": "description over 40 chars gets cut to 40",
+      "input": {
+        "description": "SUPERMERCATO ESSELUNGA VIA ROMA 123 MILANO CENTRO",
+        "descriptionFull": "BONIFICO SUPERMERCATO ESSELUNGA VIA ROMA 123 MILANO CENTRO SENZA CARTA"
+      },
+      "expected": "Supermercato Esselunga VIA Roma 123 Mila"
+    },
+    {
+      "name": "extra internal whitespace collapses to single spaces",
+      "input": {
+        "description": "BAR   CENTRALE",
+        "descriptionFull": "Cino/   PAGAMENTO   POS   BAR   CENTRALE   ROMA   IT   Carta N.   999"
+      },
+      "expected": "Pagamento POS BAR Centrale Roma"
+    },
+    {
+      "name": "empty description and descriptionFull",
+      "input": {
+        "description": "",
+        "descriptionFull": ""
+      },
+      "expected": ""
+    },
+    {
+      "name": "country code mid-word (ITALIA) must not be stripped",
+      "input": {
+        "description": "ASSICURAZIONE ITALIA SRL",
+        "descriptionFull": "Cino/ ASSICURAZIONE ITALIA SRL Carta N. 222"
+      },
+      "expected": "Assicurazione Italia SRL"
+    },
+    {
+      "name": "country code mid-word (PRESTITO) must not be stripped",
+      "input": {
+        "description": "RATA PRESTITO BANCA",
+        "descriptionFull": "RATA PRESTITO BANCA SENZA CARTA NE PAESE"
+      },
+      "expected": "Rata Prestito Banca"
+    },
+    {
+      "name": "trailing NL country code",
+      "input": {
+        "description": "BOOKING.COM",
+        "descriptionFull": "Cino/ BOOKING.COM AMSTERDAM NL Carta N. 333"
+      },
+      "expected": "Booking.com Amsterdam"
+    },
+    {
+      "name": "trailing EE country code",
+      "input": {
+        "description": "WISE PAYMENTS",
+        "descriptionFull": "Cino/ WISE PAYMENTS TALLINN EE Carta N. 444"
+      },
+      "expected": "Wise Payments Tallinn"
+    },
+    {
+      "name": "trailing IE country code",
+      "input": {
+        "description": "STRIPE PAYMENTS",
+        "descriptionFull": "Cino/ STRIPE PAYMENTS DUBLIN IE Carta N. 555"
+      },
+      "expected": "Stripe Payments Dublin"
+    },
+    {
+      "name": "Cino not followed by whitespace or slash is not stripped",
+      "input": {
+        "description": "CINOTTO ROMA",
+        "descriptionFull": "CinottoBar ROMA Carta N. 666"
+      },
+      "expected": "Cinottobar Roma"
+    },
+    {
+      "name": "word containing digits is title-cased like any other word",
+      "input": {
+        "description": "BAR2000 ROMA",
+        "descriptionFull": "Cino/ PAGAMENTO POS BAR2000 ROMA IT Carta N. 777"
+      },
+      "expected": "Pagamento POS Bar2000 Roma"
+    },
+    {
+      "name": "lowercase \"carta n.\" is still found case-insensitively",
+      "input": {
+        "description": "FARMACIA CENTRALE",
+        "descriptionFull": "Cino/ FARMACIA CENTRALE ROMA carta n. 888"
+      },
+      "expected": "Farmacia Centrale Roma"
+    },
+    {
+      "name": "no country code and no Carta N.: only whitespace cleanup and title-case apply",
+      "input": {
+        "description": "RICARICA TELEFONICA",
+        "descriptionFull": "Cino/ RICARICA TELEFONICA"
+      },
+      "expected": "Ricarica Telefonica"
+    }
+  ],
+  "dayGap": [
+    {
+      "name": "same date",
+      "input": {
+        "a": "2026-09-08",
+        "b": "2026-09-08"
+      },
+      "expected": 0
+    },
+    {
+      "name": "a before b, 2 days",
+      "input": {
+        "a": "2026-09-08",
+        "b": "2026-09-10"
+      },
+      "expected": 2
+    },
+    {
+      "name": "a after b, 2 days",
+      "input": {
+        "a": "2026-09-10",
+        "b": "2026-09-08"
+      },
+      "expected": 2
+    },
+    {
+      "name": "DST month, 2 days apart",
+      "input": {
+        "a": "2026-03-28",
+        "b": "2026-03-30"
+      },
+      "expected": 2
+    },
+    {
+      "name": "2 days apart in October",
+      "input": {
+        "a": "2026-10-24",
+        "b": "2026-10-26"
+      },
+      "expected": 2
+    },
+    {
+      "name": "full non-leap year, Jan 1 to Dec 31",
+      "input": {
+        "a": "2026-01-01",
+        "b": "2026-12-31"
+      },
+      "expected": 364
+    }
+  ],
+  "reconcileMonth": [
+    {
+      "name": "no movements in range, startDay 1: monthNotCovered with suggestedMonthKey from latest movement",
+      "input": {
+        "appExpenses": [],
+        "appIncomes": [],
+        "movements": [
+          {
+            "dateISO": "2026-08-15",
+            "amountCents": 5000,
+            "direction": "out",
+            "description": "",
+            "descriptionFull": ""
+          },
+          {
+            "dateISO": "2026-08-20",
+            "amountCents": 3000,
+            "direction": "out",
+            "description": "",
+            "descriptionFull": ""
+          }
+        ],
+        "coverage": {
+          "fromISO": "2026-08-01",
+          "toISO": "2026-08-31"
+        },
+        "range": {
+          "startISO": "2026-09-01",
+          "endISO": "2026-09-30"
+        },
+        "todayISO": "2026-09-05",
+        "startDay": 1
+      },
+      "expected": {
+        "state": "monthNotCovered",
+        "coverage": {
+          "fromISO": "2026-08-01",
+          "toISO": "2026-08-31"
+        },
+        "suggestedMonthKey": "2026-08"
+      }
+    },
+    {
+      "name": "no movements in range, startDay 26: monthNotCovered with suggestedMonthKey from latest movement",
+      "input": {
+        "appExpenses": [],
+        "appIncomes": [],
+        "movements": [
+          {
+            "dateISO": "2026-09-10",
+            "amountCents": 5000,
+            "direction": "out",
+            "description": "",
+            "descriptionFull": ""
+          },
+          {
+            "dateISO": "2026-09-20",
+            "amountCents": 3000,
+            "direction": "out",
+            "description": "",
+            "descriptionFull": ""
+          }
+        ],
+        "coverage": {
+          "fromISO": "2026-09-01",
+          "toISO": "2026-09-25"
+        },
+        "range": {
+          "startISO": "2026-09-26",
+          "endISO": "2026-10-25"
+        },
+        "todayISO": "2026-09-25",
+        "startDay": 26
+      },
+      "expected": {
+        "state": "monthNotCovered",
+        "coverage": {
+          "fromISO": "2026-09-01",
+          "toISO": "2026-09-25"
+        },
+        "suggestedMonthKey": "2026-08"
+      }
+    },
+    {
+      "name": "exact matches at gap 0 and 4 succeed, gap 5 fails (no recurringId)",
+      "input": {
+        "appExpenses": [
+          {
+            "id": "e-gap0",
+            "amountCents": 2000,
+            "type": "expense",
+            "categoryId": "cat-x",
+            "date": "2026-09-05"
+          },
+          {
+            "id": "e-gap4",
+            "amountCents": 3000,
+            "type": "expense",
+            "categoryId": "cat-x",
+            "date": "2026-09-06"
+          },
+          {
+            "id": "e-gap5",
+            "amountCents": 4000,
+            "type": "expense",
+            "categoryId": "cat-x",
+            "date": "2026-09-15"
+          }
+        ],
+        "appIncomes": [],
+        "movements": [
+          {
+            "dateISO": "2026-09-05",
+            "amountCents": 2000,
+            "direction": "out",
+            "description": "",
+            "descriptionFull": ""
+          },
+          {
+            "dateISO": "2026-09-10",
+            "amountCents": 3000,
+            "direction": "out",
+            "description": "",
+            "descriptionFull": ""
+          },
+          {
+            "dateISO": "2026-09-20",
+            "amountCents": 4000,
+            "direction": "out",
+            "description": "",
+            "descriptionFull": ""
+          }
+        ],
+        "coverage": {
+          "fromISO": "2026-09-01",
+          "toISO": "2026-09-30"
+        },
+        "range": {
+          "startISO": "2026-09-01",
+          "endISO": "2026-09-30"
+        },
+        "todayISO": "2026-10-05",
+        "startDay": 1
+      },
+      "expected": {
+        "state": "done",
+        "matchedCount": 2,
+        "totalBankMovements": 3,
+        "nearMisses": [],
+        "onlyApp": [
+          {
+            "id": "e-gap5",
+            "amountCents": 4000,
+            "type": "expense",
+            "categoryId": "cat-x",
+            "date": "2026-09-15"
+          }
+        ],
+        "onlyBank": [
+          {
+            "dateISO": "2026-09-20",
+            "amountCents": 4000,
+            "direction": "out",
+            "description": "",
+            "descriptionFull": ""
+          }
+        ],
+        "totals": {
+          "appOutCents": 9000,
+          "bankOutCents": 9000,
+          "appInCents": 0,
+          "bankInCents": 0
+        },
+        "netGapCents": 0
+      }
+    },
+    {
+      "name": "recurring transaction matches at a 20-day gap",
+      "input": {
+        "appExpenses": [
+          {
+            "id": "e-rec",
+            "amountCents": 1099,
+            "type": "expense",
+            "categoryId": "cat-x",
+            "date": "2026-09-01",
+            "recurringId": "rec-netflix"
+          }
+        ],
+        "appIncomes": [],
+        "movements": [
+          {
+            "dateISO": "2026-09-21",
+            "amountCents": 1099,
+            "direction": "out",
+            "description": "",
+            "descriptionFull": ""
+          }
+        ],
+        "coverage": {
+          "fromISO": "2026-09-01",
+          "toISO": "2026-09-30"
+        },
+        "range": {
+          "startISO": "2026-09-01",
+          "endISO": "2026-09-30"
+        },
+        "todayISO": "2026-09-30",
+        "startDay": 1
+      },
+      "expected": {
+        "state": "done",
+        "matchedCount": 1,
+        "totalBankMovements": 1,
+        "nearMisses": [],
+        "onlyApp": [],
+        "onlyBank": [],
+        "totals": {
+          "appOutCents": 1099,
+          "bankOutCents": 1099,
+          "appInCents": 0,
+          "bankInCents": 0
+        },
+        "netGapCents": 0
+      }
+    },
+    {
+      "name": "two same-amount candidates: the closer one wins, the farther stays unmatched",
+      "input": {
+        "appExpenses": [
+          {
+            "id": "e-near",
+            "amountCents": 2500,
+            "type": "expense",
+            "categoryId": "cat-x",
+            "date": "2026-09-16"
+          },
+          {
+            "id": "e-far",
+            "amountCents": 2500,
+            "type": "expense",
+            "categoryId": "cat-x",
+            "date": "2026-09-12"
+          }
+        ],
+        "appIncomes": [],
+        "movements": [
+          {
+            "dateISO": "2026-09-15",
+            "amountCents": 2500,
+            "direction": "out",
+            "description": "",
+            "descriptionFull": ""
+          }
+        ],
+        "coverage": {
+          "fromISO": "2026-09-01",
+          "toISO": "2026-09-30"
+        },
+        "range": {
+          "startISO": "2026-09-01",
+          "endISO": "2026-09-30"
+        },
+        "todayISO": "2026-09-30",
+        "startDay": 1
+      },
+      "expected": {
+        "state": "done",
+        "matchedCount": 1,
+        "totalBankMovements": 1,
+        "nearMisses": [],
+        "onlyApp": [
+          {
+            "id": "e-far",
+            "amountCents": 2500,
+            "type": "expense",
+            "categoryId": "cat-x",
+            "date": "2026-09-12"
+          }
+        ],
+        "onlyBank": [],
+        "totals": {
+          "appOutCents": 5000,
+          "bankOutCents": 2500,
+          "appInCents": 0,
+          "bankInCents": 0
+        },
+        "netGapCents": -2500
+      }
+    },
+    {
+      "name": "same-day aggregation of 2 expenses and of 3 expenses",
+      "input": {
+        "appExpenses": [
+          {
+            "id": "e-agg1a",
+            "amountCents": 300,
+            "type": "expense",
+            "categoryId": "cat-x",
+            "date": "2026-09-08"
+          },
+          {
+            "id": "e-agg1b",
+            "amountCents": 500,
+            "type": "expense",
+            "categoryId": "cat-x",
+            "date": "2026-09-08"
+          },
+          {
+            "id": "e-agg2a",
+            "amountCents": 300,
+            "type": "expense",
+            "categoryId": "cat-x",
+            "date": "2026-09-09"
+          },
+          {
+            "id": "e-agg2b",
+            "amountCents": 300,
+            "type": "expense",
+            "categoryId": "cat-x",
+            "date": "2026-09-09"
+          },
+          {
+            "id": "e-agg2c",
+            "amountCents": 300,
+            "type": "expense",
+            "categoryId": "cat-x",
+            "date": "2026-09-09"
+          }
+        ],
+        "appIncomes": [],
+        "movements": [
+          {
+            "dateISO": "2026-09-08",
+            "amountCents": 800,
+            "direction": "out",
+            "description": "",
+            "descriptionFull": ""
+          },
+          {
+            "dateISO": "2026-09-09",
+            "amountCents": 900,
+            "direction": "out",
+            "description": "",
+            "descriptionFull": ""
+          }
+        ],
+        "coverage": {
+          "fromISO": "2026-09-01",
+          "toISO": "2026-09-30"
+        },
+        "range": {
+          "startISO": "2026-09-01",
+          "endISO": "2026-09-30"
+        },
+        "todayISO": "2026-09-30",
+        "startDay": 1
+      },
+      "expected": {
+        "state": "done",
+        "matchedCount": 5,
+        "totalBankMovements": 2,
+        "nearMisses": [],
+        "onlyApp": [],
+        "onlyBank": [],
+        "totals": {
+          "appOutCents": 1700,
+          "bankOutCents": 1700,
+          "appInCents": 0,
+          "bankInCents": 0
+        },
+        "netGapCents": 0
+      }
+    },
+    {
+      "name": "near-miss of 15 cents within 2 days accepted, 25 cents rejected",
+      "input": {
+        "appExpenses": [
+          {
+            "id": "e-nm-ok",
+            "amountCents": 985,
+            "type": "expense",
+            "categoryId": "cat-x",
+            "date": "2026-09-12"
+          },
+          {
+            "id": "e-nm-bad",
+            "amountCents": 975,
+            "type": "expense",
+            "categoryId": "cat-x",
+            "date": "2026-09-13"
+          }
+        ],
+        "appIncomes": [],
+        "movements": [
+          {
+            "dateISO": "2026-09-11",
+            "amountCents": 1000,
+            "direction": "out",
+            "description": "",
+            "descriptionFull": ""
+          },
+          {
+            "dateISO": "2026-09-13",
+            "amountCents": 1000,
+            "direction": "out",
+            "description": "",
+            "descriptionFull": ""
+          }
+        ],
+        "coverage": {
+          "fromISO": "2026-09-01",
+          "toISO": "2026-09-30"
+        },
+        "range": {
+          "startISO": "2026-09-01",
+          "endISO": "2026-09-30"
+        },
+        "todayISO": "2026-09-30",
+        "startDay": 1
+      },
+      "expected": {
+        "state": "done",
+        "matchedCount": 0,
+        "totalBankMovements": 2,
+        "nearMisses": [
+          {
+            "tx": {
+              "id": "e-nm-ok",
+              "amountCents": 985,
+              "type": "expense",
+              "categoryId": "cat-x",
+              "date": "2026-09-12"
+            },
+            "movement": {
+              "dateISO": "2026-09-11",
+              "amountCents": 1000,
+              "direction": "out",
+              "description": "",
+              "descriptionFull": ""
+            },
+            "diffCents": 15
+          }
+        ],
+        "onlyApp": [
+          {
+            "id": "e-nm-bad",
+            "amountCents": 975,
+            "type": "expense",
+            "categoryId": "cat-x",
+            "date": "2026-09-13"
+          }
+        ],
+        "onlyBank": [
+          {
+            "dateISO": "2026-09-13",
+            "amountCents": 1000,
+            "direction": "out",
+            "description": "",
+            "descriptionFull": ""
+          }
+        ],
+        "totals": {
+          "appOutCents": 1960,
+          "bankOutCents": 2000,
+          "appInCents": 0,
+          "bankInCents": 0
+        },
+        "netGapCents": 40
+      }
+    },
+    {
+      "name": "canone refund pair (same date, same amount, opposite direction) is dropped",
+      "input": {
+        "appExpenses": [],
+        "appIncomes": [],
+        "movements": [
+          {
+            "dateISO": "2026-09-05",
+            "amountCents": 500,
+            "direction": "out",
+            "description": "CANONE MENSILE",
+            "descriptionFull": "CANONE MENSILE CARTA"
+          },
+          {
+            "dateISO": "2026-09-05",
+            "amountCents": 500,
+            "direction": "in",
+            "description": "STORNO CANONE",
+            "descriptionFull": "STORNO CANONE MENSILE"
+          }
+        ],
+        "coverage": {
+          "fromISO": "2026-09-01",
+          "toISO": "2026-09-30"
+        },
+        "range": {
+          "startISO": "2026-09-01",
+          "endISO": "2026-09-30"
+        },
+        "todayISO": "2026-09-30",
+        "startDay": 1
+      },
+      "expected": {
+        "state": "done",
+        "matchedCount": 0,
+        "totalBankMovements": 0,
+        "nearMisses": [],
+        "onlyApp": [],
+        "onlyBank": [],
+        "totals": {
+          "appOutCents": 0,
+          "bankOutCents": 0,
+          "appInCents": 0,
+          "bankInCents": 0
+        },
+        "netGapCents": 0
+      }
+    },
+    {
+      "name": "income exactly matched",
+      "input": {
+        "appExpenses": [],
+        "appIncomes": [
+          {
+            "id": "inc-salary",
+            "amountCents": 150000,
+            "type": "income",
+            "categoryId": "cat-x",
+            "date": "2026-09-07"
+          }
+        ],
+        "movements": [
+          {
+            "dateISO": "2026-09-07",
+            "amountCents": 150000,
+            "direction": "in",
+            "description": "",
+            "descriptionFull": ""
+          }
+        ],
+        "coverage": {
+          "fromISO": "2026-09-01",
+          "toISO": "2026-09-30"
+        },
+        "range": {
+          "startISO": "2026-09-01",
+          "endISO": "2026-09-30"
+        },
+        "todayISO": "2026-09-30",
+        "startDay": 1
+      },
+      "expected": {
+        "state": "done",
+        "matchedCount": 1,
+        "totalBankMovements": 1,
+        "nearMisses": [],
+        "onlyApp": [],
+        "onlyBank": [],
+        "totals": {
+          "appOutCents": 0,
+          "bankOutCents": 0,
+          "appInCents": 150000,
+          "bankInCents": 150000
+        },
+        "netGapCents": 0
+      }
+    },
+    {
+      "name": "partialTo from coverage ending before range end, and a transaction past coverage is excluded entirely",
+      "input": {
+        "appExpenses": [
+          {
+            "id": "e-partial",
+            "amountCents": 2000,
+            "type": "expense",
+            "categoryId": "cat-x",
+            "date": "2026-09-10"
+          },
+          {
+            "id": "e-late",
+            "amountCents": 3000,
+            "type": "expense",
+            "categoryId": "cat-x",
+            "date": "2026-09-25"
+          }
+        ],
+        "appIncomes": [],
+        "movements": [
+          {
+            "dateISO": "2026-09-10",
+            "amountCents": 2000,
+            "direction": "out",
+            "description": "",
+            "descriptionFull": ""
+          }
+        ],
+        "coverage": {
+          "fromISO": "2026-09-01",
+          "toISO": "2026-09-20"
+        },
+        "range": {
+          "startISO": "2026-09-01",
+          "endISO": "2026-09-30"
+        },
+        "todayISO": "2026-09-18",
+        "startDay": 1
+      },
+      "expected": {
+        "state": "done",
+        "matchedCount": 1,
+        "totalBankMovements": 1,
+        "nearMisses": [],
+        "onlyApp": [],
+        "onlyBank": [],
+        "totals": {
+          "appOutCents": 2000,
+          "bankOutCents": 2000,
+          "appInCents": 0,
+          "bankInCents": 0
+        },
+        "netGapCents": 0,
+        "partialTo": "2026-09-18"
+      }
+    },
+    {
+      "name": "totals and netGapCents with unmatched items on both sides",
+      "input": {
+        "appExpenses": [
+          {
+            "id": "e-t1",
+            "amountCents": 1000,
+            "type": "expense",
+            "categoryId": "cat-x",
+            "date": "2026-09-03"
+          }
+        ],
+        "appIncomes": [
+          {
+            "id": "inc-t1",
+            "amountCents": 500,
+            "type": "income",
+            "categoryId": "cat-x",
+            "date": "2026-09-05"
+          }
+        ],
+        "movements": [
+          {
+            "dateISO": "2026-09-04",
+            "amountCents": 1500,
+            "direction": "out",
+            "description": "",
+            "descriptionFull": ""
+          },
+          {
+            "dateISO": "2026-09-06",
+            "amountCents": 700,
+            "direction": "in",
+            "description": "",
+            "descriptionFull": ""
+          }
+        ],
+        "coverage": {
+          "fromISO": "2026-09-01",
+          "toISO": "2026-09-30"
+        },
+        "range": {
+          "startISO": "2026-09-01",
+          "endISO": "2026-09-30"
+        },
+        "todayISO": "2026-09-30",
+        "startDay": 1
+      },
+      "expected": {
+        "state": "done",
+        "matchedCount": 0,
+        "totalBankMovements": 2,
+        "nearMisses": [],
+        "onlyApp": [
+          {
+            "id": "e-t1",
+            "amountCents": 1000,
+            "type": "expense",
+            "categoryId": "cat-x",
+            "date": "2026-09-03"
+          },
+          {
+            "id": "inc-t1",
+            "amountCents": 500,
+            "type": "income",
+            "categoryId": "cat-x",
+            "date": "2026-09-05"
+          }
+        ],
+        "onlyBank": [
+          {
+            "dateISO": "2026-09-04",
+            "amountCents": 1500,
+            "direction": "out",
+            "description": "",
+            "descriptionFull": ""
+          },
+          {
+            "dateISO": "2026-09-06",
+            "amountCents": 700,
+            "direction": "in",
+            "description": "",
+            "descriptionFull": ""
+          }
+        ],
+        "totals": {
+          "appOutCents": 1000,
+          "bankOutCents": 1500,
+          "appInCents": 500,
+          "bankInCents": 700
+        },
+        "netGapCents": 300
+      }
+    },
+    {
+      "name": "equal-date items in onlyApp and onlyBank expose tie order",
+      "input": {
+        "appExpenses": [
+          {
+            "id": "e-tie-a",
+            "amountCents": 1111,
+            "type": "expense",
+            "categoryId": "cat-x",
+            "date": "2026-09-12"
+          },
+          {
+            "id": "e-tie-b",
+            "amountCents": 2222,
+            "type": "expense",
+            "categoryId": "cat-x",
+            "date": "2026-09-12"
+          }
+        ],
+        "appIncomes": [],
+        "movements": [
+          {
+            "dateISO": "2026-09-14",
+            "amountCents": 3333,
+            "direction": "out",
+            "description": "",
+            "descriptionFull": ""
+          },
+          {
+            "dateISO": "2026-09-14",
+            "amountCents": 4444,
+            "direction": "out",
+            "description": "",
+            "descriptionFull": ""
+          }
+        ],
+        "coverage": {
+          "fromISO": "2026-09-01",
+          "toISO": "2026-09-30"
+        },
+        "range": {
+          "startISO": "2026-09-01",
+          "endISO": "2026-09-30"
+        },
+        "todayISO": "2026-09-30",
+        "startDay": 1
+      },
+      "expected": {
+        "state": "done",
+        "matchedCount": 0,
+        "totalBankMovements": 2,
+        "nearMisses": [],
+        "onlyApp": [
+          {
+            "id": "e-tie-a",
+            "amountCents": 1111,
+            "type": "expense",
+            "categoryId": "cat-x",
+            "date": "2026-09-12"
+          },
+          {
+            "id": "e-tie-b",
+            "amountCents": 2222,
+            "type": "expense",
+            "categoryId": "cat-x",
+            "date": "2026-09-12"
+          }
+        ],
+        "onlyBank": [
+          {
+            "dateISO": "2026-09-14",
+            "amountCents": 3333,
+            "direction": "out",
+            "description": "",
+            "descriptionFull": ""
+          },
+          {
+            "dateISO": "2026-09-14",
+            "amountCents": 4444,
+            "direction": "out",
+            "description": "",
+            "descriptionFull": ""
+          }
+        ],
+        "totals": {
+          "appOutCents": 3333,
+          "bankOutCents": 7777,
+          "appInCents": 0,
+          "bankInCents": 0
+        },
+        "netGapCents": 4444
+      }
+    }
+  ]
+}

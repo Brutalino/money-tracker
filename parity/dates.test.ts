@@ -65,7 +65,7 @@ interface MonthsBetweenInput {
   to: string
 }
 
-parityModule('dates', {
+await parityModule('dates', {
   monthLabel: {
     cases: [
       ...LANGS.flatMap((lang) => MONTHS_2026.map((monthKey) => ({ name: `${lang}: ${monthKey}`, input: { monthKey, lang } }))),

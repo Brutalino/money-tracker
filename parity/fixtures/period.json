@@ -1,0 +1,957 @@
+{
+  "periodStartISO": [
+    {
+      "name": "startDay 1, 2026-01",
+      "input": {
+        "startDay": 1,
+        "key": "2026-01"
+      },
+      "expected": "2026-01-01"
+    },
+    {
+      "name": "startDay 1, 2026-02",
+      "input": {
+        "startDay": 1,
+        "key": "2026-02"
+      },
+      "expected": "2026-02-01"
+    },
+    {
+      "name": "startDay 1, 2024-02",
+      "input": {
+        "startDay": 1,
+        "key": "2024-02"
+      },
+      "expected": "2024-02-01"
+    },
+    {
+      "name": "startDay 1, 2026-04",
+      "input": {
+        "startDay": 1,
+        "key": "2026-04"
+      },
+      "expected": "2026-04-01"
+    },
+    {
+      "name": "startDay 1, 2026-12",
+      "input": {
+        "startDay": 1,
+        "key": "2026-12"
+      },
+      "expected": "2026-12-01"
+    },
+    {
+      "name": "startDay 15, 2026-01",
+      "input": {
+        "startDay": 15,
+        "key": "2026-01"
+      },
+      "expected": "2026-01-15"
+    },
+    {
+      "name": "startDay 15, 2026-02",
+      "input": {
+        "startDay": 15,
+        "key": "2026-02"
+      },
+      "expected": "2026-02-15"
+    },
+    {
+      "name": "startDay 15, 2024-02",
+      "input": {
+        "startDay": 15,
+        "key": "2024-02"
+      },
+      "expected": "2024-02-15"
+    },
+    {
+      "name": "startDay 15, 2026-04",
+      "input": {
+        "startDay": 15,
+        "key": "2026-04"
+      },
+      "expected": "2026-04-15"
+    },
+    {
+      "name": "startDay 15, 2026-12",
+      "input": {
+        "startDay": 15,
+        "key": "2026-12"
+      },
+      "expected": "2026-12-15"
+    },
+    {
+      "name": "startDay 26, 2026-01",
+      "input": {
+        "startDay": 26,
+        "key": "2026-01"
+      },
+      "expected": "2026-01-26"
+    },
+    {
+      "name": "startDay 26, 2026-02",
+      "input": {
+        "startDay": 26,
+        "key": "2026-02"
+      },
+      "expected": "2026-02-26"
+    },
+    {
+      "name": "startDay 26, 2024-02",
+      "input": {
+        "startDay": 26,
+        "key": "2024-02"
+      },
+      "expected": "2024-02-26"
+    },
+    {
+      "name": "startDay 26, 2026-04",
+      "input": {
+        "startDay": 26,
+        "key": "2026-04"
+      },
+      "expected": "2026-04-26"
+    },
+    {
+      "name": "startDay 26, 2026-12",
+      "input": {
+        "startDay": 26,
+        "key": "2026-12"
+      },
+      "expected": "2026-12-26"
+    },
+    {
+      "name": "startDay 31, 2026-01",
+      "input": {
+        "startDay": 31,
+        "key": "2026-01"
+      },
+      "expected": "2026-01-31"
+    },
+    {
+      "name": "startDay 31, 2026-02",
+      "input": {
+        "startDay": 31,
+        "key": "2026-02"
+      },
+      "expected": "2026-02-28"
+    },
+    {
+      "name": "startDay 31, 2024-02",
+      "input": {
+        "startDay": 31,
+        "key": "2024-02"
+      },
+      "expected": "2024-02-29"
+    },
+    {
+      "name": "startDay 31, 2026-04",
+      "input": {
+        "startDay": 31,
+        "key": "2026-04"
+      },
+      "expected": "2026-04-30"
+    },
+    {
+      "name": "startDay 31, 2026-12",
+      "input": {
+        "startDay": 31,
+        "key": "2026-12"
+      },
+      "expected": "2026-12-31"
+    }
+  ],
+  "periodEndISO": [
+    {
+      "name": "startDay 1, 2026-01",
+      "input": {
+        "startDay": 1,
+        "key": "2026-01"
+      },
+      "expected": "2026-01-31"
+    },
+    {
+      "name": "startDay 1, 2026-02",
+      "input": {
+        "startDay": 1,
+        "key": "2026-02"
+      },
+      "expected": "2026-02-28"
+    },
+    {
+      "name": "startDay 1, 2024-02",
+      "input": {
+        "startDay": 1,
+        "key": "2024-02"
+      },
+      "expected": "2024-02-29"
+    },
+    {
+      "name": "startDay 1, 2026-04",
+      "input": {
+        "startDay": 1,
+        "key": "2026-04"
+      },
+      "expected": "2026-04-30"
+    },
+    {
+      "name": "startDay 1, 2026-12",
+      "input": {
+        "startDay": 1,
+        "key": "2026-12"
+      },
+      "expected": "2026-12-31"
+    },
+    {
+      "name": "startDay 15, 2026-01",
+      "input": {
+        "startDay": 15,
+        "key": "2026-01"
+      },
+      "expected": "2026-02-14"
+    },
+    {
+      "name": "startDay 15, 2026-02",
+      "input": {
+        "startDay": 15,
+        "key": "2026-02"
+      },
+      "expected": "2026-03-14"
+    },
+    {
+      "name": "startDay 15, 2024-02",
+      "input": {
+        "startDay": 15,
+        "key": "2024-02"
+      },
+      "expected": "2024-03-14"
+    },
+    {
+      "name": "startDay 15, 2026-04",
+      "input": {
+        "startDay": 15,
+        "key": "2026-04"
+      },
+      "expected": "2026-05-14"
+    },
+    {
+      "name": "startDay 15, 2026-12",
+      "input": {
+        "startDay": 15,
+        "key": "2026-12"
+      },
+      "expected": "2027-01-14"
+    },
+    {
+      "name": "startDay 26, 2026-01",
+      "input": {
+        "startDay": 26,
+        "key": "2026-01"
+      },
+      "expected": "2026-02-25"
+    },
+    {
+      "name": "startDay 26, 2026-02",
+      "input": {
+        "startDay": 26,
+        "key": "2026-02"
+      },
+      "expected": "2026-03-25"
+    },
+    {
+      "name": "startDay 26, 2024-02",
+      "input": {
+        "startDay": 26,
+        "key": "2024-02"
+      },
+      "expected": "2024-03-25"
+    },
+    {
+      "name": "startDay 26, 2026-04",
+      "input": {
+        "startDay": 26,
+        "key": "2026-04"
+      },
+      "expected": "2026-05-25"
+    },
+    {
+      "name": "startDay 26, 2026-12",
+      "input": {
+        "startDay": 26,
+        "key": "2026-12"
+      },
+      "expected": "2027-01-25"
+    },
+    {
+      "name": "startDay 31, 2026-01",
+      "input": {
+        "startDay": 31,
+        "key": "2026-01"
+      },
+      "expected": "2026-02-27"
+    },
+    {
+      "name": "startDay 31, 2026-02",
+      "input": {
+        "startDay": 31,
+        "key": "2026-02"
+      },
+      "expected": "2026-03-30"
+    },
+    {
+      "name": "startDay 31, 2024-02",
+      "input": {
+        "startDay": 31,
+        "key": "2024-02"
+      },
+      "expected": "2024-03-30"
+    },
+    {
+      "name": "startDay 31, 2026-04",
+      "input": {
+        "startDay": 31,
+        "key": "2026-04"
+      },
+      "expected": "2026-05-30"
+    },
+    {
+      "name": "startDay 31, 2026-12",
+      "input": {
+        "startDay": 31,
+        "key": "2026-12"
+      },
+      "expected": "2027-01-30"
+    }
+  ],
+  "periodKeyForDate": [
+    {
+      "name": "startDay 1, 2026-09-08",
+      "input": {
+        "startDay": 1,
+        "iso": "2026-09-08"
+      },
+      "expected": "2026-09"
+    },
+    {
+      "name": "startDay 26, 2026-09-25",
+      "input": {
+        "startDay": 26,
+        "iso": "2026-09-25"
+      },
+      "expected": "2026-08"
+    },
+    {
+      "name": "startDay 26, 2026-09-26",
+      "input": {
+        "startDay": 26,
+        "iso": "2026-09-26"
+      },
+      "expected": "2026-09"
+    },
+    {
+      "name": "startDay 26, 2026-01-01",
+      "input": {
+        "startDay": 26,
+        "iso": "2026-01-01"
+      },
+      "expected": "2025-12"
+    },
+    {
+      "name": "startDay 26, 2026-12-31",
+      "input": {
+        "startDay": 26,
+        "iso": "2026-12-31"
+      },
+      "expected": "2026-12"
+    },
+    {
+      "name": "startDay 31, 2026-02-28",
+      "input": {
+        "startDay": 31,
+        "iso": "2026-02-28"
+      },
+      "expected": "2026-02"
+    },
+    {
+      "name": "startDay 31, 2026-03-01",
+      "input": {
+        "startDay": 31,
+        "iso": "2026-03-01"
+      },
+      "expected": "2026-02"
+    },
+    {
+      "name": "startDay 31, 2026-03-31",
+      "input": {
+        "startDay": 31,
+        "iso": "2026-03-31"
+      },
+      "expected": "2026-03"
+    },
+    {
+      "name": "startDay 31, 2026-04-30",
+      "input": {
+        "startDay": 31,
+        "iso": "2026-04-30"
+      },
+      "expected": "2026-04"
+    }
+  ],
+  "periodElapsedFraction": [
+    {
+      "name": "startDay 1, today 2026-09-01, current period",
+      "input": {
+        "startDay": 1,
+        "periodKey": "2026-09",
+        "today": "2026-09-01"
+      },
+      "expected": 0.03333333333333333
+    },
+    {
+      "name": "startDay 1, today 2026-09-08, current period",
+      "input": {
+        "startDay": 1,
+        "periodKey": "2026-09",
+        "today": "2026-09-08"
+      },
+      "expected": 0.26666666666666666
+    },
+    {
+      "name": "startDay 1, today 2026-09-30, current period",
+      "input": {
+        "startDay": 1,
+        "periodKey": "2026-09",
+        "today": "2026-09-30"
+      },
+      "expected": 1
+    },
+    {
+      "name": "startDay 1, today 2026-09-08, period before today",
+      "input": {
+        "startDay": 1,
+        "periodKey": "2026-08",
+        "today": "2026-09-08"
+      },
+      "expected": 1
+    },
+    {
+      "name": "startDay 1, today 2026-09-08, period after today",
+      "input": {
+        "startDay": 1,
+        "periodKey": "2026-10",
+        "today": "2026-09-08"
+      },
+      "expected": 0
+    },
+    {
+      "name": "startDay 26, today 2026-09-25, current period",
+      "input": {
+        "startDay": 26,
+        "periodKey": "2026-08",
+        "today": "2026-09-25"
+      },
+      "expected": 1
+    },
+    {
+      "name": "startDay 26, today 2026-09-26, current period",
+      "input": {
+        "startDay": 26,
+        "periodKey": "2026-09",
+        "today": "2026-09-26"
+      },
+      "expected": 0.03333333333333333
+    },
+    {
+      "name": "startDay 26, today 2026-10-25, current period",
+      "input": {
+        "startDay": 26,
+        "periodKey": "2026-09",
+        "today": "2026-10-25"
+      },
+      "expected": 1
+    },
+    {
+      "name": "startDay 26, today 2026-10-26, current period",
+      "input": {
+        "startDay": 26,
+        "periodKey": "2026-10",
+        "today": "2026-10-26"
+      },
+      "expected": 0.03225806451612903
+    },
+    {
+      "name": "startDay 1, today 2026-03-31 (DST), current period",
+      "input": {
+        "startDay": 1,
+        "periodKey": "2026-03",
+        "today": "2026-03-31"
+      },
+      "expected": 1
+    },
+    {
+      "name": "startDay 15, today 2026-10-25, current period",
+      "input": {
+        "startDay": 15,
+        "periodKey": "2026-10",
+        "today": "2026-10-25"
+      },
+      "expected": 0.3548387096774194
+    }
+  ],
+  "periodLabel": [
+    {
+      "name": "startDay 1, 2026-07, en",
+      "input": {
+        "startDay": 1,
+        "key": "2026-07",
+        "lang": "en"
+      },
+      "expected": "July 2026"
+    },
+    {
+      "name": "startDay 1, 2026-07, it",
+      "input": {
+        "startDay": 1,
+        "key": "2026-07",
+        "lang": "it"
+      },
+      "expected": "Luglio 2026"
+    },
+    {
+      "name": "startDay 1, 2026-12, en",
+      "input": {
+        "startDay": 1,
+        "key": "2026-12",
+        "lang": "en"
+      },
+      "expected": "December 2026"
+    },
+    {
+      "name": "startDay 1, 2026-12, it",
+      "input": {
+        "startDay": 1,
+        "key": "2026-12",
+        "lang": "it"
+      },
+      "expected": "Dicembre 2026"
+    },
+    {
+      "name": "startDay 1, 2026-02, en",
+      "input": {
+        "startDay": 1,
+        "key": "2026-02",
+        "lang": "en"
+      },
+      "expected": "February 2026"
+    },
+    {
+      "name": "startDay 1, 2026-02, it",
+      "input": {
+        "startDay": 1,
+        "key": "2026-02",
+        "lang": "it"
+      },
+      "expected": "Febbraio 2026"
+    },
+    {
+      "name": "startDay 26, 2026-07, en",
+      "input": {
+        "startDay": 26,
+        "key": "2026-07",
+        "lang": "en"
+      },
+      "expected": "26 Jul – 25 Aug 2026"
+    },
+    {
+      "name": "startDay 26, 2026-07, it",
+      "input": {
+        "startDay": 26,
+        "key": "2026-07",
+        "lang": "it"
+      },
+      "expected": "26 lug – 25 ago 2026"
+    },
+    {
+      "name": "startDay 26, 2026-12, en",
+      "input": {
+        "startDay": 26,
+        "key": "2026-12",
+        "lang": "en"
+      },
+      "expected": "26 Dec – 25 Jan 2027"
+    },
+    {
+      "name": "startDay 26, 2026-12, it",
+      "input": {
+        "startDay": 26,
+        "key": "2026-12",
+        "lang": "it"
+      },
+      "expected": "26 dic – 25 gen 2027"
+    },
+    {
+      "name": "startDay 26, 2026-02, en",
+      "input": {
+        "startDay": 26,
+        "key": "2026-02",
+        "lang": "en"
+      },
+      "expected": "26 Feb – 25 Mar 2026"
+    },
+    {
+      "name": "startDay 26, 2026-02, it",
+      "input": {
+        "startDay": 26,
+        "key": "2026-02",
+        "lang": "it"
+      },
+      "expected": "26 feb – 25 mar 2026"
+    },
+    {
+      "name": "startDay 31, 2026-02, en",
+      "input": {
+        "startDay": 31,
+        "key": "2026-02",
+        "lang": "en"
+      },
+      "expected": "28 Feb – 30 Mar 2026"
+    },
+    {
+      "name": "startDay 31, 2026-02, it",
+      "input": {
+        "startDay": 31,
+        "key": "2026-02",
+        "lang": "it"
+      },
+      "expected": "28 feb – 30 mar 2026"
+    }
+  ],
+  "periodLabelShort": [
+    {
+      "name": "startDay 1, 2026-07, en",
+      "input": {
+        "startDay": 1,
+        "key": "2026-07",
+        "lang": "en"
+      },
+      "expected": "Jul 26"
+    },
+    {
+      "name": "startDay 1, 2026-07, it",
+      "input": {
+        "startDay": 1,
+        "key": "2026-07",
+        "lang": "it"
+      },
+      "expected": "Lug 26"
+    },
+    {
+      "name": "startDay 1, 2026-12, en",
+      "input": {
+        "startDay": 1,
+        "key": "2026-12",
+        "lang": "en"
+      },
+      "expected": "Dec 26"
+    },
+    {
+      "name": "startDay 1, 2026-12, it",
+      "input": {
+        "startDay": 1,
+        "key": "2026-12",
+        "lang": "it"
+      },
+      "expected": "Dic 26"
+    },
+    {
+      "name": "startDay 1, 2026-02, en",
+      "input": {
+        "startDay": 1,
+        "key": "2026-02",
+        "lang": "en"
+      },
+      "expected": "Feb 26"
+    },
+    {
+      "name": "startDay 1, 2026-02, it",
+      "input": {
+        "startDay": 1,
+        "key": "2026-02",
+        "lang": "it"
+      },
+      "expected": "Feb 26"
+    },
+    {
+      "name": "startDay 26, 2026-07, en",
+      "input": {
+        "startDay": 26,
+        "key": "2026-07",
+        "lang": "en"
+      },
+      "expected": "26 Jul"
+    },
+    {
+      "name": "startDay 26, 2026-07, it",
+      "input": {
+        "startDay": 26,
+        "key": "2026-07",
+        "lang": "it"
+      },
+      "expected": "26 Lug"
+    },
+    {
+      "name": "startDay 26, 2026-12, en",
+      "input": {
+        "startDay": 26,
+        "key": "2026-12",
+        "lang": "en"
+      },
+      "expected": "26 Dec"
+    },
+    {
+      "name": "startDay 26, 2026-12, it",
+      "input": {
+        "startDay": 26,
+        "key": "2026-12",
+        "lang": "it"
+      },
+      "expected": "26 Dic"
+    },
+    {
+      "name": "startDay 26, 2026-02, en",
+      "input": {
+        "startDay": 26,
+        "key": "2026-02",
+        "lang": "en"
+      },
+      "expected": "26 Feb"
+    },
+    {
+      "name": "startDay 26, 2026-02, it",
+      "input": {
+        "startDay": 26,
+        "key": "2026-02",
+        "lang": "it"
+      },
+      "expected": "26 Feb"
+    },
+    {
+      "name": "startDay 31, 2026-02, en",
+      "input": {
+        "startDay": 31,
+        "key": "2026-02",
+        "lang": "en"
+      },
+      "expected": "28 Feb"
+    },
+    {
+      "name": "startDay 31, 2026-02, it",
+      "input": {
+        "startDay": 31,
+        "key": "2026-02",
+        "lang": "it"
+      },
+      "expected": "28 Feb"
+    }
+  ],
+  "periodLabelCompact": [
+    {
+      "name": "startDay 1, 2026-07, en",
+      "input": {
+        "startDay": 1,
+        "key": "2026-07",
+        "lang": "en"
+      },
+      "expected": "July"
+    },
+    {
+      "name": "startDay 1, 2026-07, it",
+      "input": {
+        "startDay": 1,
+        "key": "2026-07",
+        "lang": "it"
+      },
+      "expected": "Luglio"
+    },
+    {
+      "name": "startDay 1, 2026-12, en",
+      "input": {
+        "startDay": 1,
+        "key": "2026-12",
+        "lang": "en"
+      },
+      "expected": "December"
+    },
+    {
+      "name": "startDay 1, 2026-12, it",
+      "input": {
+        "startDay": 1,
+        "key": "2026-12",
+        "lang": "it"
+      },
+      "expected": "Dicembre"
+    },
+    {
+      "name": "startDay 1, 2026-02, en",
+      "input": {
+        "startDay": 1,
+        "key": "2026-02",
+        "lang": "en"
+      },
+      "expected": "February"
+    },
+    {
+      "name": "startDay 1, 2026-02, it",
+      "input": {
+        "startDay": 1,
+        "key": "2026-02",
+        "lang": "it"
+      },
+      "expected": "Febbraio"
+    },
+    {
+      "name": "startDay 26, 2026-07, en",
+      "input": {
+        "startDay": 26,
+        "key": "2026-07",
+        "lang": "en"
+      },
+      "expected": "26 Jul – 25 Aug"
+    },
+    {
+      "name": "startDay 26, 2026-07, it",
+      "input": {
+        "startDay": 26,
+        "key": "2026-07",
+        "lang": "it"
+      },
+      "expected": "26 lug – 25 ago"
+    },
+    {
+      "name": "startDay 26, 2026-12, en",
+      "input": {
+        "startDay": 26,
+        "key": "2026-12",
+        "lang": "en"
+      },
+      "expected": "26 Dec – 25 Jan"
+    },
+    {
+      "name": "startDay 26, 2026-12, it",
+      "input": {
+        "startDay": 26,
+        "key": "2026-12",
+        "lang": "it"
+      },
+      "expected": "26 dic – 25 gen"
+    },
+    {
+      "name": "startDay 26, 2026-02, en",
+      "input": {
+        "startDay": 26,
+        "key": "2026-02",
+        "lang": "en"
+      },
+      "expected": "26 Feb – 25 Mar"
+    },
+    {
+      "name": "startDay 26, 2026-02, it",
+      "input": {
+        "startDay": 26,
+        "key": "2026-02",
+        "lang": "it"
+      },
+      "expected": "26 feb – 25 mar"
+    },
+    {
+      "name": "startDay 31, 2026-02, en",
+      "input": {
+        "startDay": 31,
+        "key": "2026-02",
+        "lang": "en"
+      },
+      "expected": "28 Feb – 30 Mar"
+    },
+    {
+      "name": "startDay 31, 2026-02, it",
+      "input": {
+        "startDay": 31,
+        "key": "2026-02",
+        "lang": "it"
+      },
+      "expected": "28 feb – 30 mar"
+    }
+  ],
+  "validStartDay": [
+    {
+      "name": "value 1",
+      "input": {
+        "value": 1
+      },
+      "expected": 1
+    },
+    {
+      "name": "value 15",
+      "input": {
+        "value": 15
+      },
+      "expected": 15
+    },
+    {
+      "name": "value 31",
+      "input": {
+        "value": 31
+      },
+      "expected": 31
+    },
+    {
+      "name": "value 0",
+      "input": {
+        "value": 0
+      },
+      "expected": 1
+    },
+    {
+      "name": "value 32",
+      "input": {
+        "value": 32
+      },
+      "expected": 1
+    },
+    {
+      "name": "value 2.5",
+      "input": {
+        "value": 2.5
+      },
+      "expected": 1
+    },
+    {
+      "name": "value -1",
+      "input": {
+        "value": -1
+      },
+      "expected": 1
+    },
+    {
+      "name": "value \"15\"",
+      "input": {
+        "value": "15"
+      },
+      "expected": 1
+    },
+    {
+      "name": "value null",
+      "input": {
+        "value": null
+      },
+      "expected": 1
+    },
+    {
+      "name": "value true",
+      "input": {
+        "value": true
+      },
+      "expected": 1
+    }
+  ]
+}

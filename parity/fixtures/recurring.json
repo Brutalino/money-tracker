@@ -1,0 +1,416 @@
+{
+  "monthlyEquivalentCents": [
+    {
+      "name": "1000c, monthly",
+      "input": {
+        "amountCents": 1000,
+        "frequency": "monthly"
+      },
+      "expected": 1000
+    },
+    {
+      "name": "1001c, monthly",
+      "input": {
+        "amountCents": 1001,
+        "frequency": "monthly"
+      },
+      "expected": 1001
+    },
+    {
+      "name": "1002c, monthly",
+      "input": {
+        "amountCents": 1002,
+        "frequency": "monthly"
+      },
+      "expected": 1002
+    },
+    {
+      "name": "1003c, monthly",
+      "input": {
+        "amountCents": 1003,
+        "frequency": "monthly"
+      },
+      "expected": 1003
+    },
+    {
+      "name": "1250c, monthly",
+      "input": {
+        "amountCents": 1250,
+        "frequency": "monthly"
+      },
+      "expected": 1250
+    },
+    {
+      "name": "999c, monthly",
+      "input": {
+        "amountCents": 999,
+        "frequency": "monthly"
+      },
+      "expected": 999
+    },
+    {
+      "name": "1c, monthly",
+      "input": {
+        "amountCents": 1,
+        "frequency": "monthly"
+      },
+      "expected": 1
+    },
+    {
+      "name": "5c, monthly",
+      "input": {
+        "amountCents": 5,
+        "frequency": "monthly"
+      },
+      "expected": 5
+    },
+    {
+      "name": "7c, monthly",
+      "input": {
+        "amountCents": 7,
+        "frequency": "monthly"
+      },
+      "expected": 7
+    },
+    {
+      "name": "100000c, monthly",
+      "input": {
+        "amountCents": 100000,
+        "frequency": "monthly"
+      },
+      "expected": 100000
+    },
+    {
+      "name": "12345c, monthly",
+      "input": {
+        "amountCents": 12345,
+        "frequency": "monthly"
+      },
+      "expected": 12345
+    },
+    {
+      "name": "1000c, bimonthly",
+      "input": {
+        "amountCents": 1000,
+        "frequency": "bimonthly"
+      },
+      "expected": 500
+    },
+    {
+      "name": "1001c, bimonthly",
+      "input": {
+        "amountCents": 1001,
+        "frequency": "bimonthly"
+      },
+      "expected": 501
+    },
+    {
+      "name": "1002c, bimonthly",
+      "input": {
+        "amountCents": 1002,
+        "frequency": "bimonthly"
+      },
+      "expected": 501
+    },
+    {
+      "name": "1003c, bimonthly",
+      "input": {
+        "amountCents": 1003,
+        "frequency": "bimonthly"
+      },
+      "expected": 502
+    },
+    {
+      "name": "1250c, bimonthly",
+      "input": {
+        "amountCents": 1250,
+        "frequency": "bimonthly"
+      },
+      "expected": 625
+    },
+    {
+      "name": "999c, bimonthly",
+      "input": {
+        "amountCents": 999,
+        "frequency": "bimonthly"
+      },
+      "expected": 500
+    },
+    {
+      "name": "1c, bimonthly",
+      "input": {
+        "amountCents": 1,
+        "frequency": "bimonthly"
+      },
+      "expected": 1
+    },
+    {
+      "name": "5c, bimonthly",
+      "input": {
+        "amountCents": 5,
+        "frequency": "bimonthly"
+      },
+      "expected": 3
+    },
+    {
+      "name": "7c, bimonthly",
+      "input": {
+        "amountCents": 7,
+        "frequency": "bimonthly"
+      },
+      "expected": 4
+    },
+    {
+      "name": "100000c, bimonthly",
+      "input": {
+        "amountCents": 100000,
+        "frequency": "bimonthly"
+      },
+      "expected": 50000
+    },
+    {
+      "name": "12345c, bimonthly",
+      "input": {
+        "amountCents": 12345,
+        "frequency": "bimonthly"
+      },
+      "expected": 6173
+    },
+    {
+      "name": "1000c, quarterly",
+      "input": {
+        "amountCents": 1000,
+        "frequency": "quarterly"
+      },
+      "expected": 333
+    },
+    {
+      "name": "1001c, quarterly",
+      "input": {
+        "amountCents": 1001,
+        "frequency": "quarterly"
+      },
+      "expected": 334
+    },
+    {
+      "name": "1002c, quarterly",
+      "input": {
+        "amountCents": 1002,
+        "frequency": "quarterly"
+      },
+      "expected": 334
+    },
+    {
+      "name": "1003c, quarterly",
+      "input": {
+        "amountCents": 1003,
+        "frequency": "quarterly"
+      },
+      "expected": 334
+    },
+    {
+      "name": "1250c, quarterly",
+      "input": {
+        "amountCents": 1250,
+        "frequency": "quarterly"
+      },
+      "expected": 417
+    },
+    {
+      "name": "999c, quarterly",
+      "input": {
+        "amountCents": 999,
+        "frequency": "quarterly"
+      },
+      "expected": 333
+    },
+    {
+      "name": "1c, quarterly",
+      "input": {
+        "amountCents": 1,
+        "frequency": "quarterly"
+      },
+      "expected": 0
+    },
+    {
+      "name": "5c, quarterly",
+      "input": {
+        "amountCents": 5,
+        "frequency": "quarterly"
+      },
+      "expected": 2
+    },
+    {
+      "name": "7c, quarterly",
+      "input": {
+        "amountCents": 7,
+        "frequency": "quarterly"
+      },
+      "expected": 2
+    },
+    {
+      "name": "100000c, quarterly",
+      "input": {
+        "amountCents": 100000,
+        "frequency": "quarterly"
+      },
+      "expected": 33333
+    },
+    {
+      "name": "12345c, quarterly",
+      "input": {
+        "amountCents": 12345,
+        "frequency": "quarterly"
+      },
+      "expected": 4115
+    },
+    {
+      "name": "1000c, annual",
+      "input": {
+        "amountCents": 1000,
+        "frequency": "annual"
+      },
+      "expected": 83
+    },
+    {
+      "name": "1001c, annual",
+      "input": {
+        "amountCents": 1001,
+        "frequency": "annual"
+      },
+      "expected": 83
+    },
+    {
+      "name": "1002c, annual",
+      "input": {
+        "amountCents": 1002,
+        "frequency": "annual"
+      },
+      "expected": 84
+    },
+    {
+      "name": "1003c, annual",
+      "input": {
+        "amountCents": 1003,
+        "frequency": "annual"
+      },
+      "expected": 84
+    },
+    {
+      "name": "1250c, annual",
+      "input": {
+        "amountCents": 1250,
+        "frequency": "annual"
+      },
+      "expected": 104
+    },
+    {
+      "name": "999c, annual",
+      "input": {
+        "amountCents": 999,
+        "frequency": "annual"
+      },
+      "expected": 83
+    },
+    {
+      "name": "1c, annual",
+      "input": {
+        "amountCents": 1,
+        "frequency": "annual"
+      },
+      "expected": 0
+    },
+    {
+      "name": "5c, annual",
+      "input": {
+        "amountCents": 5,
+        "frequency": "annual"
+      },
+      "expected": 0
+    },
+    {
+      "name": "7c, annual",
+      "input": {
+        "amountCents": 7,
+        "frequency": "annual"
+      },
+      "expected": 1
+    },
+    {
+      "name": "100000c, annual",
+      "input": {
+        "amountCents": 100000,
+        "frequency": "annual"
+      },
+      "expected": 8333
+    },
+    {
+      "name": "12345c, annual",
+      "input": {
+        "amountCents": 12345,
+        "frequency": "annual"
+      },
+      "expected": 1029
+    }
+  ],
+  "makeRecurringTxId": [
+    {
+      "name": "abc, 2026-09",
+      "input": {
+        "recurringId": "abc",
+        "monthKey": "2026-09"
+      },
+      "expected": "rec-abc-2026-09"
+    },
+    {
+      "name": "rec-x, 2024-02",
+      "input": {
+        "recurringId": "rec-x",
+        "monthKey": "2024-02"
+      },
+      "expected": "rec-rec-x-2024-02"
+    }
+  ],
+  "monthsToMaterialize": [
+    {
+      "name": "createdMonth 2026-06, now 2026-09",
+      "input": {
+        "createdMonth": "2026-06",
+        "nowKey": "2026-09"
+      },
+      "expected": [
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ]
+    },
+    {
+      "name": "createdMonth 2026-09, now 2026-09",
+      "input": {
+        "createdMonth": "2026-09",
+        "nowKey": "2026-09"
+      },
+      "expected": [
+        "2026-09"
+      ]
+    },
+    {
+      "name": "createdMonth 2026-10, now 2026-09 (future, empty)",
+      "input": {
+        "createdMonth": "2026-10",
+        "nowKey": "2026-09"
+      },
+      "expected": []
+    },
+    {
+      "name": "createdMonth undefined, now 2026-09",
+      "input": {
+        "nowKey": "2026-09"
+      },
+      "expected": [
+        "2026-09"
+      ]
+    }
+  ]
+}

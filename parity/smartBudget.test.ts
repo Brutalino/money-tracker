@@ -27,7 +27,7 @@ function cat(
   return { categoryId, flexibility, habit, baselineRawEuros }
 }
 
-parityModule('smartBudget', {
+await parityModule('smartBudget', {
   computeTruthCheck: {
     cases: [
       { name: 'comfortable target', input: { monthlyIncomeCents: 250000, fixedCostsCents: 80000, targetEuros: 500 } },
