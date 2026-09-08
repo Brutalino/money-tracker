@@ -1,0 +1,1291 @@
+{
+  "monthLabel": [
+    {
+      "name": "en: 2026-01",
+      "input": {
+        "monthKey": "2026-01",
+        "lang": "en"
+      },
+      "expected": "January 2026"
+    },
+    {
+      "name": "en: 2026-02",
+      "input": {
+        "monthKey": "2026-02",
+        "lang": "en"
+      },
+      "expected": "February 2026"
+    },
+    {
+      "name": "en: 2026-03",
+      "input": {
+        "monthKey": "2026-03",
+        "lang": "en"
+      },
+      "expected": "March 2026"
+    },
+    {
+      "name": "en: 2026-04",
+      "input": {
+        "monthKey": "2026-04",
+        "lang": "en"
+      },
+      "expected": "April 2026"
+    },
+    {
+      "name": "en: 2026-05",
+      "input": {
+        "monthKey": "2026-05",
+        "lang": "en"
+      },
+      "expected": "May 2026"
+    },
+    {
+      "name": "en: 2026-06",
+      "input": {
+        "monthKey": "2026-06",
+        "lang": "en"
+      },
+      "expected": "June 2026"
+    },
+    {
+      "name": "en: 2026-07",
+      "input": {
+        "monthKey": "2026-07",
+        "lang": "en"
+      },
+      "expected": "July 2026"
+    },
+    {
+      "name": "en: 2026-08",
+      "input": {
+        "monthKey": "2026-08",
+        "lang": "en"
+      },
+      "expected": "August 2026"
+    },
+    {
+      "name": "en: 2026-09",
+      "input": {
+        "monthKey": "2026-09",
+        "lang": "en"
+      },
+      "expected": "September 2026"
+    },
+    {
+      "name": "en: 2026-10",
+      "input": {
+        "monthKey": "2026-10",
+        "lang": "en"
+      },
+      "expected": "October 2026"
+    },
+    {
+      "name": "en: 2026-11",
+      "input": {
+        "monthKey": "2026-11",
+        "lang": "en"
+      },
+      "expected": "November 2026"
+    },
+    {
+      "name": "en: 2026-12",
+      "input": {
+        "monthKey": "2026-12",
+        "lang": "en"
+      },
+      "expected": "December 2026"
+    },
+    {
+      "name": "it: 2026-01",
+      "input": {
+        "monthKey": "2026-01",
+        "lang": "it"
+      },
+      "expected": "Gennaio 2026"
+    },
+    {
+      "name": "it: 2026-02",
+      "input": {
+        "monthKey": "2026-02",
+        "lang": "it"
+      },
+      "expected": "Febbraio 2026"
+    },
+    {
+      "name": "it: 2026-03",
+      "input": {
+        "monthKey": "2026-03",
+        "lang": "it"
+      },
+      "expected": "Marzo 2026"
+    },
+    {
+      "name": "it: 2026-04",
+      "input": {
+        "monthKey": "2026-04",
+        "lang": "it"
+      },
+      "expected": "Aprile 2026"
+    },
+    {
+      "name": "it: 2026-05",
+      "input": {
+        "monthKey": "2026-05",
+        "lang": "it"
+      },
+      "expected": "Maggio 2026"
+    },
+    {
+      "name": "it: 2026-06",
+      "input": {
+        "monthKey": "2026-06",
+        "lang": "it"
+      },
+      "expected": "Giugno 2026"
+    },
+    {
+      "name": "it: 2026-07",
+      "input": {
+        "monthKey": "2026-07",
+        "lang": "it"
+      },
+      "expected": "Luglio 2026"
+    },
+    {
+      "name": "it: 2026-08",
+      "input": {
+        "monthKey": "2026-08",
+        "lang": "it"
+      },
+      "expected": "Agosto 2026"
+    },
+    {
+      "name": "it: 2026-09",
+      "input": {
+        "monthKey": "2026-09",
+        "lang": "it"
+      },
+      "expected": "Settembre 2026"
+    },
+    {
+      "name": "it: 2026-10",
+      "input": {
+        "monthKey": "2026-10",
+        "lang": "it"
+      },
+      "expected": "Ottobre 2026"
+    },
+    {
+      "name": "it: 2026-11",
+      "input": {
+        "monthKey": "2026-11",
+        "lang": "it"
+      },
+      "expected": "Novembre 2026"
+    },
+    {
+      "name": "it: 2026-12",
+      "input": {
+        "monthKey": "2026-12",
+        "lang": "it"
+      },
+      "expected": "Dicembre 2026"
+    },
+    {
+      "name": "en: 2024-02",
+      "input": {
+        "monthKey": "2024-02",
+        "lang": "en"
+      },
+      "expected": "February 2024"
+    },
+    {
+      "name": "en: 1999-12",
+      "input": {
+        "monthKey": "1999-12",
+        "lang": "en"
+      },
+      "expected": "December 1999"
+    }
+  ],
+  "monthLabelShort": [
+    {
+      "name": "en: 2026-01",
+      "input": {
+        "monthKey": "2026-01",
+        "lang": "en"
+      },
+      "expected": "Jan 26"
+    },
+    {
+      "name": "en: 2026-02",
+      "input": {
+        "monthKey": "2026-02",
+        "lang": "en"
+      },
+      "expected": "Feb 26"
+    },
+    {
+      "name": "en: 2026-03",
+      "input": {
+        "monthKey": "2026-03",
+        "lang": "en"
+      },
+      "expected": "Mar 26"
+    },
+    {
+      "name": "en: 2026-04",
+      "input": {
+        "monthKey": "2026-04",
+        "lang": "en"
+      },
+      "expected": "Apr 26"
+    },
+    {
+      "name": "en: 2026-05",
+      "input": {
+        "monthKey": "2026-05",
+        "lang": "en"
+      },
+      "expected": "May 26"
+    },
+    {
+      "name": "en: 2026-06",
+      "input": {
+        "monthKey": "2026-06",
+        "lang": "en"
+      },
+      "expected": "Jun 26"
+    },
+    {
+      "name": "en: 2026-07",
+      "input": {
+        "monthKey": "2026-07",
+        "lang": "en"
+      },
+      "expected": "Jul 26"
+    },
+    {
+      "name": "en: 2026-08",
+      "input": {
+        "monthKey": "2026-08",
+        "lang": "en"
+      },
+      "expected": "Aug 26"
+    },
+    {
+      "name": "en: 2026-09",
+      "input": {
+        "monthKey": "2026-09",
+        "lang": "en"
+      },
+      "expected": "Sept 26"
+    },
+    {
+      "name": "en: 2026-10",
+      "input": {
+        "monthKey": "2026-10",
+        "lang": "en"
+      },
+      "expected": "Oct 26"
+    },
+    {
+      "name": "en: 2026-11",
+      "input": {
+        "monthKey": "2026-11",
+        "lang": "en"
+      },
+      "expected": "Nov 26"
+    },
+    {
+      "name": "en: 2026-12",
+      "input": {
+        "monthKey": "2026-12",
+        "lang": "en"
+      },
+      "expected": "Dec 26"
+    },
+    {
+      "name": "it: 2026-01",
+      "input": {
+        "monthKey": "2026-01",
+        "lang": "it"
+      },
+      "expected": "Gen 26"
+    },
+    {
+      "name": "it: 2026-02",
+      "input": {
+        "monthKey": "2026-02",
+        "lang": "it"
+      },
+      "expected": "Feb 26"
+    },
+    {
+      "name": "it: 2026-03",
+      "input": {
+        "monthKey": "2026-03",
+        "lang": "it"
+      },
+      "expected": "Mar 26"
+    },
+    {
+      "name": "it: 2026-04",
+      "input": {
+        "monthKey": "2026-04",
+        "lang": "it"
+      },
+      "expected": "Apr 26"
+    },
+    {
+      "name": "it: 2026-05",
+      "input": {
+        "monthKey": "2026-05",
+        "lang": "it"
+      },
+      "expected": "Mag 26"
+    },
+    {
+      "name": "it: 2026-06",
+      "input": {
+        "monthKey": "2026-06",
+        "lang": "it"
+      },
+      "expected": "Giu 26"
+    },
+    {
+      "name": "it: 2026-07",
+      "input": {
+        "monthKey": "2026-07",
+        "lang": "it"
+      },
+      "expected": "Lug 26"
+    },
+    {
+      "name": "it: 2026-08",
+      "input": {
+        "monthKey": "2026-08",
+        "lang": "it"
+      },
+      "expected": "Ago 26"
+    },
+    {
+      "name": "it: 2026-09",
+      "input": {
+        "monthKey": "2026-09",
+        "lang": "it"
+      },
+      "expected": "Set 26"
+    },
+    {
+      "name": "it: 2026-10",
+      "input": {
+        "monthKey": "2026-10",
+        "lang": "it"
+      },
+      "expected": "Ott 26"
+    },
+    {
+      "name": "it: 2026-11",
+      "input": {
+        "monthKey": "2026-11",
+        "lang": "it"
+      },
+      "expected": "Nov 26"
+    },
+    {
+      "name": "it: 2026-12",
+      "input": {
+        "monthKey": "2026-12",
+        "lang": "it"
+      },
+      "expected": "Dic 26"
+    },
+    {
+      "name": "en: 2024-02",
+      "input": {
+        "monthKey": "2024-02",
+        "lang": "en"
+      },
+      "expected": "Feb 24"
+    },
+    {
+      "name": "en: 1999-12",
+      "input": {
+        "monthKey": "1999-12",
+        "lang": "en"
+      },
+      "expected": "Dec 99"
+    }
+  ],
+  "dayLabel": [
+    {
+      "name": "en: 2026-09-07",
+      "input": {
+        "iso": "2026-09-07",
+        "lang": "en"
+      },
+      "expected": "Monday 7 September"
+    },
+    {
+      "name": "en: 2026-09-08",
+      "input": {
+        "iso": "2026-09-08",
+        "lang": "en"
+      },
+      "expected": "Tuesday 8 September"
+    },
+    {
+      "name": "en: 2026-09-09",
+      "input": {
+        "iso": "2026-09-09",
+        "lang": "en"
+      },
+      "expected": "Wednesday 9 September"
+    },
+    {
+      "name": "en: 2026-09-10",
+      "input": {
+        "iso": "2026-09-10",
+        "lang": "en"
+      },
+      "expected": "Thursday 10 September"
+    },
+    {
+      "name": "en: 2026-09-11",
+      "input": {
+        "iso": "2026-09-11",
+        "lang": "en"
+      },
+      "expected": "Friday 11 September"
+    },
+    {
+      "name": "en: 2026-09-12",
+      "input": {
+        "iso": "2026-09-12",
+        "lang": "en"
+      },
+      "expected": "Saturday 12 September"
+    },
+    {
+      "name": "en: 2026-09-13",
+      "input": {
+        "iso": "2026-09-13",
+        "lang": "en"
+      },
+      "expected": "Sunday 13 September"
+    },
+    {
+      "name": "en: 2026-01-01",
+      "input": {
+        "iso": "2026-01-01",
+        "lang": "en"
+      },
+      "expected": "Thursday 1 January"
+    },
+    {
+      "name": "en: 2026-12-31",
+      "input": {
+        "iso": "2026-12-31",
+        "lang": "en"
+      },
+      "expected": "Thursday 31 December"
+    },
+    {
+      "name": "en: 2024-02-29",
+      "input": {
+        "iso": "2024-02-29",
+        "lang": "en"
+      },
+      "expected": "Thursday 29 February"
+    },
+    {
+      "name": "it: 2026-09-07",
+      "input": {
+        "iso": "2026-09-07",
+        "lang": "it"
+      },
+      "expected": "Lunedì 7 settembre"
+    },
+    {
+      "name": "it: 2026-09-08",
+      "input": {
+        "iso": "2026-09-08",
+        "lang": "it"
+      },
+      "expected": "Martedì 8 settembre"
+    },
+    {
+      "name": "it: 2026-09-09",
+      "input": {
+        "iso": "2026-09-09",
+        "lang": "it"
+      },
+      "expected": "Mercoledì 9 settembre"
+    },
+    {
+      "name": "it: 2026-09-10",
+      "input": {
+        "iso": "2026-09-10",
+        "lang": "it"
+      },
+      "expected": "Giovedì 10 settembre"
+    },
+    {
+      "name": "it: 2026-09-11",
+      "input": {
+        "iso": "2026-09-11",
+        "lang": "it"
+      },
+      "expected": "Venerdì 11 settembre"
+    },
+    {
+      "name": "it: 2026-09-12",
+      "input": {
+        "iso": "2026-09-12",
+        "lang": "it"
+      },
+      "expected": "Sabato 12 settembre"
+    },
+    {
+      "name": "it: 2026-09-13",
+      "input": {
+        "iso": "2026-09-13",
+        "lang": "it"
+      },
+      "expected": "Domenica 13 settembre"
+    },
+    {
+      "name": "it: 2026-01-01",
+      "input": {
+        "iso": "2026-01-01",
+        "lang": "it"
+      },
+      "expected": "Giovedì 1 gennaio"
+    },
+    {
+      "name": "it: 2026-12-31",
+      "input": {
+        "iso": "2026-12-31",
+        "lang": "it"
+      },
+      "expected": "Giovedì 31 dicembre"
+    },
+    {
+      "name": "it: 2024-02-29",
+      "input": {
+        "iso": "2024-02-29",
+        "lang": "it"
+      },
+      "expected": "Giovedì 29 febbraio"
+    }
+  ],
+  "dayMonthLabel": [
+    {
+      "name": "en: 2026-09-07",
+      "input": {
+        "iso": "2026-09-07",
+        "lang": "en"
+      },
+      "expected": "7 Sept"
+    },
+    {
+      "name": "en: 2026-09-08",
+      "input": {
+        "iso": "2026-09-08",
+        "lang": "en"
+      },
+      "expected": "8 Sept"
+    },
+    {
+      "name": "en: 2026-09-09",
+      "input": {
+        "iso": "2026-09-09",
+        "lang": "en"
+      },
+      "expected": "9 Sept"
+    },
+    {
+      "name": "en: 2026-09-10",
+      "input": {
+        "iso": "2026-09-10",
+        "lang": "en"
+      },
+      "expected": "10 Sept"
+    },
+    {
+      "name": "en: 2026-09-11",
+      "input": {
+        "iso": "2026-09-11",
+        "lang": "en"
+      },
+      "expected": "11 Sept"
+    },
+    {
+      "name": "en: 2026-09-12",
+      "input": {
+        "iso": "2026-09-12",
+        "lang": "en"
+      },
+      "expected": "12 Sept"
+    },
+    {
+      "name": "en: 2026-09-13",
+      "input": {
+        "iso": "2026-09-13",
+        "lang": "en"
+      },
+      "expected": "13 Sept"
+    },
+    {
+      "name": "en: 2026-01-01",
+      "input": {
+        "iso": "2026-01-01",
+        "lang": "en"
+      },
+      "expected": "1 Jan"
+    },
+    {
+      "name": "en: 2026-12-31",
+      "input": {
+        "iso": "2026-12-31",
+        "lang": "en"
+      },
+      "expected": "31 Dec"
+    },
+    {
+      "name": "en: 2024-02-29",
+      "input": {
+        "iso": "2024-02-29",
+        "lang": "en"
+      },
+      "expected": "29 Feb"
+    },
+    {
+      "name": "it: 2026-09-07",
+      "input": {
+        "iso": "2026-09-07",
+        "lang": "it"
+      },
+      "expected": "7 set"
+    },
+    {
+      "name": "it: 2026-09-08",
+      "input": {
+        "iso": "2026-09-08",
+        "lang": "it"
+      },
+      "expected": "8 set"
+    },
+    {
+      "name": "it: 2026-09-09",
+      "input": {
+        "iso": "2026-09-09",
+        "lang": "it"
+      },
+      "expected": "9 set"
+    },
+    {
+      "name": "it: 2026-09-10",
+      "input": {
+        "iso": "2026-09-10",
+        "lang": "it"
+      },
+      "expected": "10 set"
+    },
+    {
+      "name": "it: 2026-09-11",
+      "input": {
+        "iso": "2026-09-11",
+        "lang": "it"
+      },
+      "expected": "11 set"
+    },
+    {
+      "name": "it: 2026-09-12",
+      "input": {
+        "iso": "2026-09-12",
+        "lang": "it"
+      },
+      "expected": "12 set"
+    },
+    {
+      "name": "it: 2026-09-13",
+      "input": {
+        "iso": "2026-09-13",
+        "lang": "it"
+      },
+      "expected": "13 set"
+    },
+    {
+      "name": "it: 2026-01-01",
+      "input": {
+        "iso": "2026-01-01",
+        "lang": "it"
+      },
+      "expected": "1 gen"
+    },
+    {
+      "name": "it: 2026-12-31",
+      "input": {
+        "iso": "2026-12-31",
+        "lang": "it"
+      },
+      "expected": "31 dic"
+    },
+    {
+      "name": "it: 2024-02-29",
+      "input": {
+        "iso": "2024-02-29",
+        "lang": "it"
+      },
+      "expected": "29 feb"
+    }
+  ],
+  "toMonthKey": [
+    {
+      "name": "2026-09-08",
+      "input": {
+        "year": 2026,
+        "month": 9,
+        "day": 8
+      },
+      "expected": "2026-09"
+    },
+    {
+      "name": "2026-01-01",
+      "input": {
+        "year": 2026,
+        "month": 1,
+        "day": 1
+      },
+      "expected": "2026-01"
+    },
+    {
+      "name": "2026-12-31",
+      "input": {
+        "year": 2026,
+        "month": 12,
+        "day": 31
+      },
+      "expected": "2026-12"
+    },
+    {
+      "name": "2024-02-29",
+      "input": {
+        "year": 2024,
+        "month": 2,
+        "day": 29
+      },
+      "expected": "2024-02"
+    },
+    {
+      "name": "2000-01-01",
+      "input": {
+        "year": 2000,
+        "month": 1,
+        "day": 1
+      },
+      "expected": "2000-01"
+    }
+  ],
+  "toISODate": [
+    {
+      "name": "2026-09-08",
+      "input": {
+        "year": 2026,
+        "month": 9,
+        "day": 8
+      },
+      "expected": "2026-09-08"
+    },
+    {
+      "name": "2026-01-01",
+      "input": {
+        "year": 2026,
+        "month": 1,
+        "day": 1
+      },
+      "expected": "2026-01-01"
+    },
+    {
+      "name": "2026-12-31",
+      "input": {
+        "year": 2026,
+        "month": 12,
+        "day": 31
+      },
+      "expected": "2026-12-31"
+    },
+    {
+      "name": "2024-02-29",
+      "input": {
+        "year": 2024,
+        "month": 2,
+        "day": 29
+      },
+      "expected": "2024-02-29"
+    },
+    {
+      "name": "2000-01-01",
+      "input": {
+        "year": 2000,
+        "month": 1,
+        "day": 1
+      },
+      "expected": "2000-01-01"
+    }
+  ],
+  "parseISODate": [
+    {
+      "name": "2026-09-08",
+      "input": {
+        "iso": "2026-09-08"
+      },
+      "expected": {
+        "year": 2026,
+        "month": 9,
+        "day": 8
+      }
+    },
+    {
+      "name": "2024-02-29",
+      "input": {
+        "iso": "2024-02-29"
+      },
+      "expected": {
+        "year": 2024,
+        "month": 2,
+        "day": 29
+      }
+    },
+    {
+      "name": "2026-12-31",
+      "input": {
+        "iso": "2026-12-31"
+      },
+      "expected": {
+        "year": 2026,
+        "month": 12,
+        "day": 31
+      }
+    }
+  ],
+  "parseMonthKey": [
+    {
+      "name": "2026-09",
+      "input": {
+        "monthKey": "2026-09"
+      },
+      "expected": {
+        "year": 2026,
+        "month": 9
+      }
+    },
+    {
+      "name": "2024-02",
+      "input": {
+        "monthKey": "2024-02"
+      },
+      "expected": {
+        "year": 2024,
+        "month": 2
+      }
+    },
+    {
+      "name": "0999-01",
+      "input": {
+        "monthKey": "0999-01"
+      },
+      "expected": {
+        "year": 999,
+        "month": 1
+      }
+    }
+  ],
+  "addMonths": [
+    {
+      "name": "2026-09 + 0",
+      "input": {
+        "monthKey": "2026-09",
+        "delta": 0
+      },
+      "expected": "2026-09"
+    },
+    {
+      "name": "2026-09 + 1",
+      "input": {
+        "monthKey": "2026-09",
+        "delta": 1
+      },
+      "expected": "2026-10"
+    },
+    {
+      "name": "2026-09 + 4",
+      "input": {
+        "monthKey": "2026-09",
+        "delta": 4
+      },
+      "expected": "2027-01"
+    },
+    {
+      "name": "2026-12 + 1",
+      "input": {
+        "monthKey": "2026-12",
+        "delta": 1
+      },
+      "expected": "2027-01"
+    },
+    {
+      "name": "2026-01 - 1",
+      "input": {
+        "monthKey": "2026-01",
+        "delta": -1
+      },
+      "expected": "2025-12"
+    },
+    {
+      "name": "2026-01 - 13",
+      "input": {
+        "monthKey": "2026-01",
+        "delta": -13
+      },
+      "expected": "2024-12"
+    },
+    {
+      "name": "2026-06 + 30",
+      "input": {
+        "monthKey": "2026-06",
+        "delta": 30
+      },
+      "expected": "2028-12"
+    },
+    {
+      "name": "2026-06 - 30",
+      "input": {
+        "monthKey": "2026-06",
+        "delta": -30
+      },
+      "expected": "2023-12"
+    },
+    {
+      "name": "2024-02 + 12",
+      "input": {
+        "monthKey": "2024-02",
+        "delta": 12
+      },
+      "expected": "2025-02"
+    }
+  ],
+  "firstOfMonth": [
+    {
+      "name": "2026-09",
+      "input": {
+        "monthKey": "2026-09"
+      },
+      "expected": "2026-09-01"
+    },
+    {
+      "name": "2024-02",
+      "input": {
+        "monthKey": "2024-02"
+      },
+      "expected": "2024-02-01"
+    }
+  ],
+  "daysInMonth": [
+    {
+      "name": "2026-01",
+      "input": {
+        "monthKey": "2026-01"
+      },
+      "expected": 31
+    },
+    {
+      "name": "2026-02",
+      "input": {
+        "monthKey": "2026-02"
+      },
+      "expected": 28
+    },
+    {
+      "name": "2026-03",
+      "input": {
+        "monthKey": "2026-03"
+      },
+      "expected": 31
+    },
+    {
+      "name": "2026-04",
+      "input": {
+        "monthKey": "2026-04"
+      },
+      "expected": 30
+    },
+    {
+      "name": "2026-05",
+      "input": {
+        "monthKey": "2026-05"
+      },
+      "expected": 31
+    },
+    {
+      "name": "2026-06",
+      "input": {
+        "monthKey": "2026-06"
+      },
+      "expected": 30
+    },
+    {
+      "name": "2026-07",
+      "input": {
+        "monthKey": "2026-07"
+      },
+      "expected": 31
+    },
+    {
+      "name": "2026-08",
+      "input": {
+        "monthKey": "2026-08"
+      },
+      "expected": 31
+    },
+    {
+      "name": "2026-09",
+      "input": {
+        "monthKey": "2026-09"
+      },
+      "expected": 30
+    },
+    {
+      "name": "2026-10",
+      "input": {
+        "monthKey": "2026-10"
+      },
+      "expected": 31
+    },
+    {
+      "name": "2026-11",
+      "input": {
+        "monthKey": "2026-11"
+      },
+      "expected": 30
+    },
+    {
+      "name": "2026-12",
+      "input": {
+        "monthKey": "2026-12"
+      },
+      "expected": 31
+    },
+    {
+      "name": "2024-02",
+      "input": {
+        "monthKey": "2024-02"
+      },
+      "expected": 29
+    },
+    {
+      "name": "2000-02",
+      "input": {
+        "monthKey": "2000-02"
+      },
+      "expected": 29
+    },
+    {
+      "name": "1900-02",
+      "input": {
+        "monthKey": "1900-02"
+      },
+      "expected": 28
+    },
+    {
+      "name": "2100-02",
+      "input": {
+        "monthKey": "2100-02"
+      },
+      "expected": 28
+    },
+    {
+      "name": "2023-02",
+      "input": {
+        "monthKey": "2023-02"
+      },
+      "expected": 28
+    }
+  ],
+  "lastNMonths": [
+    {
+      "name": "2026-09, 3",
+      "input": {
+        "monthKey": "2026-09",
+        "n": 3
+      },
+      "expected": [
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ]
+    },
+    {
+      "name": "2026-09, 1",
+      "input": {
+        "monthKey": "2026-09",
+        "n": 1
+      },
+      "expected": [
+        "2026-09"
+      ]
+    },
+    {
+      "name": "2026-09, 0",
+      "input": {
+        "monthKey": "2026-09",
+        "n": 0
+      },
+      "expected": []
+    },
+    {
+      "name": "2026-02, 12",
+      "input": {
+        "monthKey": "2026-02",
+        "n": 12
+      },
+      "expected": [
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02"
+      ]
+    },
+    {
+      "name": "2026-01, 2",
+      "input": {
+        "monthKey": "2026-01",
+        "n": 2
+      },
+      "expected": [
+        "2025-12",
+        "2026-01"
+      ]
+    }
+  ],
+  "monthDiff": [
+    {
+      "name": "2026-01 -> 2026-09",
+      "input": {
+        "a": "2026-01",
+        "b": "2026-09"
+      },
+      "expected": 8
+    },
+    {
+      "name": "2026-09 -> 2026-01",
+      "input": {
+        "a": "2026-09",
+        "b": "2026-01"
+      },
+      "expected": -8
+    },
+    {
+      "name": "2025-12 -> 2026-01",
+      "input": {
+        "a": "2025-12",
+        "b": "2026-01"
+      },
+      "expected": 1
+    },
+    {
+      "name": "2026-03 -> 2026-03",
+      "input": {
+        "a": "2026-03",
+        "b": "2026-03"
+      },
+      "expected": 0
+    },
+    {
+      "name": "2020-06 -> 2026-06",
+      "input": {
+        "a": "2020-06",
+        "b": "2026-06"
+      },
+      "expected": 72
+    }
+  ],
+  "monthsBetweenInclusive": [
+    {
+      "name": "2026-01 -> 2026-03",
+      "input": {
+        "from": "2026-01",
+        "to": "2026-03"
+      },
+      "expected": [
+        "2026-01",
+        "2026-02",
+        "2026-03"
+      ]
+    },
+    {
+      "name": "2026-11 -> 2027-02",
+      "input": {
+        "from": "2026-11",
+        "to": "2027-02"
+      },
+      "expected": [
+        "2026-11",
+        "2026-12",
+        "2027-01",
+        "2027-02"
+      ]
+    },
+    {
+      "name": "2026-05 -> 2026-05",
+      "input": {
+        "from": "2026-05",
+        "to": "2026-05"
+      },
+      "expected": [
+        "2026-05"
+      ]
+    },
+    {
+      "name": "2026-06 -> 2026-05 (empty)",
+      "input": {
+        "from": "2026-06",
+        "to": "2026-05"
+      },
+      "expected": []
+    },
+    {
+      "name": "2025-12 -> 2026-12",
+      "input": {
+        "from": "2025-12",
+        "to": "2026-12"
+      },
+      "expected": [
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11",
+        "2026-12"
+      ]
+    }
+  ]
+}

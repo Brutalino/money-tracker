@@ -1,0 +1,738 @@
+{
+  "computeTruthCheck": [
+    {
+      "name": "comfortable target",
+      "input": {
+        "monthlyIncomeCents": 250000,
+        "fixedCostsCents": 80000,
+        "targetEuros": 500
+      },
+      "expected": {
+        "monthlyIncomeCents": 250000,
+        "fixedCostsCents": 80000,
+        "targetEuros": 500,
+        "targetCents": 50000,
+        "availableCents": 120000,
+        "availableEuros": 1200,
+        "maxTheoreticalSavingsEuros": 1700,
+        "isAbsurd": false,
+        "hasIncome": true
+      }
+    },
+    {
+      "name": "target equals max theoretical",
+      "input": {
+        "monthlyIncomeCents": 250000,
+        "fixedCostsCents": 80000,
+        "targetEuros": 1700
+      },
+      "expected": {
+        "monthlyIncomeCents": 250000,
+        "fixedCostsCents": 80000,
+        "targetEuros": 1700,
+        "targetCents": 170000,
+        "availableCents": 0,
+        "availableEuros": 0,
+        "maxTheoreticalSavingsEuros": 1700,
+        "isAbsurd": false,
+        "hasIncome": true
+      }
+    },
+    {
+      "name": "target rounds up past max (absurd)",
+      "input": {
+        "monthlyIncomeCents": 250000,
+        "fixedCostsCents": 80000,
+        "targetEuros": 1700.4
+      },
+      "expected": {
+        "monthlyIncomeCents": 250000,
+        "fixedCostsCents": 80000,
+        "targetEuros": 1700,
+        "targetCents": 170000,
+        "availableCents": 0,
+        "availableEuros": 0,
+        "maxTheoreticalSavingsEuros": 1700,
+        "isAbsurd": false,
+        "hasIncome": true
+      }
+    },
+    {
+      "name": "target rounds down under max",
+      "input": {
+        "monthlyIncomeCents": 250000,
+        "fixedCostsCents": 80000,
+        "targetEuros": 1699.6
+      },
+      "expected": {
+        "monthlyIncomeCents": 250000,
+        "fixedCostsCents": 80000,
+        "targetEuros": 1700,
+        "targetCents": 170000,
+        "availableCents": 0,
+        "availableEuros": 0,
+        "maxTheoreticalSavingsEuros": 1700,
+        "isAbsurd": false,
+        "hasIncome": true
+      }
+    },
+    {
+      "name": "no income, no fixed costs, positive target",
+      "input": {
+        "monthlyIncomeCents": 0,
+        "fixedCostsCents": 0,
+        "targetEuros": 100
+      },
+      "expected": {
+        "monthlyIncomeCents": 0,
+        "fixedCostsCents": 0,
+        "targetEuros": 100,
+        "targetCents": 10000,
+        "availableCents": -10000,
+        "availableEuros": -100,
+        "maxTheoreticalSavingsEuros": 0,
+        "isAbsurd": true,
+        "hasIncome": false
+      }
+    },
+    {
+      "name": "fixed costs exceed income, zero target",
+      "input": {
+        "monthlyIncomeCents": 100000,
+        "fixedCostsCents": 120000,
+        "targetEuros": 0
+      },
+      "expected": {
+        "monthlyIncomeCents": 100000,
+        "fixedCostsCents": 120000,
+        "targetEuros": 0,
+        "targetCents": 0,
+        "availableCents": -20000,
+        "availableEuros": -200,
+        "maxTheoreticalSavingsEuros": -200,
+        "isAbsurd": true,
+        "hasIncome": true
+      }
+    },
+    {
+      "name": "arbitrary figures",
+      "input": {
+        "monthlyIncomeCents": 123456,
+        "fixedCostsCents": 65432,
+        "targetEuros": 300
+      },
+      "expected": {
+        "monthlyIncomeCents": 123456,
+        "fixedCostsCents": 65432,
+        "targetEuros": 300,
+        "targetCents": 30000,
+        "availableCents": 28024,
+        "availableEuros": 280,
+        "maxTheoreticalSavingsEuros": 580,
+        "isAbsurd": false,
+        "hasIncome": true
+      }
+    },
+    {
+      "name": "zero target with headroom",
+      "input": {
+        "monthlyIncomeCents": 250000,
+        "fixedCostsCents": 80000,
+        "targetEuros": 0
+      },
+      "expected": {
+        "monthlyIncomeCents": 250000,
+        "fixedCostsCents": 80000,
+        "targetEuros": 0,
+        "targetCents": 0,
+        "availableCents": 170000,
+        "availableEuros": 1700,
+        "maxTheoreticalSavingsEuros": 1700,
+        "isAbsurd": false,
+        "hasIncome": true
+      }
+    }
+  ],
+  "computeDistribution": [
+    {
+      "name": "no cuts needed: slack available",
+      "input": {
+        "categories": [
+          {
+            "categoryId": "groceries",
+            "flexibility": "flexible",
+            "habit": false,
+            "baselineRawEuros": 200
+          },
+          {
+            "categoryId": "fun",
+            "flexibility": "veryFlexible",
+            "habit": false,
+            "baselineRawEuros": 100
+          }
+        ],
+        "availableEuros": 400,
+        "targetEuros": 100
+      },
+      "expected": {
+        "outcome": "noCutsNeeded",
+        "proposals": [
+          {
+            "categoryId": "groceries",
+            "baselineEuros": 200,
+            "proposedEuros": 200,
+            "cutEuros": 0,
+            "cutFraction": 0,
+            "cuttable": false,
+            "capped": false
+          },
+          {
+            "categoryId": "fun",
+            "baselineEuros": 100,
+            "proposedEuros": 100,
+            "cutEuros": 0,
+            "cutFraction": 0,
+            "cuttable": false,
+            "capped": false
+          }
+        ],
+        "baselineTotalEuros": 300,
+        "deficitEuros": 0,
+        "slackEuros": 100,
+        "achievedMonthlySavingsEuros": 100
+      }
+    },
+    {
+      "name": "all essential: cuts insufficient with zero cuts",
+      "input": {
+        "categories": [
+          {
+            "categoryId": "rent",
+            "flexibility": "essential",
+            "habit": false,
+            "baselineRawEuros": 800
+          },
+          {
+            "categoryId": "insurance",
+            "flexibility": "essential",
+            "habit": false,
+            "baselineRawEuros": 100
+          }
+        ],
+        "availableEuros": 500,
+        "targetEuros": 400
+      },
+      "expected": {
+        "outcome": "cutsInsufficient",
+        "proposals": [
+          {
+            "categoryId": "rent",
+            "baselineEuros": 800,
+            "proposedEuros": 800,
+            "cutEuros": 0,
+            "cutFraction": 0,
+            "cuttable": false,
+            "capped": false
+          },
+          {
+            "categoryId": "insurance",
+            "baselineEuros": 100,
+            "proposedEuros": 100,
+            "cutEuros": 0,
+            "cutFraction": 0,
+            "cuttable": false,
+            "capped": false
+          }
+        ],
+        "baselineTotalEuros": 900,
+        "deficitEuros": 400,
+        "slackEuros": 0,
+        "achievedMonthlySavingsEuros": 0
+      }
+    },
+    {
+      "name": "mix of flexible/veryFlexible cuts fully cover",
+      "input": {
+        "categories": [
+          {
+            "categoryId": "groceries",
+            "flexibility": "flexible",
+            "habit": false,
+            "baselineRawEuros": 300
+          },
+          {
+            "categoryId": "entertainment",
+            "flexibility": "veryFlexible",
+            "habit": false,
+            "baselineRawEuros": 150
+          },
+          {
+            "categoryId": "rent",
+            "flexibility": "essential",
+            "habit": false,
+            "baselineRawEuros": 800
+          }
+        ],
+        "availableEuros": 1200,
+        "targetEuros": 200
+      },
+      "expected": {
+        "outcome": "cutsFullyCover",
+        "proposals": [
+          {
+            "categoryId": "groceries",
+            "baselineEuros": 300,
+            "proposedEuros": 275,
+            "cutEuros": 25,
+            "cutFraction": 0.08333333333333333,
+            "cuttable": true,
+            "capped": false
+          },
+          {
+            "categoryId": "entertainment",
+            "baselineEuros": 150,
+            "proposedEuros": 125,
+            "cutEuros": 25,
+            "cutFraction": 0.16666666666666666,
+            "cuttable": true,
+            "capped": false
+          },
+          {
+            "categoryId": "rent",
+            "baselineEuros": 800,
+            "proposedEuros": 800,
+            "cutEuros": 0,
+            "cutFraction": 0,
+            "cuttable": false,
+            "capped": false
+          }
+        ],
+        "baselineTotalEuros": 1250,
+        "deficitEuros": 50,
+        "slackEuros": 0,
+        "achievedMonthlySavingsEuros": 200
+      }
+    },
+    {
+      "name": "habit category never cut even when veryFlexible",
+      "input": {
+        "categories": [
+          {
+            "categoryId": "smoking",
+            "flexibility": "veryFlexible",
+            "habit": true,
+            "baselineRawEuros": 100
+          },
+          {
+            "categoryId": "fun",
+            "flexibility": "veryFlexible",
+            "habit": false,
+            "baselineRawEuros": 100
+          }
+        ],
+        "availableEuros": 100,
+        "targetEuros": 50
+      },
+      "expected": {
+        "outcome": "cutsInsufficient",
+        "proposals": [
+          {
+            "categoryId": "smoking",
+            "baselineEuros": 100,
+            "proposedEuros": 100,
+            "cutEuros": 0,
+            "cutFraction": 0,
+            "cuttable": false,
+            "capped": false
+          },
+          {
+            "categoryId": "fun",
+            "baselineEuros": 100,
+            "proposedEuros": 70,
+            "cutEuros": 30,
+            "cutFraction": 0.3,
+            "cuttable": true,
+            "capped": true
+          }
+        ],
+        "baselineTotalEuros": 200,
+        "deficitEuros": 100,
+        "slackEuros": 0,
+        "achievedMonthlySavingsEuros": 0
+      }
+    },
+    {
+      "name": "baselines with .5 ties round to nearest 5",
+      "input": {
+        "categories": [
+          {
+            "categoryId": "a",
+            "flexibility": "flexible",
+            "habit": false,
+            "baselineRawEuros": 12.5
+          },
+          {
+            "categoryId": "b",
+            "flexibility": "flexible",
+            "habit": false,
+            "baselineRawEuros": 17.5
+          },
+          {
+            "categoryId": "c",
+            "flexibility": "flexible",
+            "habit": false,
+            "baselineRawEuros": 22.5
+          }
+        ],
+        "availableEuros": 20,
+        "targetEuros": 30
+      },
+      "expected": {
+        "outcome": "cutsInsufficient",
+        "proposals": [
+          {
+            "categoryId": "a",
+            "baselineEuros": 15,
+            "proposedEuros": 15,
+            "cutEuros": 0,
+            "cutFraction": 0,
+            "cuttable": false,
+            "capped": false
+          },
+          {
+            "categoryId": "b",
+            "baselineEuros": 20,
+            "proposedEuros": 15,
+            "cutEuros": 5,
+            "cutFraction": 0.25,
+            "cuttable": true,
+            "capped": true
+          },
+          {
+            "categoryId": "c",
+            "baselineEuros": 25,
+            "proposedEuros": 20,
+            "cutEuros": 5,
+            "cutFraction": 0.2,
+            "cuttable": true,
+            "capped": true
+          }
+        ],
+        "baselineTotalEuros": 60,
+        "deficitEuros": 40,
+        "slackEuros": 0,
+        "achievedMonthlySavingsEuros": 0
+      }
+    },
+    {
+      "name": "tiny baselines round to 0 or 5, zero filtered out",
+      "input": {
+        "categories": [
+          {
+            "categoryId": "tiny1",
+            "flexibility": "flexible",
+            "habit": false,
+            "baselineRawEuros": 2
+          },
+          {
+            "categoryId": "tiny2",
+            "flexibility": "flexible",
+            "habit": false,
+            "baselineRawEuros": 4.9
+          },
+          {
+            "categoryId": "none",
+            "flexibility": "flexible",
+            "habit": false,
+            "baselineRawEuros": 0
+          }
+        ],
+        "availableEuros": 0,
+        "targetEuros": 10
+      },
+      "expected": {
+        "outcome": "cutsInsufficient",
+        "proposals": [
+          {
+            "categoryId": "tiny1",
+            "baselineEuros": 0,
+            "proposedEuros": 0,
+            "cutEuros": 0,
+            "cutFraction": 0,
+            "cuttable": false,
+            "capped": false
+          },
+          {
+            "categoryId": "tiny2",
+            "baselineEuros": 5,
+            "proposedEuros": 5,
+            "cutEuros": 0,
+            "cutFraction": 0,
+            "cuttable": false,
+            "capped": false
+          }
+        ],
+        "baselineTotalEuros": 5,
+        "deficitEuros": 5,
+        "slackEuros": 0,
+        "achievedMonthlySavingsEuros": 5
+      }
+    },
+    {
+      "name": "deficit not divisible by 5",
+      "input": {
+        "categories": [
+          {
+            "categoryId": "groceries",
+            "flexibility": "flexible",
+            "habit": false,
+            "baselineRawEuros": 300
+          },
+          {
+            "categoryId": "fun",
+            "flexibility": "veryFlexible",
+            "habit": false,
+            "baselineRawEuros": 200
+          }
+        ],
+        "availableEuros": 487,
+        "targetEuros": 100
+      },
+      "expected": {
+        "outcome": "cutsFullyCover",
+        "proposals": [
+          {
+            "categoryId": "groceries",
+            "baselineEuros": 300,
+            "proposedEuros": 295,
+            "cutEuros": 5,
+            "cutFraction": 0.016666666666666666,
+            "cuttable": true,
+            "capped": false
+          },
+          {
+            "categoryId": "fun",
+            "baselineEuros": 200,
+            "proposedEuros": 190,
+            "cutEuros": 10,
+            "cutFraction": 0.05,
+            "cuttable": true,
+            "capped": false
+          }
+        ],
+        "baselineTotalEuros": 500,
+        "deficitEuros": 13,
+        "slackEuros": 0,
+        "achievedMonthlySavingsEuros": 100
+      }
+    },
+    {
+      "name": "categories hitting the 30% cap",
+      "input": {
+        "categories": [
+          {
+            "categoryId": "small",
+            "flexibility": "veryFlexible",
+            "habit": false,
+            "baselineRawEuros": 20
+          },
+          {
+            "categoryId": "big",
+            "flexibility": "veryFlexible",
+            "habit": false,
+            "baselineRawEuros": 500
+          }
+        ],
+        "availableEuros": 100,
+        "targetEuros": 300
+      },
+      "expected": {
+        "outcome": "cutsInsufficient",
+        "proposals": [
+          {
+            "categoryId": "small",
+            "baselineEuros": 20,
+            "proposedEuros": 15,
+            "cutEuros": 5,
+            "cutFraction": 0.25,
+            "cuttable": true,
+            "capped": true
+          },
+          {
+            "categoryId": "big",
+            "baselineEuros": 500,
+            "proposedEuros": 350,
+            "cutEuros": 150,
+            "cutFraction": 0.3,
+            "cuttable": true,
+            "capped": true
+          }
+        ],
+        "baselineTotalEuros": 520,
+        "deficitEuros": 420,
+        "slackEuros": 0,
+        "achievedMonthlySavingsEuros": 35
+      }
+    },
+    {
+      "name": "leftover-chunk distribution with equal fractional remainders (stable sort)",
+      "input": {
+        "categories": [
+          {
+            "categoryId": "a",
+            "flexibility": "flexible",
+            "habit": false,
+            "baselineRawEuros": 100
+          },
+          {
+            "categoryId": "b",
+            "flexibility": "flexible",
+            "habit": false,
+            "baselineRawEuros": 100
+          },
+          {
+            "categoryId": "c",
+            "flexibility": "flexible",
+            "habit": false,
+            "baselineRawEuros": 100
+          }
+        ],
+        "availableEuros": 295,
+        "targetEuros": 15
+      },
+      "expected": {
+        "outcome": "cutsFullyCover",
+        "proposals": [
+          {
+            "categoryId": "a",
+            "baselineEuros": 100,
+            "proposedEuros": 95,
+            "cutEuros": 5,
+            "cutFraction": 0.05,
+            "cuttable": true,
+            "capped": false
+          },
+          {
+            "categoryId": "b",
+            "baselineEuros": 100,
+            "proposedEuros": 100,
+            "cutEuros": 0,
+            "cutFraction": 0,
+            "cuttable": true,
+            "capped": false
+          },
+          {
+            "categoryId": "c",
+            "baselineEuros": 100,
+            "proposedEuros": 100,
+            "cutEuros": 0,
+            "cutFraction": 0,
+            "cuttable": true,
+            "capped": false
+          }
+        ],
+        "baselineTotalEuros": 300,
+        "deficitEuros": 5,
+        "slackEuros": 0,
+        "achievedMonthlySavingsEuros": 15
+      }
+    },
+    {
+      "name": "single category",
+      "input": {
+        "categories": [
+          {
+            "categoryId": "solo",
+            "flexibility": "flexible",
+            "habit": false,
+            "baselineRawEuros": 200
+          }
+        ],
+        "availableEuros": 150,
+        "targetEuros": 50
+      },
+      "expected": {
+        "outcome": "cutsFullyCover",
+        "proposals": [
+          {
+            "categoryId": "solo",
+            "baselineEuros": 200,
+            "proposedEuros": 150,
+            "cutEuros": 50,
+            "cutFraction": 0.25,
+            "cuttable": true,
+            "capped": false
+          }
+        ],
+        "baselineTotalEuros": 200,
+        "deficitEuros": 50,
+        "slackEuros": 0,
+        "achievedMonthlySavingsEuros": 50
+      }
+    },
+    {
+      "name": "empty category list",
+      "input": {
+        "categories": [],
+        "availableEuros": 100,
+        "targetEuros": 50
+      },
+      "expected": {
+        "outcome": "noCutsNeeded",
+        "proposals": [],
+        "baselineTotalEuros": 0,
+        "deficitEuros": 0,
+        "slackEuros": 100,
+        "achievedMonthlySavingsEuros": 50
+      }
+    },
+    {
+      "name": "negative availableEuros",
+      "input": {
+        "categories": [
+          {
+            "categoryId": "groceries",
+            "flexibility": "flexible",
+            "habit": false,
+            "baselineRawEuros": 200
+          },
+          {
+            "categoryId": "fun",
+            "flexibility": "veryFlexible",
+            "habit": false,
+            "baselineRawEuros": 100
+          }
+        ],
+        "availableEuros": -50,
+        "targetEuros": 300
+      },
+      "expected": {
+        "outcome": "cutsInsufficient",
+        "proposals": [
+          {
+            "categoryId": "groceries",
+            "baselineEuros": 200,
+            "proposedEuros": 140,
+            "cutEuros": 60,
+            "cutFraction": 0.3,
+            "cuttable": true,
+            "capped": true
+          },
+          {
+            "categoryId": "fun",
+            "baselineEuros": 100,
+            "proposedEuros": 70,
+            "cutEuros": 30,
+            "cutFraction": 0.3,
+            "cuttable": true,
+            "capped": true
+          }
+        ],
+        "baselineTotalEuros": 300,
+        "deficitEuros": 350,
+        "slackEuros": 0,
+        "achievedMonthlySavingsEuros": 40
+      }
+    }
+  ]
+}

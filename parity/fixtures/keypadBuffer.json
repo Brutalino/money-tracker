@@ -1,0 +1,502 @@
+{
+  "applyKeypadKey": [
+    {
+      "name": "comma: empty + digit",
+      "input": {
+        "buffer": "",
+        "key": "5",
+        "decimalSeparator": ","
+      },
+      "expected": "5"
+    },
+    {
+      "name": "comma: 0 + 0",
+      "input": {
+        "buffer": "0",
+        "key": "0",
+        "decimalSeparator": ","
+      },
+      "expected": "0"
+    },
+    {
+      "name": "comma: 0 + 7",
+      "input": {
+        "buffer": "0",
+        "key": "7",
+        "decimalSeparator": ","
+      },
+      "expected": "7"
+    },
+    {
+      "name": "comma: 12 + comma",
+      "input": {
+        "buffer": "12",
+        "key": ",",
+        "decimalSeparator": ","
+      },
+      "expected": "12,"
+    },
+    {
+      "name": "comma: 12, + comma (already has separator)",
+      "input": {
+        "buffer": "12,",
+        "key": ",",
+        "decimalSeparator": ","
+      },
+      "expected": "12,"
+    },
+    {
+      "name": "comma: empty + comma",
+      "input": {
+        "buffer": "",
+        "key": ",",
+        "decimalSeparator": ","
+      },
+      "expected": "0,"
+    },
+    {
+      "name": "comma: 12,5 + 0",
+      "input": {
+        "buffer": "12,5",
+        "key": "0",
+        "decimalSeparator": ","
+      },
+      "expected": "12,50"
+    },
+    {
+      "name": "comma: 12,50 + 3 (capped at 2 decimals)",
+      "input": {
+        "buffer": "12,50",
+        "key": "3",
+        "decimalSeparator": ","
+      },
+      "expected": "12,50"
+    },
+    {
+      "name": "comma: 1234567 + 8 (7 digits, allowed)",
+      "input": {
+        "buffer": "1234567",
+        "key": "8",
+        "decimalSeparator": ","
+      },
+      "expected": "12345678"
+    },
+    {
+      "name": "comma: 12345678 + 9 (8 digits, guarded)",
+      "input": {
+        "buffer": "12345678",
+        "key": "9",
+        "decimalSeparator": ","
+      },
+      "expected": "12345678"
+    },
+    {
+      "name": "comma: 0 + comma",
+      "input": {
+        "buffer": "0",
+        "key": ",",
+        "decimalSeparator": ","
+      },
+      "expected": "0,"
+    },
+    {
+      "name": "comma: 00000000 + 1 (leading zeros do not count)",
+      "input": {
+        "buffer": "00000000",
+        "key": "1",
+        "decimalSeparator": ","
+      },
+      "expected": "000000001"
+    },
+    {
+      "name": "comma: 12,5 + back",
+      "input": {
+        "buffer": "12,5",
+        "key": "back",
+        "decimalSeparator": ","
+      },
+      "expected": "12,"
+    },
+    {
+      "name": "comma: 1 + back",
+      "input": {
+        "buffer": "1",
+        "key": "back",
+        "decimalSeparator": ","
+      },
+      "expected": ""
+    },
+    {
+      "name": "comma: empty + back",
+      "input": {
+        "buffer": "",
+        "key": "back",
+        "decimalSeparator": ","
+      },
+      "expected": ""
+    },
+    {
+      "name": "comma: 0, + back",
+      "input": {
+        "buffer": "0,",
+        "key": "back",
+        "decimalSeparator": ","
+      },
+      "expected": "0"
+    },
+    {
+      "name": "dot: empty + digit",
+      "input": {
+        "buffer": "",
+        "key": "5",
+        "decimalSeparator": "."
+      },
+      "expected": "5"
+    },
+    {
+      "name": "dot: 0 + 0",
+      "input": {
+        "buffer": "0",
+        "key": "0",
+        "decimalSeparator": "."
+      },
+      "expected": "0"
+    },
+    {
+      "name": "dot: 0 + 7",
+      "input": {
+        "buffer": "0",
+        "key": "7",
+        "decimalSeparator": "."
+      },
+      "expected": "7"
+    },
+    {
+      "name": "dot: 12 + dot",
+      "input": {
+        "buffer": "12",
+        "key": ".",
+        "decimalSeparator": "."
+      },
+      "expected": "12."
+    },
+    {
+      "name": "dot: 12. + dot (already has separator)",
+      "input": {
+        "buffer": "12.",
+        "key": ".",
+        "decimalSeparator": "."
+      },
+      "expected": "12."
+    },
+    {
+      "name": "dot: empty + dot",
+      "input": {
+        "buffer": "",
+        "key": ".",
+        "decimalSeparator": "."
+      },
+      "expected": "0."
+    },
+    {
+      "name": "dot: 12.5 + 0",
+      "input": {
+        "buffer": "12.5",
+        "key": "0",
+        "decimalSeparator": "."
+      },
+      "expected": "12.50"
+    },
+    {
+      "name": "dot: 12.50 + 3 (capped at 2 decimals)",
+      "input": {
+        "buffer": "12.50",
+        "key": "3",
+        "decimalSeparator": "."
+      },
+      "expected": "12.50"
+    },
+    {
+      "name": "dot: 1234567 + 8 (7 digits, allowed)",
+      "input": {
+        "buffer": "1234567",
+        "key": "8",
+        "decimalSeparator": "."
+      },
+      "expected": "12345678"
+    },
+    {
+      "name": "dot: 12345678 + 9 (8 digits, guarded)",
+      "input": {
+        "buffer": "12345678",
+        "key": "9",
+        "decimalSeparator": "."
+      },
+      "expected": "12345678"
+    },
+    {
+      "name": "dot: 0 + dot",
+      "input": {
+        "buffer": "0",
+        "key": ".",
+        "decimalSeparator": "."
+      },
+      "expected": "0."
+    },
+    {
+      "name": "dot: 00000000 + 1 (leading zeros do not count)",
+      "input": {
+        "buffer": "00000000",
+        "key": "1",
+        "decimalSeparator": "."
+      },
+      "expected": "000000001"
+    },
+    {
+      "name": "dot: 12.5 + back",
+      "input": {
+        "buffer": "12.5",
+        "key": "back",
+        "decimalSeparator": "."
+      },
+      "expected": "12."
+    },
+    {
+      "name": "dot: 1 + back",
+      "input": {
+        "buffer": "1",
+        "key": "back",
+        "decimalSeparator": "."
+      },
+      "expected": ""
+    },
+    {
+      "name": "dot: empty + back",
+      "input": {
+        "buffer": "",
+        "key": "back",
+        "decimalSeparator": "."
+      },
+      "expected": ""
+    },
+    {
+      "name": "dot: 0. + back",
+      "input": {
+        "buffer": "0.",
+        "key": "back",
+        "decimalSeparator": "."
+      },
+      "expected": "0"
+    }
+  ],
+  "formatBufferDisplay": [
+    {
+      "name": "it: empty",
+      "input": {
+        "buffer": "",
+        "lang": "it"
+      },
+      "expected": "0"
+    },
+    {
+      "name": "it: 0",
+      "input": {
+        "buffer": "0",
+        "lang": "it"
+      },
+      "expected": "0"
+    },
+    {
+      "name": "it: 7",
+      "input": {
+        "buffer": "7",
+        "lang": "it"
+      },
+      "expected": "7"
+    },
+    {
+      "name": "it: 1250",
+      "input": {
+        "buffer": "1250",
+        "lang": "it"
+      },
+      "expected": "1250"
+    },
+    {
+      "name": "it: 1250 + decimals",
+      "input": {
+        "buffer": "1250,5",
+        "lang": "it"
+      },
+      "expected": "1250,5"
+    },
+    {
+      "name": "it: 1250 + 2 decimals",
+      "input": {
+        "buffer": "1250,50",
+        "lang": "it"
+      },
+      "expected": "1250,50"
+    },
+    {
+      "name": "it: 1234567",
+      "input": {
+        "buffer": "1234567",
+        "lang": "it"
+      },
+      "expected": "1.234.567"
+    },
+    {
+      "name": "it: 12345678",
+      "input": {
+        "buffer": "12345678",
+        "lang": "it"
+      },
+      "expected": "12.345.678"
+    },
+    {
+      "name": "it: 0 + decimal",
+      "input": {
+        "buffer": "0,5",
+        "lang": "it"
+      },
+      "expected": "0,5"
+    },
+    {
+      "name": "it: 007",
+      "input": {
+        "buffer": "007",
+        "lang": "it"
+      },
+      "expected": "7"
+    },
+    {
+      "name": "it: 1000",
+      "input": {
+        "buffer": "1000",
+        "lang": "it"
+      },
+      "expected": "1000"
+    },
+    {
+      "name": "it: 999",
+      "input": {
+        "buffer": "999",
+        "lang": "it"
+      },
+      "expected": "999"
+    },
+    {
+      "name": "it: 1000000 + decimals",
+      "input": {
+        "buffer": "1000000,25",
+        "lang": "it"
+      },
+      "expected": "1.000.000,25"
+    },
+    {
+      "name": "en: empty",
+      "input": {
+        "buffer": "",
+        "lang": "en"
+      },
+      "expected": "0"
+    },
+    {
+      "name": "en: 0",
+      "input": {
+        "buffer": "0",
+        "lang": "en"
+      },
+      "expected": "0"
+    },
+    {
+      "name": "en: 7",
+      "input": {
+        "buffer": "7",
+        "lang": "en"
+      },
+      "expected": "7"
+    },
+    {
+      "name": "en: 1250",
+      "input": {
+        "buffer": "1250",
+        "lang": "en"
+      },
+      "expected": "1,250"
+    },
+    {
+      "name": "en: 1250 + decimals",
+      "input": {
+        "buffer": "1250.5",
+        "lang": "en"
+      },
+      "expected": "1,250.5"
+    },
+    {
+      "name": "en: 1250 + 2 decimals",
+      "input": {
+        "buffer": "1250.50",
+        "lang": "en"
+      },
+      "expected": "1,250.50"
+    },
+    {
+      "name": "en: 1234567",
+      "input": {
+        "buffer": "1234567",
+        "lang": "en"
+      },
+      "expected": "1,234,567"
+    },
+    {
+      "name": "en: 12345678",
+      "input": {
+        "buffer": "12345678",
+        "lang": "en"
+      },
+      "expected": "12,345,678"
+    },
+    {
+      "name": "en: 0 + decimal",
+      "input": {
+        "buffer": "0.5",
+        "lang": "en"
+      },
+      "expected": "0.5"
+    },
+    {
+      "name": "en: 007",
+      "input": {
+        "buffer": "007",
+        "lang": "en"
+      },
+      "expected": "7"
+    },
+    {
+      "name": "en: 1000",
+      "input": {
+        "buffer": "1000",
+        "lang": "en"
+      },
+      "expected": "1,000"
+    },
+    {
+      "name": "en: 999",
+      "input": {
+        "buffer": "999",
+        "lang": "en"
+      },
+      "expected": "999"
+    },
+    {
+      "name": "en: 1000000 + decimals",
+      "input": {
+        "buffer": "1000000.25",
+        "lang": "en"
+      },
+      "expected": "1,000,000.25"
+    }
+  ]
+}

@@ -24,3 +24,11 @@ dist-ssr
 *.sw?
 .playwright-mcp/
 IMG_*.PNG
+
+# Swift (MoneyCore)
+.build/
+.swiftpm/
+*.xcodeproj/xcuserdata/
+xcuserdata/
+DerivedData/
+*.xcuserstate

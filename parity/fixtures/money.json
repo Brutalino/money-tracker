@@ -1,0 +1,899 @@
+{
+  "formatCents": [
+    {
+      "name": "0 cents, en",
+      "input": {
+        "lang": "en",
+        "cents": 0
+      },
+      "expected": "€0.00"
+    },
+    {
+      "name": "1 cents, en",
+      "input": {
+        "lang": "en",
+        "cents": 1
+      },
+      "expected": "€0.01"
+    },
+    {
+      "name": "99 cents, en",
+      "input": {
+        "lang": "en",
+        "cents": 99
+      },
+      "expected": "€0.99"
+    },
+    {
+      "name": "100 cents, en",
+      "input": {
+        "lang": "en",
+        "cents": 100
+      },
+      "expected": "€1.00"
+    },
+    {
+      "name": "150 cents, en",
+      "input": {
+        "lang": "en",
+        "cents": 150
+      },
+      "expected": "€1.50"
+    },
+    {
+      "name": "123456 cents, en",
+      "input": {
+        "lang": "en",
+        "cents": 123456
+      },
+      "expected": "€1,234.56"
+    },
+    {
+      "name": "100000000 cents, en",
+      "input": {
+        "lang": "en",
+        "cents": 100000000
+      },
+      "expected": "€1,000,000.00"
+    },
+    {
+      "name": "-150 cents, en",
+      "input": {
+        "lang": "en",
+        "cents": -150
+      },
+      "expected": "-€1.50"
+    },
+    {
+      "name": "-123456 cents, en",
+      "input": {
+        "lang": "en",
+        "cents": -123456
+      },
+      "expected": "-€1,234.56"
+    },
+    {
+      "name": "1000 cents, en",
+      "input": {
+        "lang": "en",
+        "cents": 1000
+      },
+      "expected": "€10.00"
+    },
+    {
+      "name": "99999 cents, en",
+      "input": {
+        "lang": "en",
+        "cents": 99999
+      },
+      "expected": "€999.99"
+    },
+    {
+      "name": "0 cents, it",
+      "input": {
+        "lang": "it",
+        "cents": 0
+      },
+      "expected": "0,00 €"
+    },
+    {
+      "name": "1 cents, it",
+      "input": {
+        "lang": "it",
+        "cents": 1
+      },
+      "expected": "0,01 €"
+    },
+    {
+      "name": "99 cents, it",
+      "input": {
+        "lang": "it",
+        "cents": 99
+      },
+      "expected": "0,99 €"
+    },
+    {
+      "name": "100 cents, it",
+      "input": {
+        "lang": "it",
+        "cents": 100
+      },
+      "expected": "1,00 €"
+    },
+    {
+      "name": "150 cents, it",
+      "input": {
+        "lang": "it",
+        "cents": 150
+      },
+      "expected": "1,50 €"
+    },
+    {
+      "name": "123456 cents, it",
+      "input": {
+        "lang": "it",
+        "cents": 123456
+      },
+      "expected": "1234,56 €"
+    },
+    {
+      "name": "100000000 cents, it",
+      "input": {
+        "lang": "it",
+        "cents": 100000000
+      },
+      "expected": "1.000.000,00 €"
+    },
+    {
+      "name": "-150 cents, it",
+      "input": {
+        "lang": "it",
+        "cents": -150
+      },
+      "expected": "-1,50 €"
+    },
+    {
+      "name": "-123456 cents, it",
+      "input": {
+        "lang": "it",
+        "cents": -123456
+      },
+      "expected": "-1234,56 €"
+    },
+    {
+      "name": "1000 cents, it",
+      "input": {
+        "lang": "it",
+        "cents": 1000
+      },
+      "expected": "10,00 €"
+    },
+    {
+      "name": "99999 cents, it",
+      "input": {
+        "lang": "it",
+        "cents": 99999
+      },
+      "expected": "999,99 €"
+    }
+  ],
+  "formatCentsCompact": [
+    {
+      "name": "0 cents, en",
+      "input": {
+        "lang": "en",
+        "cents": 0
+      },
+      "expected": "€0"
+    },
+    {
+      "name": "100 cents, en",
+      "input": {
+        "lang": "en",
+        "cents": 100
+      },
+      "expected": "€1"
+    },
+    {
+      "name": "150 cents, en",
+      "input": {
+        "lang": "en",
+        "cents": 150
+      },
+      "expected": "€1.50"
+    },
+    {
+      "name": "123400 cents, en",
+      "input": {
+        "lang": "en",
+        "cents": 123400
+      },
+      "expected": "€1,234"
+    },
+    {
+      "name": "123456 cents, en",
+      "input": {
+        "lang": "en",
+        "cents": 123456
+      },
+      "expected": "€1,234.56"
+    },
+    {
+      "name": "-100 cents, en",
+      "input": {
+        "lang": "en",
+        "cents": -100
+      },
+      "expected": "-€1"
+    },
+    {
+      "name": "-150 cents, en",
+      "input": {
+        "lang": "en",
+        "cents": -150
+      },
+      "expected": "-€1.50"
+    },
+    {
+      "name": "5 cents, en",
+      "input": {
+        "lang": "en",
+        "cents": 5
+      },
+      "expected": "€0.05"
+    },
+    {
+      "name": "0 cents, it",
+      "input": {
+        "lang": "it",
+        "cents": 0
+      },
+      "expected": "0 €"
+    },
+    {
+      "name": "100 cents, it",
+      "input": {
+        "lang": "it",
+        "cents": 100
+      },
+      "expected": "1 €"
+    },
+    {
+      "name": "150 cents, it",
+      "input": {
+        "lang": "it",
+        "cents": 150
+      },
+      "expected": "1,50 €"
+    },
+    {
+      "name": "123400 cents, it",
+      "input": {
+        "lang": "it",
+        "cents": 123400
+      },
+      "expected": "1234 €"
+    },
+    {
+      "name": "123456 cents, it",
+      "input": {
+        "lang": "it",
+        "cents": 123456
+      },
+      "expected": "1234,56 €"
+    },
+    {
+      "name": "-100 cents, it",
+      "input": {
+        "lang": "it",
+        "cents": -100
+      },
+      "expected": "-1 €"
+    },
+    {
+      "name": "-150 cents, it",
+      "input": {
+        "lang": "it",
+        "cents": -150
+      },
+      "expected": "-1,50 €"
+    },
+    {
+      "name": "5 cents, it",
+      "input": {
+        "lang": "it",
+        "cents": 5
+      },
+      "expected": "0,05 €"
+    }
+  ],
+  "formatEuros": [
+    {
+      "name": "0 euros, en",
+      "input": {
+        "lang": "en",
+        "euros": 0
+      },
+      "expected": "€0"
+    },
+    {
+      "name": "150 euros, en",
+      "input": {
+        "lang": "en",
+        "euros": 150
+      },
+      "expected": "€150"
+    },
+    {
+      "name": "1234 euros, en",
+      "input": {
+        "lang": "en",
+        "euros": 1234
+      },
+      "expected": "€1,234"
+    },
+    {
+      "name": "1000000 euros, en",
+      "input": {
+        "lang": "en",
+        "euros": 1000000
+      },
+      "expected": "€1,000,000"
+    },
+    {
+      "name": "-150 euros, en",
+      "input": {
+        "lang": "en",
+        "euros": -150
+      },
+      "expected": "-€150"
+    },
+    {
+      "name": "0 euros, it",
+      "input": {
+        "lang": "it",
+        "euros": 0
+      },
+      "expected": "0 €"
+    },
+    {
+      "name": "150 euros, it",
+      "input": {
+        "lang": "it",
+        "euros": 150
+      },
+      "expected": "150 €"
+    },
+    {
+      "name": "1234 euros, it",
+      "input": {
+        "lang": "it",
+        "euros": 1234
+      },
+      "expected": "1234 €"
+    },
+    {
+      "name": "1000000 euros, it",
+      "input": {
+        "lang": "it",
+        "euros": 1000000
+      },
+      "expected": "1.000.000 €"
+    },
+    {
+      "name": "-150 euros, it",
+      "input": {
+        "lang": "it",
+        "euros": -150
+      },
+      "expected": "-150 €"
+    }
+  ],
+  "roundToNearest5": [
+    {
+      "name": "0",
+      "input": {
+        "euros": 0
+      },
+      "expected": 0
+    },
+    {
+      "name": "2.4",
+      "input": {
+        "euros": 2.4
+      },
+      "expected": 0
+    },
+    {
+      "name": "2.5",
+      "input": {
+        "euros": 2.5
+      },
+      "expected": 5
+    },
+    {
+      "name": "7.5",
+      "input": {
+        "euros": 7.5
+      },
+      "expected": 10
+    },
+    {
+      "name": "12.5",
+      "input": {
+        "euros": 12.5
+      },
+      "expected": 15
+    },
+    {
+      "name": "13",
+      "input": {
+        "euros": 13
+      },
+      "expected": 15
+    },
+    {
+      "name": "17.4",
+      "input": {
+        "euros": 17.4
+      },
+      "expected": 15
+    },
+    {
+      "name": "17.5",
+      "input": {
+        "euros": 17.5
+      },
+      "expected": 20
+    },
+    {
+      "name": "22.5",
+      "input": {
+        "euros": 22.5
+      },
+      "expected": 25
+    },
+    {
+      "name": "100",
+      "input": {
+        "euros": 100
+      },
+      "expected": 100
+    },
+    {
+      "name": "102.49",
+      "input": {
+        "euros": 102.49
+      },
+      "expected": 100
+    },
+    {
+      "name": "102.5",
+      "input": {
+        "euros": 102.5
+      },
+      "expected": 105
+    },
+    {
+      "name": "-2.5",
+      "input": {
+        "euros": -2.5
+      },
+      "expected": 0
+    },
+    {
+      "name": "-7.5",
+      "input": {
+        "euros": -7.5
+      },
+      "expected": -5
+    },
+    {
+      "name": "-12.5",
+      "input": {
+        "euros": -12.5
+      },
+      "expected": -10
+    },
+    {
+      "name": "0.1",
+      "input": {
+        "euros": 0.1
+      },
+      "expected": 0
+    },
+    {
+      "name": "1234.567",
+      "input": {
+        "euros": 1234.567
+      },
+      "expected": 1235
+    },
+    {
+      "name": "3.75",
+      "input": {
+        "euros": 3.75
+      },
+      "expected": 5
+    }
+  ],
+  "roundUpToNearest5": [
+    {
+      "name": "0",
+      "input": {
+        "euros": 0
+      },
+      "expected": 0
+    },
+    {
+      "name": "0.01",
+      "input": {
+        "euros": 0.01
+      },
+      "expected": 5
+    },
+    {
+      "name": "4.99",
+      "input": {
+        "euros": 4.99
+      },
+      "expected": 5
+    },
+    {
+      "name": "5",
+      "input": {
+        "euros": 5
+      },
+      "expected": 5
+    },
+    {
+      "name": "5.01",
+      "input": {
+        "euros": 5.01
+      },
+      "expected": 10
+    },
+    {
+      "name": "12.5",
+      "input": {
+        "euros": 12.5
+      },
+      "expected": 15
+    },
+    {
+      "name": "100",
+      "input": {
+        "euros": 100
+      },
+      "expected": 100
+    },
+    {
+      "name": "-0.5",
+      "input": {
+        "euros": -0.5
+      },
+      "expected": 0
+    },
+    {
+      "name": "-7.5",
+      "input": {
+        "euros": -7.5
+      },
+      "expected": -5
+    },
+    {
+      "name": "33.33",
+      "input": {
+        "euros": 33.33
+      },
+      "expected": 35
+    }
+  ],
+  "parseAmountToCents": [
+    {
+      "name": "\"\"",
+      "input": {
+        "input": ""
+      },
+      "expected": 0
+    },
+    {
+      "name": "\"0\"",
+      "input": {
+        "input": "0"
+      },
+      "expected": 0
+    },
+    {
+      "name": "\"12\"",
+      "input": {
+        "input": "12"
+      },
+      "expected": 1200
+    },
+    {
+      "name": "\"12,50\"",
+      "input": {
+        "input": "12,50"
+      },
+      "expected": 1250
+    },
+    {
+      "name": "\"12.50\"",
+      "input": {
+        "input": "12.50"
+      },
+      "expected": 1250
+    },
+    {
+      "name": "\"1250\"",
+      "input": {
+        "input": "1250"
+      },
+      "expected": 125000
+    },
+    {
+      "name": "\"1,5\"",
+      "input": {
+        "input": "1,5"
+      },
+      "expected": 150
+    },
+    {
+      "name": "\"1.5\"",
+      "input": {
+        "input": "1.5"
+      },
+      "expected": 150
+    },
+    {
+      "name": "\"0,05\"",
+      "input": {
+        "input": "0,05"
+      },
+      "expected": 5
+    },
+    {
+      "name": "\"0.005\"",
+      "input": {
+        "input": "0.005"
+      },
+      "expected": 1
+    },
+    {
+      "name": "\"1.005\"",
+      "input": {
+        "input": "1.005"
+      },
+      "expected": 100
+    },
+    {
+      "name": "\"2.675\"",
+      "input": {
+        "input": "2.675"
+      },
+      "expected": 268
+    },
+    {
+      "name": "\".5\"",
+      "input": {
+        "input": ".5"
+      },
+      "expected": 50
+    },
+    {
+      "name": "\",5\"",
+      "input": {
+        "input": ",5"
+      },
+      "expected": 50
+    },
+    {
+      "name": "\"5.\"",
+      "input": {
+        "input": "5."
+      },
+      "expected": 500
+    },
+    {
+      "name": "\"abc\"",
+      "input": {
+        "input": "abc"
+      },
+      "expected": 0
+    },
+    {
+      "name": "\"12abc\"",
+      "input": {
+        "input": "12abc"
+      },
+      "expected": 1200
+    },
+    {
+      "name": "\"1,234,5\"",
+      "input": {
+        "input": "1,234,5"
+      },
+      "expected": 123
+    },
+    {
+      "name": "\"1.2.3\"",
+      "input": {
+        "input": "1.2.3"
+      },
+      "expected": 120
+    },
+    {
+      "name": "\"  7\"",
+      "input": {
+        "input": "  7"
+      },
+      "expected": 700
+    },
+    {
+      "name": "\"-3,10\"",
+      "input": {
+        "input": "-3,10"
+      },
+      "expected": -310
+    },
+    {
+      "name": "\"+4\"",
+      "input": {
+        "input": "+4"
+      },
+      "expected": 400
+    },
+    {
+      "name": "\"1e2\"",
+      "input": {
+        "input": "1e2"
+      },
+      "expected": 10000
+    },
+    {
+      "name": "\"99999999\"",
+      "input": {
+        "input": "99999999"
+      },
+      "expected": 9999999900
+    },
+    {
+      "name": "\"0.1\"",
+      "input": {
+        "input": "0.1"
+      },
+      "expected": 10
+    },
+    {
+      "name": "\"0.7\"",
+      "input": {
+        "input": "0.7"
+      },
+      "expected": 70
+    },
+    {
+      "name": "\"1.1\"",
+      "input": {
+        "input": "1.1"
+      },
+      "expected": 110
+    }
+  ],
+  "centsToEuros": [
+    {
+      "name": "0",
+      "input": {
+        "cents": 0
+      },
+      "expected": 0
+    },
+    {
+      "name": "150",
+      "input": {
+        "cents": 150
+      },
+      "expected": 1.5
+    },
+    {
+      "name": "-150",
+      "input": {
+        "cents": -150
+      },
+      "expected": -1.5
+    },
+    {
+      "name": "123456",
+      "input": {
+        "cents": 123456
+      },
+      "expected": 1234.56
+    },
+    {
+      "name": "1",
+      "input": {
+        "cents": 1
+      },
+      "expected": 0.01
+    }
+  ],
+  "eurosToCents": [
+    {
+      "name": "0",
+      "input": {
+        "euros": 0
+      },
+      "expected": 0
+    },
+    {
+      "name": "1.5",
+      "input": {
+        "euros": 1.5
+      },
+      "expected": 150
+    },
+    {
+      "name": "0.1",
+      "input": {
+        "euros": 0.1
+      },
+      "expected": 10
+    },
+    {
+      "name": "0.7",
+      "input": {
+        "euros": 0.7
+      },
+      "expected": 70
+    },
+    {
+      "name": "1.1",
+      "input": {
+        "euros": 1.1
+      },
+      "expected": 110
+    },
+    {
+      "name": "2.675",
+      "input": {
+        "euros": 2.675
+      },
+      "expected": 268
+    },
+    {
+      "name": "1.005",
+      "input": {
+        "euros": 1.005
+      },
+      "expected": 100
+    },
+    {
+      "name": "-1.5",
+      "input": {
+        "euros": -1.5
+      },
+      "expected": -150
+    },
+    {
+      "name": "1234.567",
+      "input": {
+        "euros": 1234.567
+      },
+      "expected": 123457
+    },
+    {
+      "name": "0.015",
+      "input": {
+        "euros": 0.015
+      },
+      "expected": 2
+    },
+    {
+      "name": "0.025",
+      "input": {
+        "euros": 0.025
+      },
+      "expected": 3
+    }
+  ]
+}

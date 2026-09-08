@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "parity:update": "UPDATE_FIXTURES=1 vitest run parity"
   },
   "dependencies": {
     "dexie": "^4.4.4",
@@ -26,6 +29,7 @@
     "oxlint": "^1.71.0",
     "sharp": "^0.35.3",
     "typescript": "~6.0.2",
-    "vite": "^8.1.1"
+    "vite": "^8.1.1",
+    "vitest": "^5.0.0"
   }
 }
