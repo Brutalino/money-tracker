@@ -32,3 +32,6 @@ IMG_*.PNG
 xcuserdata/
 DerivedData/
 *.xcuserstate
+
+# Real personal data used for local development only, never committed
+ios/LocalData/
