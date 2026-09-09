@@ -197,8 +197,16 @@ addCase('invalid: recurring unknown categoryId', (b) => {
 addCase('invalid: transaction unknown categoryId', (b) => {
   ;(b.transactions as Record<string, unknown>[])[0].categoryId = 'does-not-exist'
 })
-addCase('invalid: transaction unknown recurringId', (b) => {
+// Deleting a fixed cost keeps the transactions it already generated, so a
+// recurringId that no longer resolves is a normal state, not corruption.
+addCase('valid: transaction recurringId of a deleted fixed cost', (b) => {
   ;(b.transactions as Record<string, unknown>[])[2].recurringId = 'does-not-exist'
+})
+addCase('valid: transaction recurringId survives an emptied recurring table', (b) => {
+  b.recurring = []
+})
+addCase('invalid: transaction recurringId not a string', (b) => {
+  ;(b.transactions as Record<string, unknown>[])[2].recurringId = 42
 })
 addCase('invalid: transaction bad type literal', (b) => {
   ;(b.transactions as Record<string, unknown>[])[0].type = 'transfer'

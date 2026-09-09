@@ -164,11 +164,17 @@ function isValidRecurring(v: unknown, categoryIds: Set<string>): v is Recurring 
   )
 }
 
-function isValidTransaction(
-  v: unknown,
-  categoryIds: Set<string>,
-  recurringIds: Set<string>
-): v is Transaction {
+/**
+ * `recurringId` is deliberately NOT checked against the recurring table:
+ * deleting a fixed cost keeps the transactions it already generated (see
+ * `RecurringFormSheet.handleDelete`), so a dangling recurringId is a normal,
+ * expected state, not corruption. Requiring the reference to resolve would
+ * make a backup exported after any such deletion un-importable — and on the
+ * native app, whose local store *is* a backup file, unreadable at launch. The
+ * field must still be a string when present, and it keeps marking the row as
+ * "fissa" in the fixed/variable split.
+ */
+function isValidTransaction(v: unknown, categoryIds: Set<string>): v is Transaction {
   if (!isRecord(v)) return false
   return (
     isNonEmptyString(v.id) &&
@@ -179,7 +185,7 @@ function isValidTransaction(
     typeof v.date === 'string' &&
     DATE_RE.test(v.date) &&
     isOptionalString(v.note) &&
-    (v.recurringId === undefined || (typeof v.recurringId === 'string' && recurringIds.has(v.recurringId)))
+    isOptionalString(v.recurringId)
   )
 }
 
@@ -240,9 +246,8 @@ export function isValidBackup(data: unknown): data is BackupPayload {
   const goalIds = new Set((data.goals as Goal[]).map((g) => g.id))
 
   if (!data.recurring.every((r) => isValidRecurring(r, categoryIds))) return false
-  const recurringIds = new Set((data.recurring as Recurring[]).map((r) => r.id))
 
-  if (!data.transactions.every((t) => isValidTransaction(t, categoryIds, recurringIds))) return false
+  if (!data.transactions.every((t) => isValidTransaction(t, categoryIds))) return false
   if (!data.budgets.every((b) => isValidBudget(b, categoryIds))) return false
   if (!data.contributions.every((c) => isValidContribution(c, goalIds))) return false
   if (data.settings && !(data.settings as unknown[]).every(isValidSettingsRecord)) return false
