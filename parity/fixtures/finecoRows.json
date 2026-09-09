@@ -1,0 +1,532 @@
+{
+  "parseFinecoRows": [
+    {
+      "name": "typical export with declared period",
+      "input": {
+        "rows": [
+          [
+            "Conto Corrente: 1234",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "Periodo Dal: 01/08/2026 Al: 31/08/2026",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "Data_Operazione",
+            "Data_Valuta",
+            "Entrate",
+            "Uscite",
+            "Descrizione",
+            "Descrizione_Completa"
+          ],
+          [
+            {
+              "$date": "2026-08-03"
+            },
+            {
+              "$date": "2026-08-03"
+            },
+            null,
+            -12.5,
+            "Pagamento POS",
+            "Cino/ PAGAMENTO POS ESSELUNGA MILANO IT Carta N. 1234"
+          ],
+          [
+            {
+              "$date": "2026-08-05"
+            },
+            {
+              "$date": "2026-08-06"
+            },
+            1500,
+            null,
+            "Stipendio",
+            "BONIFICO SEPA STIPENDIO"
+          ],
+          [
+            {
+              "$date": "2026-08-07"
+            },
+            {
+              "$date": "2026-08-07"
+            },
+            null,
+            -3.4,
+            "Caffè",
+            "Cino/ BAR ROSSI"
+          ]
+        ]
+      },
+      "expected": {
+        "ok": true,
+        "movements": [
+          {
+            "dateISO": "2026-08-03",
+            "amountCents": 1250,
+            "direction": "out",
+            "description": "Pagamento POS",
+            "descriptionFull": "Cino/ PAGAMENTO POS ESSELUNGA MILANO IT Carta N. 1234"
+          },
+          {
+            "dateISO": "2026-08-06",
+            "amountCents": 150000,
+            "direction": "in",
+            "description": "Stipendio",
+            "descriptionFull": "BONIFICO SEPA STIPENDIO"
+          },
+          {
+            "dateISO": "2026-08-07",
+            "amountCents": 340,
+            "direction": "out",
+            "description": "Caffè",
+            "descriptionFull": "Cino/ BAR ROSSI"
+          }
+        ],
+        "coverage": {
+          "fromISO": "2026-08-01",
+          "toISO": "2026-08-31"
+        }
+      }
+    },
+    {
+      "name": "valuta date wins over operation date",
+      "input": {
+        "rows": [
+          [
+            "Data_Operazione",
+            "Data_Valuta",
+            "Entrate",
+            "Uscite",
+            "Descrizione",
+            "Descrizione_Completa"
+          ],
+          [
+            {
+              "$date": "2026-08-30"
+            },
+            {
+              "$date": "2026-09-01"
+            },
+            null,
+            -20,
+            "Pos",
+            "X"
+          ]
+        ]
+      },
+      "expected": {
+        "ok": true,
+        "movements": [
+          {
+            "dateISO": "2026-09-01",
+            "amountCents": 2000,
+            "direction": "out",
+            "description": "Pos",
+            "descriptionFull": "X"
+          }
+        ],
+        "coverage": {
+          "fromISO": "2026-09-01",
+          "toISO": "2026-09-01"
+        }
+      }
+    },
+    {
+      "name": "operation date used when valuta is missing",
+      "input": {
+        "rows": [
+          [
+            "Data_Operazione",
+            "Data_Valuta",
+            "Entrate",
+            "Uscite",
+            "Descrizione",
+            "Descrizione_Completa"
+          ],
+          [
+            {
+              "$date": "2026-08-30"
+            },
+            "-",
+            null,
+            -20,
+            "Autorizzato",
+            "X"
+          ]
+        ]
+      },
+      "expected": {
+        "ok": true,
+        "movements": [
+          {
+            "dateISO": "2026-08-30",
+            "amountCents": 2000,
+            "direction": "out",
+            "description": "Autorizzato",
+            "descriptionFull": "X"
+          }
+        ],
+        "coverage": {
+          "fromISO": "2026-08-30",
+          "toISO": "2026-08-30"
+        }
+      }
+    },
+    {
+      "name": "row with dash operation date and no valuta is skipped",
+      "input": {
+        "rows": [
+          [
+            "Data_Operazione",
+            "Data_Valuta",
+            "Entrate",
+            "Uscite",
+            "Descrizione",
+            "Descrizione_Completa"
+          ],
+          [
+            "-",
+            "-",
+            null,
+            -20,
+            "Autorizzato",
+            "X"
+          ],
+          [
+            {
+              "$date": "2026-08-02"
+            },
+            {
+              "$date": "2026-08-02"
+            },
+            null,
+            -1,
+            "ok",
+            "ok"
+          ]
+        ]
+      },
+      "expected": {
+        "ok": true,
+        "movements": [
+          {
+            "dateISO": "2026-08-02",
+            "amountCents": 100,
+            "direction": "out",
+            "description": "ok",
+            "descriptionFull": "ok"
+          }
+        ],
+        "coverage": {
+          "fromISO": "2026-08-02",
+          "toISO": "2026-08-02"
+        }
+      }
+    },
+    {
+      "name": "rows without amounts are skipped",
+      "input": {
+        "rows": [
+          [
+            "Data_Operazione",
+            "Data_Valuta",
+            "Entrate",
+            "Uscite",
+            "Descrizione",
+            "Descrizione_Completa"
+          ],
+          [
+            {
+              "$date": "2026-08-02"
+            },
+            {
+              "$date": "2026-08-02"
+            },
+            null,
+            null,
+            "saldo",
+            "saldo"
+          ],
+          [
+            {
+              "$date": "2026-08-02"
+            },
+            {
+              "$date": "2026-08-02"
+            },
+            null,
+            -9.99,
+            "x",
+            "y"
+          ]
+        ]
+      },
+      "expected": {
+        "ok": true,
+        "movements": [
+          {
+            "dateISO": "2026-08-02",
+            "amountCents": 999,
+            "direction": "out",
+            "description": "x",
+            "descriptionFull": "y"
+          }
+        ],
+        "coverage": {
+          "fromISO": "2026-08-02",
+          "toISO": "2026-08-02"
+        }
+      }
+    },
+    {
+      "name": "coverage falls back to movement dates without a period row",
+      "input": {
+        "rows": [
+          [
+            "Data_Operazione",
+            "Data_Valuta",
+            "Entrate",
+            "Uscite",
+            "Descrizione",
+            "Descrizione_Completa"
+          ],
+          [
+            {
+              "$date": "2026-08-12"
+            },
+            {
+              "$date": "2026-08-12"
+            },
+            null,
+            -5,
+            "a",
+            "a"
+          ],
+          [
+            {
+              "$date": "2026-08-03"
+            },
+            {
+              "$date": "2026-08-03"
+            },
+            null,
+            -6,
+            "b",
+            "b"
+          ]
+        ]
+      },
+      "expected": {
+        "ok": true,
+        "movements": [
+          {
+            "dateISO": "2026-08-12",
+            "amountCents": 500,
+            "direction": "out",
+            "description": "a",
+            "descriptionFull": "a"
+          },
+          {
+            "dateISO": "2026-08-03",
+            "amountCents": 600,
+            "direction": "out",
+            "description": "b",
+            "descriptionFull": "b"
+          }
+        ],
+        "coverage": {
+          "fromISO": "2026-08-03",
+          "toISO": "2026-08-12"
+        }
+      }
+    },
+    {
+      "name": "no header is unrecognized",
+      "input": {
+        "rows": [
+          [
+            "Conto Corrente: 1234",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "Periodo Dal: 01/08/2026 Al: 31/08/2026",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            {
+              "$date": "2026-08-03"
+            },
+            {
+              "$date": "2026-08-03"
+            },
+            null,
+            -12.5,
+            "x",
+            "x"
+          ]
+        ]
+      },
+      "expected": {
+        "ok": false,
+        "reason": "unrecognized"
+      }
+    },
+    {
+      "name": "no movements is unrecognized",
+      "input": {
+        "rows": [
+          [
+            "Data_Operazione",
+            "Data_Valuta",
+            "Entrate",
+            "Uscite",
+            "Descrizione",
+            "Descrizione_Completa"
+          ]
+        ]
+      },
+      "expected": {
+        "ok": false,
+        "reason": "unrecognized"
+      }
+    },
+    {
+      "name": "positive uscite value is still an outflow",
+      "input": {
+        "rows": [
+          [
+            "Data_Operazione",
+            "Data_Valuta",
+            "Entrate",
+            "Uscite",
+            "Descrizione",
+            "Descrizione_Completa"
+          ],
+          [
+            {
+              "$date": "2026-08-03"
+            },
+            {
+              "$date": "2026-08-03"
+            },
+            null,
+            12.5,
+            "x",
+            "x"
+          ]
+        ]
+      },
+      "expected": {
+        "ok": true,
+        "movements": [
+          {
+            "dateISO": "2026-08-03",
+            "amountCents": 1250,
+            "direction": "out",
+            "description": "x",
+            "descriptionFull": "x"
+          }
+        ],
+        "coverage": {
+          "fromISO": "2026-08-03",
+          "toISO": "2026-08-03"
+        }
+      }
+    },
+    {
+      "name": "cents rounding",
+      "input": {
+        "rows": [
+          [
+            "Data_Operazione",
+            "Data_Valuta",
+            "Entrate",
+            "Uscite",
+            "Descrizione",
+            "Descrizione_Completa"
+          ],
+          [
+            {
+              "$date": "2026-08-03"
+            },
+            {
+              "$date": "2026-08-03"
+            },
+            null,
+            -10.005,
+            "x",
+            "x"
+          ],
+          [
+            {
+              "$date": "2026-08-03"
+            },
+            {
+              "$date": "2026-08-03"
+            },
+            0.1,
+            null,
+            "y",
+            "y"
+          ]
+        ]
+      },
+      "expected": {
+        "ok": true,
+        "movements": [
+          {
+            "dateISO": "2026-08-03",
+            "amountCents": 1001,
+            "direction": "out",
+            "description": "x",
+            "descriptionFull": "x"
+          },
+          {
+            "dateISO": "2026-08-03",
+            "amountCents": 10,
+            "direction": "in",
+            "description": "y",
+            "descriptionFull": "y"
+          }
+        ],
+        "coverage": {
+          "fromISO": "2026-08-03",
+          "toISO": "2026-08-03"
+        }
+      }
+    }
+  ]
+}

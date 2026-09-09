@@ -47,6 +47,49 @@ function findDeclaredCoverage(rows: unknown[][], headerIdx: number): { fromISO: 
   return null
 }
 
+/** Parses the rows of a Fineco "Movimenti" sheet (as produced by
+ * `sheet_to_json(..., { header: 1, defval: null })` with `cellDates: true`):
+ * metadata rows, then a header row starting with `Data_Operazione`, then one
+ * row per movement. Pure and synchronous so it can be parity-tested. */
+export function parseFinecoRows(rows: unknown[][]): FinecoParseResult {
+  const headerIdx = rows.findIndex((row) => row[0] === HEADER_FIRST_CELL)
+  if (headerIdx === -1) return { ok: false, reason: 'unrecognized' }
+
+  const movements: FinecoMovement[] = []
+  for (let i = headerIdx + 1; i < rows.length; i++) {
+    const row = rows[i]
+    if (!row || row.length === 0) continue
+    const [dataOperazione, dataValuta, entrate, uscite, descrizione, descrizioneCompleta] = row
+
+    const entrateNum = typeof entrate === 'number' ? entrate : null
+    const usciteNum = typeof uscite === 'number' ? uscite : null
+    if (entrateNum === null && usciteNum === null) continue // neither: skip
+
+    const direction: 'in' | 'out' = entrateNum !== null ? 'in' : 'out'
+    const amount = entrateNum !== null ? entrateNum : (usciteNum as number)
+
+    // Movement date = Data_Valuta (real payment day), falling back to
+    // Data_Operazione (which can be the literal string '-' for a
+    // not-yet-settled "Autorizzato" row).
+    const dateSource = dataValuta instanceof Date ? dataValuta : dataOperazione instanceof Date ? dataOperazione : null
+    if (!dateSource) continue
+
+    movements.push({
+      dateISO: toISODate(dateSource),
+      amountCents: Math.round(Math.abs(amount) * 100),
+      direction,
+      description: typeof descrizione === 'string' ? descrizione : '',
+      descriptionFull: typeof descrizioneCompleta === 'string' ? descrizioneCompleta : '',
+    })
+  }
+
+  if (movements.length === 0) return { ok: false, reason: 'unrecognized' }
+
+  const dates = movements.map((m) => m.dateISO)
+  const coverage = findDeclaredCoverage(rows, headerIdx) ?? { fromISO: minISO(dates), toISO: maxISO(dates) }
+  return { ok: true, movements, coverage }
+}
+
 /** Parses a Fineco "Movimenti" export (.xlsx). Loads the `xlsx` library lazily
  * so it never lands in the main bundle — only pulled in when a file is
  * actually parsed. */
@@ -57,44 +100,7 @@ export async function parseFinecoFile(buf: ArrayBuffer): Promise<FinecoParseResu
     const sheetName = workbook.SheetNames[0]
     const sheet = sheetName ? workbook.Sheets[sheetName] : undefined
     if (!sheet) return { ok: false, reason: 'unrecognized' }
-
-    const rows = XLSX.utils.sheet_to_json<unknown[]>(sheet, { header: 1, defval: null })
-    const headerIdx = rows.findIndex((row) => row[0] === HEADER_FIRST_CELL)
-    if (headerIdx === -1) return { ok: false, reason: 'unrecognized' }
-
-    const movements: FinecoMovement[] = []
-    for (let i = headerIdx + 1; i < rows.length; i++) {
-      const row = rows[i]
-      if (!row || row.length === 0) continue
-      const [dataOperazione, dataValuta, entrate, uscite, descrizione, descrizioneCompleta] = row
-
-      const entrateNum = typeof entrate === 'number' ? entrate : null
-      const usciteNum = typeof uscite === 'number' ? uscite : null
-      if (entrateNum === null && usciteNum === null) continue // neither: skip
-
-      const direction: 'in' | 'out' = entrateNum !== null ? 'in' : 'out'
-      const amount = entrateNum !== null ? entrateNum : (usciteNum as number)
-
-      // Movement date = Data_Valuta (real payment day), falling back to
-      // Data_Operazione (which can be the literal string '-' for a
-      // not-yet-settled "Autorizzato" row).
-      const dateSource = dataValuta instanceof Date ? dataValuta : dataOperazione instanceof Date ? dataOperazione : null
-      if (!dateSource) continue
-
-      movements.push({
-        dateISO: toISODate(dateSource),
-        amountCents: Math.round(Math.abs(amount) * 100),
-        direction,
-        description: typeof descrizione === 'string' ? descrizione : '',
-        descriptionFull: typeof descrizioneCompleta === 'string' ? descrizioneCompleta : '',
-      })
-    }
-
-    if (movements.length === 0) return { ok: false, reason: 'unrecognized' }
-
-    const dates = movements.map((m) => m.dateISO)
-    const coverage = findDeclaredCoverage(rows, headerIdx) ?? { fromISO: minISO(dates), toISO: maxISO(dates) }
-    return { ok: true, movements, coverage }
+    return parseFinecoRows(XLSX.utils.sheet_to_json<unknown[]>(sheet, { header: 1, defval: null }))
   } catch {
     return { ok: false, reason: 'unrecognized' }
   }

@@ -293,3 +293,61 @@ await parityModule('fineco', {
     impl: computeReconcile,
   },
 })
+
+// ---- parseFinecoRows: the row-level parser (the xlsx reading stays in the
+// app). Date cells travel in the fixture as { "$date": "yyyy-mm-dd" } and
+// become local-midnight Date objects here, the way xlsx's cellDates yields them.
+import { parseFinecoRows } from '../src/lib/fineco'
+import { parseISODate } from '../src/lib/dates'
+
+type Cell = string | number | null | { $date: string }
+const D = (iso: string): Cell => ({ $date: iso })
+const toRows = (rows: Cell[][]): unknown[][] =>
+  rows.map((r) => r.map((c) => (c !== null && typeof c === 'object' && '$date' in c ? parseISODate(c.$date) : c)))
+
+const preamble: Cell[][] = [
+  ['Conto Corrente: 1234', null, null, null, null, null],
+  ['Periodo Dal: 01/08/2026 Al: 31/08/2026', null, null, null, null, null],
+  [null, null, null, null, null, null],
+]
+const header: Cell[] = ['Data_Operazione', 'Data_Valuta', 'Entrate', 'Uscite', 'Descrizione', 'Descrizione_Completa']
+
+await parityModule('finecoRows', {
+  parseFinecoRows: {
+    cases: [
+      { name: 'typical export with declared period', input: { rows: [...preamble, header,
+        [D('2026-08-03'), D('2026-08-03'), null, -12.5, 'Pagamento POS', 'Cino/ PAGAMENTO POS ESSELUNGA MILANO IT Carta N. 1234'],
+        [D('2026-08-05'), D('2026-08-06'), 1500, null, 'Stipendio', 'BONIFICO SEPA STIPENDIO'],
+        [D('2026-08-07'), D('2026-08-07'), null, -3.4, 'Caffè', 'Cino/ BAR ROSSI'],
+      ] } },
+      { name: 'valuta date wins over operation date', input: { rows: [header,
+        [D('2026-08-30'), D('2026-09-01'), null, -20, 'Pos', 'X'],
+      ] } },
+      { name: 'operation date used when valuta is missing', input: { rows: [header,
+        [D('2026-08-30'), '-', null, -20, 'Autorizzato', 'X'],
+      ] } },
+      { name: 'row with dash operation date and no valuta is skipped', input: { rows: [header,
+        ['-', '-', null, -20, 'Autorizzato', 'X'],
+        [D('2026-08-02'), D('2026-08-02'), null, -1, 'ok', 'ok'],
+      ] } },
+      { name: 'rows without amounts are skipped', input: { rows: [header,
+        [D('2026-08-02'), D('2026-08-02'), null, null, 'saldo', 'saldo'],
+        [D('2026-08-02'), D('2026-08-02'), null, -9.99, 'x', 'y'],
+      ] } },
+      { name: 'coverage falls back to movement dates without a period row', input: { rows: [header,
+        [D('2026-08-12'), D('2026-08-12'), null, -5, 'a', 'a'],
+        [D('2026-08-03'), D('2026-08-03'), null, -6, 'b', 'b'],
+      ] } },
+      { name: 'no header is unrecognized', input: { rows: [...preamble, [D('2026-08-03'), D('2026-08-03'), null, -12.5, 'x', 'x']] } },
+      { name: 'no movements is unrecognized', input: { rows: [header] } },
+      { name: 'positive uscite value is still an outflow', input: { rows: [header,
+        [D('2026-08-03'), D('2026-08-03'), null, 12.5, 'x', 'x'],
+      ] } },
+      { name: 'cents rounding', input: { rows: [header,
+        [D('2026-08-03'), D('2026-08-03'), null, -10.005, 'x', 'x'],
+        [D('2026-08-03'), D('2026-08-03'), 0.1, null, 'y', 'y'],
+      ] } },
+    ],
+    impl: (input: { rows: Cell[][] }) => parseFinecoRows(toRows(input.rows)),
+  },
+})
