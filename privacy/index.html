@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Oink · Privacy and support</title>
+  <style>
+    /* One dark look, as the app: its ground, its card grey, the Shocking block. */
+    :root { color-scheme: dark; --ground: #1C1C1E; --card: #2C2C2E; --text: #FFFFFF; --muted: #A1A1A6; --block: #FF3D8B; --ink: #1A060E; --line: #3A3A3C; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--ground); color: var(--text); font: 17px/1.55 -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif; }
+    main { max-width: 640px; margin: 0 auto; padding: 40px 20px 64px; }
+    header { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; }
+    header svg { width: 64px; height: 64px; flex: none; border-radius: 22.4%; }
+    h1 { font-size: 32px; line-height: 1.1; margin: 0; letter-spacing: -0.02em; }
+    h2 { font-size: 20px; line-height: 1.25; margin: 36px 0 8px; }
+    p { margin: 0 0 12px; }
+    ul { margin: 0 0 12px; padding-left: 22px; }
+    li { margin-bottom: 6px; }
+    .muted { color: var(--muted); }
+    .block { background: var(--block); color: var(--ink); border-radius: 20px; padding: 18px 20px; margin: 24px 0; }
+    .block p { margin: 0; }
+    a { color: var(--text); }
+    a:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+    nav { margin: 0 0 8px; }
+    hr { border: 0; border-top: 1px solid var(--line); margin: 48px 0; }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <svg viewBox="0 0 256 256" role="img" aria-label="Oink">
+      <rect width="256" height="256" fill="#FF3D8B"/>
+      <g transform="translate(24 24) scale(0.8125)">
+        <path fill="#B3124F" d="M24 116V140A104 80 0 0 0 232 140V116Z"/>
+        <ellipse fill="#FFD1E4" cx="128" cy="116" rx="104" ry="80"/>
+        <rect fill="#4A0A2A" x="78" y="82" width="30" height="68" rx="15"/>
+        <rect fill="#4A0A2A" x="148" y="82" width="30" height="68" rx="15"/>
+      </g>
+    </svg>
+    <div>
+      <h1>Oink</h1>
+      <p class="muted" style="margin:4px 0 0">Privacy policy and support</p>
+    </div>
+  </header>
+  <nav class="muted"><a href="#it" lang="it">Leggi in italiano</a></nav>
+
+  <div class="block">
+    <p><strong>Your data never leaves your phone.</strong> Oink has no account, no server, no analytics and no tracking. Everything you write down stays on your device.</p>
+  </div>
+
+  <p class="muted">This page covers Oink for iPhone (called Piggybank until September 2026) and Money Tracker, the web app it comes from.</p>
+
+  <h2>What the app stores</h2>
+  <p>The expenses, income, fixed costs, categories, budgets, savings goals and settings you enter. They are kept on the device, in the app's own storage. In the iPhone app they are unreadable while the phone is locked. Nothing is sent anywhere.</p>
+
+  <h2>What the app does not do</h2>
+  <ul>
+    <li>No account, no sign-in, no e-mail.</li>
+    <li>No cloud sync between devices.</li>
+    <li>No analytics and no advertising.</li>
+    <li>No bank connection. A bank statement you choose to import is read on the device and never uploaded.</li>
+    <li>The iPhone app makes no network requests. The open-source libraries it uses to read a bank statement work on the device only.</li>
+  </ul>
+
+  <h2>Backups</h2>
+  <p>In Settings, "Backup" exports your data as a JSON file that you keep wherever you like. That file is the only way data leaves the app, and it happens only when you ask for it.</p>
+
+  <h2>If you are testing a beta with TestFlight</h2>
+  <p>TestFlight is Apple's app for trying an app before it is released. The app itself still sends nothing. TestFlight does: Apple collects crash reports, usage information and the feedback you choose to send (text and screenshots), and shares them with the developer, together with your e-mail address if you were invited by e-mail. This is described in Apple's TestFlight terms.</p>
+  <p>A screenshot you attach to feedback shows whatever is on the screen. You can hide your balance first with the eye button on the Home.</p>
+
+  <h2>Deleting your data</h2>
+  <p>Settings → "Delete all data" removes everything. Uninstalling the app does the same.</p>
+
+  <h2>Support</h2>
+  <p>For issues, send a bug report on TestFlight: open TestFlight, choose Oink and tap "Send Beta Feedback".</p>
+
+  <p class="muted">Last updated 29 September 2026.</p>
+
+  <hr>
+
+  <section id="it" lang="it">
+    <h1>Oink</h1>
+    <p class="muted" style="margin:4px 0 0">Informativa sulla privacy e supporto</p>
+
+    <div class="block">
+      <p><strong>I tuoi dati non escono mai dal telefono.</strong> Oink non ha account, server, statistiche né tracciamento. Tutto quello che segni resta sul tuo dispositivo.</p>
+    </div>
+
+    <p class="muted">Questa pagina vale per Oink per iPhone (chiamata Piggybank fino a settembre 2026) e per Money Tracker, l'app web da cui nasce.</p>
+
+    <h2>Cosa memorizza l'app</h2>
+    <p>Le spese, le entrate, le spese fisse, le categorie, i budget, gli obiettivi di risparmio e le impostazioni che inserisci. Restano sul dispositivo, nello spazio dell'app. Nell'app per iPhone non sono leggibili quando il telefono è bloccato. Non viene inviato nulla da nessuna parte.</p>
+
+    <h2>Cosa l'app non fa</h2>
+    <ul>
+      <li>Nessun account, nessun accesso, nessuna e-mail.</li>
+      <li>Nessuna sincronizzazione fra dispositivi.</li>
+      <li>Nessuna statistica e nessuna pubblicità.</li>
+      <li>Nessun collegamento alla banca. Un estratto conto che scegli di importare viene letto sul telefono e mai caricato altrove.</li>
+      <li>L'app per iPhone non fa richieste di rete. Le librerie open source che usa per leggere un estratto conto lavorano solo sul dispositivo.</li>
+    </ul>
+
+    <h2>Backup</h2>
+    <p>Nelle Impostazioni, «Backup» esporta i dati come file JSON, che conservi dove vuoi. Quel file è l'unico modo in cui i dati escono dall'app, e succede solo quando lo chiedi tu.</p>
+
+    <h2>Se stai provando una beta con TestFlight</h2>
+    <p>TestFlight è l'app di Apple per provare un'app prima che esca. L'app continua a non inviare nulla. TestFlight sì: Apple raccoglie i rapporti sugli arresti anomali, le informazioni sull'uso e i commenti che scegli di inviare (testo e schermate), e li condivide con lo sviluppatore, insieme al tuo indirizzo e-mail se sei stato invitato per e-mail. È descritto nei termini di TestFlight di Apple.</p>
+    <p>Una schermata allegata a un commento mostra quello che c'è sullo schermo. Prima puoi nascondere il saldo con il tasto a forma di occhio nella Home.</p>
+
+    <h2>Eliminare i dati</h2>
+    <p>Impostazioni → «Elimina tutti i dati» elimina tutto. Disinstallare l'app fa lo stesso.</p>
+
+    <h2>Supporto</h2>
+    <p>Per i problemi, invia una segnalazione da TestFlight: apri TestFlight, scegli Oink e tocca «Invia feedback beta».</p>
+
+    <p class="muted">Ultimo aggiornamento: 29 settembre 2026.</p>
+  </section>
+</main>
+</body>
+</html>
